@@ -5,10 +5,10 @@ import {
   GetApplicationsByUser,
 } from "@/utils/getApplications";
 import { items } from "@/types/types";
-import styles from "./ApplicationList.module.scss";
-import classNames from "classnames/bind";
 import { TableForOwner } from "../ui-table/TableForOwner";
 import { TableForUser } from "../ui-table/TableForUser";
+import styles from "./ApplicationList.module.scss";
+import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 interface ApplicationListProps {
