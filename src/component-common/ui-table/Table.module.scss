@@ -1,0 +1,86 @@
+@import "@/styles/global.scss";
+
+.table {
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  max-width: 964px;
+  text-align: left;
+  color: $color-black;
+  font-weight: 400;
+
+  thead {
+    background-color: $color-red10;
+  }
+
+  tr {
+    // 박스모델, 폰트
+    th,
+    td {
+      padding: 12px 8px;
+    }
+
+    th:last-child,
+    td:last-child {
+      padding: 9px 8px;
+    }
+
+    th {
+      font-size: 12px;
+      line-height: 133.333%;
+
+      @include tablet {
+        font-size: 14px;
+      }
+    }
+
+    td {
+      font-size: 14px;
+      line-height: 157.143%;
+      overflow-wrap: word;
+      overflow: hidden;
+
+      @include tablet {
+        font-size: 16px;
+      }
+    }
+
+    // 경계선
+    & > * {
+      border-bottom: 1px solid $color-gray30;
+      border-left: 1px solid $color-gray30;
+    }
+
+    th:first-child,
+    td:first-child {
+      border-left: 0;
+    }
+
+    // 숨기기
+    th:nth-child(2),
+    td:nth-child(2) {
+      display: none;
+
+      @include tablet {
+        display: none;
+      }
+
+      @include desktop {
+        display: table-cell;
+      }
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      display: none;
+
+      @include tablet {
+        display: table-cell;
+      }
+
+      @include desktop {
+        display: table-cell;
+      }
+    }
+  }
+}
