@@ -1,7 +1,6 @@
 import { usePagination } from "@mantine/hooks";
 import { image } from "./constant";
 import Image from "next/image";
-
 import classNames from "classnames/bind";
 import styles from "./Pagination.module.scss";
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useUncontrolled } from "@/utils/useUncontrolled";
+import { useUncontrolled } from "./useUncontrolled";
 
 function range(start: number, end: number) {
   const length = end - start + 1;

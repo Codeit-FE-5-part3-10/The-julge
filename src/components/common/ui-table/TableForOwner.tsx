@@ -1,4 +1,4 @@
-import { items } from "@/types/types";
+import { items } from "@/src/types/types";
 import { TableButton } from "../ui-table-button/TableButton";
 import styles from "./Table.module.scss";
 import classNames from "classnames/bind";

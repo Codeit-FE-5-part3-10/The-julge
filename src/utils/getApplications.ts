@@ -1,7 +1,7 @@
 import { axiosInstance } from "./axiosInstance";
-import { items } from "@/types/types";
 import { Dispatch, SetStateAction } from "react";
 import { testId } from "./constant";
+import { items } from "../types/types";
 
 export interface getApplicationType {
   (

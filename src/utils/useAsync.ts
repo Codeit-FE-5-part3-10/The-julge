@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { AxiosResponse } from "axios";
-import { allType } from "@/types/types";
+import { allType } from "../types/types";
 
 export interface asyncFunctionType {
   (): Promise<AxiosResponse<allType>>;

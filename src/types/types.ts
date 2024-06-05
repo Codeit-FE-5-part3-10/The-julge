@@ -1,3 +1,5 @@
+import React, { Component } from "react";
+
 type shop = {
   item: {
     id: string;
