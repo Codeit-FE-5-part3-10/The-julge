@@ -1,1 +1,42 @@
-@import "@/styles/global.scss";
+@import "@/src/styles/global.scss";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background-color: white;
+  padding: 40px 0;
+  width: 100%;
+
+  @include tablet {
+    padding: 60px 0;
+  }
+
+  &.list {
+    background-color: $color-gray0;
+    padding: 40px 0 80px;
+  }
+  @include tablet {
+    padding: 60px 0 120px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  row-gap: 16px;
+  text-align: left;
+
+  @include tablet {
+    row-gap: 24px;
+  }
+}
+
+.title {
+  font-size: 28px;
+  color: $color-black;
+  font-weight: 700;
+  letter-spacing: 0.56px;
+}
