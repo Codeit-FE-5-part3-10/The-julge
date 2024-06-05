@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import styles from "./Post.module.scss";
 import classNames from "classnames/bind";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +11,7 @@ interface PostProps {
   href: string;
 }
 
-const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
+export const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
   const [buttonSize, setButtonSize] = useState<string | null>(null);
   const [buttonWidth, setButtonWidth] = useState<number | null>(null);
 
@@ -26,7 +26,7 @@ const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
       }
     };
 
-    // 컴포넌트가 처음 마운트될 때 사이즈를 설정합니다.
+    // 컴포넌트가 마운트될 때 창 너비에 따라 버튼 사이즈를 설정
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -35,8 +35,8 @@ const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
     };
   }, []);
 
+  // 초기 값이 설정되기 전에는 아무것도 렌더링되지 않도록
   if (buttonSize === null || buttonWidth === null) {
-    // 초기 값이 설정되기 전에는 아무 것도 렌더링하지 않습니다.
     return null;
   }
 
@@ -55,5 +55,3 @@ const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
     </div>
   );
 };
-
-export default Post;

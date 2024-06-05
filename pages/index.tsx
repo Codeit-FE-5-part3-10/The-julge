@@ -1,9 +1,10 @@
+import Application from "./application";
 import Shop from "./shop";
 
 export default function IndexPage() {
   return (
     <div>
-      <Shop />
+      <Application />
     </div>
   );
 }
