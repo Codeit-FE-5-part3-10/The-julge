@@ -1,6 +1,6 @@
 import { axiosInstance } from "./axiosInstance";
 import { Dispatch, SetStateAction } from "react";
-import { testId } from "./constant";
+import { testId } from "../utils/constant";
 import { items } from "../types/types";
 
 export interface getApplicationType {
@@ -12,7 +12,7 @@ export interface getApplicationType {
   ): void;
 }
 
-export const GetApplicationsByShopByNotice: getApplicationType = async (
+export const getApplicationsByShopByNotice: getApplicationType = async (
   setApplications,
   setTotal,
   page,
@@ -31,7 +31,7 @@ export const GetApplicationsByShopByNotice: getApplicationType = async (
   return;
 };
 
-export const GetApplicationsByUser: getApplicationType = async (
+export const getApplicationsByUser: getApplicationType = async (
   setApplications,
   setTotal,
   page,
