@@ -1,0 +1,29 @@
+@import "@/styles/global.scss";
+
+.button {
+  display: flex;
+  padding: 6px 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pending {
+  color: $color-green20;
+  background-color: $color-green10;
+}
+.rejected {
+  color: $color-red40;
+  background-color: $color-red10;
+}
+.accepted {
+  color: $color-blue20;
+  background-color: $color-blue10;
+}
+.canceled {
+  color: $color-gray50;
+  background-color: $color-gray10;
+}

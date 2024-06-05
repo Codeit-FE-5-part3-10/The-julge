@@ -1,0 +1,44 @@
+.button {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  width: 100%;
+
+  &.large {
+    padding: 14px 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  &.medium {
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17.5px;
+  }
+
+  &.small {
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &.primary {
+    background-color: $color-primary;
+    color: white;
+  }
+
+  &.white {
+    background-color: white;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+  }
+
+  &.gray {
+    background-color: $color-gray40;
+    color: white;
+  }
+}
