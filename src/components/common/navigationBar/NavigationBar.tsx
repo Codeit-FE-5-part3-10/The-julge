@@ -8,7 +8,11 @@ import SearchBarIcon from "@/public/images/navigationbar-search.svg";
 import NotificationIcon from "@/public/images/navigationbar-empty.svg";
 import NotificationIconNew from "@/public/images/navigationbar-new.svg";
 
-export default function NavigationBar({}) {
+type NavigationBarProps = {
+  isSticky: boolean;
+};
+
+export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const cx = classNames.bind(styles);
   const [searchTerm, setSearchTerm] = useState("");
   const [isTablet, setIsTablet] = useState(false);
@@ -28,7 +32,7 @@ export default function NavigationBar({}) {
   }, []);
 
   return (
-    <div className={cx("navBar")}>
+    <div className={cx("navBar", { sticky: isSticky })}>
       <div className={cx("logoButton_container")}>
         <div className={cx("logo_container")}>
           <Link href="/" className={cx("logo")}>
