@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import styles from "./Post.module.scss";
-import classNames from "classnames/bind";
-import Link from "next/link";
+import { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
+import Link from 'next/link';
+import styles from './PostCard.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -18,10 +18,10 @@ export const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setButtonSize("small");
+        setButtonSize('small');
         setButtonWidth(108);
       } else {
-        setButtonSize("large");
+        setButtonSize('large');
         setButtonWidth(346);
       }
     };
@@ -29,9 +29,9 @@ export const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
     // 컴포넌트가 마운트될 때 창 너비에 따라 버튼 사이즈를 설정
     handleResize();
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -40,14 +40,14 @@ export const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
     return null;
   }
 
-  const className = cx("button", "primary", buttonSize);
+  const className = cx('button', 'primary', buttonSize);
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("container")}>
-        <h1 className={cx("description")}>{description}</h1>
+    <div className={cx('wrapper')}>
+      <div className={cx('container')}>
+        <h1 className={cx('description')}>{description}</h1>
         <Link href={href}>
-          <button className={className} style={{ width: buttonWidth }}>
+          <button className={className} type="button" style={{ width: buttonWidth }}>
             {btnText}
           </button>
         </Link>

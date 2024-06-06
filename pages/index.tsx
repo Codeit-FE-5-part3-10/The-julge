@@ -1,5 +1,4 @@
-import Application from "./application";
-import Shop from "./shop";
+import Application from './application';
 
 export default function IndexPage() {
   return (

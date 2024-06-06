@@ -1,7 +1,7 @@
-import { ApplicationList } from "@/src/components/common/feature-application-list/ApplicationList";
-import { ProfileCard } from "@/src/components/common/ui-profile-card/ProfileCard";
-import { ApplicationLayout } from "@/src/layouts/application-layout/ApplicationLayout";
-import { Layout } from "@/src/layouts/global-layout/Layout";
+import { ApplicationList } from '@/src/components/common/feature-application-list/ApplicationList';
+import { ProfileCard } from '@/src/components/common/ui-profile-card/ProfileCard';
+import { ApplicationLayout } from '@/src/layouts/application-layout/ApplicationLayout';
+import { Layout } from '@/src/layouts/global-layout/Layout';
 
 export default function Application() {
   return (
@@ -11,7 +11,7 @@ export default function Application() {
           profile={<ProfileCard />}
           list={
             <ApplicationList
-              isOwnerPage={true}
+              isOwnerPage
               initialPage={1}
               siblings={0}
               boundaries={1}

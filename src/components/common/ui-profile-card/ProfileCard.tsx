@@ -1,9 +1,7 @@
-import styles from "./ProfileCard.module.scss";
-import classNames from "classnames/bind";
-import React from "react";
+import React from 'react';
+import classNames from 'classnames/bind';
+import styles from './ProfileCard.module.scss';
 
 const cx = classNames.bind(styles);
 
-export const ProfileCard = () => {
-  return <div className={cx("container")}></div>;
-};
+export const ProfileCard = () => <div className={cx('container')}></div>;
