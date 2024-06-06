@@ -1,7 +1,7 @@
-import { axiosInstance } from "./axiosInstance";
-import { Dispatch, SetStateAction } from "react";
-import { testId } from "../utils/constant";
-import { items } from "../types/types";
+import { axiosInstance } from './axiosInstance';
+import { Dispatch, SetStateAction } from 'react';
+import { testId } from '../utils/constant';
+import { items } from '../types/types';
 
 export interface getApplicationType {
   (
@@ -38,9 +38,7 @@ export const getApplicationsByUser: getApplicationType = async (
   countPerPage
 ) => {
   const response = await axiosInstance.get(
-    `/users/${testId.user}/applications?offset=${
-      (page - 1) * countPerPage
-    }&limit=${countPerPage}`
+    `/users/${testId.user}/applications?offset=${(page - 1) * countPerPage}&limit=${countPerPage}`
   );
   const data = await response.data;
 
