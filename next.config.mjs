@@ -1,4 +1,3 @@
-
 import bundleAnalyzer from '@next/bundle-analyzer';
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -7,7 +6,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 export default withBundleAnalyzer({
   reactStrictMode: false,
-  
   eslint: {
     ignoreDuringBuilds: true,
   },
