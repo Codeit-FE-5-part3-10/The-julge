@@ -1,0 +1,7 @@
+@import "/src//styles/global.scss";
+
+$footer-height: 16rem;
+
+.main {
+  min-height: calc(100vh - $footer-height);
+}

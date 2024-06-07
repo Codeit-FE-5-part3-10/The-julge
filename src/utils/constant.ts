@@ -3,3 +3,4 @@ export const testId = {
   notice: '2ad3ac93-0054-442e-a882-d6cce8c10470',
   user: 'c47f8b82-06c0-4934-aac3-a9f35b46e6d0',
 };
+export const MIN_WAGE = 9860;
