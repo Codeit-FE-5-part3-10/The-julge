@@ -5,6 +5,7 @@ import { theme } from '../theme';
 import '@/src/styles/reset.css';
 
 export default function App({ Component, pageProps }: any) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
     <MantineProvider theme={theme}>
       <Head>
@@ -15,7 +16,12 @@ export default function App({ Component, pageProps }: any) {
         />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </HydrationBoundary>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </MantineProvider>
   );
 }
