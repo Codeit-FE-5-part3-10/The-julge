@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import styles from './PostCard.module.scss';
+import styles from './CardEmpty.module.scss';
 
 const cx = classNames.bind(styles);
 
-interface PostProps {
+interface CardEmptyProps {
   description: string;
   btnText: string;
   href: string;
 }
 
-export const Post: React.FC<PostProps> = ({ description, btnText, href }) => {
+export const CardEmpty: React.FC<CardEmptyProps> = ({ description, btnText, href }) => {
   const [buttonSize, setButtonSize] = useState<string | null>(null);
   const [buttonWidth, setButtonWidth] = useState<number | null>(null);
 

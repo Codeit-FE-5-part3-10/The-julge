@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
-import styles from './TableButton.module.scss';
+import styles from './StatusTag.module.scss';
 
 const cx = classNames.bind(styles);
 
-interface TableButtonProps {
+interface StatusTagProps {
   status: 'pending' | 'rejected' | 'accepted' | 'canceled';
 }
 
-export const TableButton = ({ status }: TableButtonProps) => {
+export const StatusTag = ({ status }: StatusTagProps) => {
   let text: string;
   let className: string;
 

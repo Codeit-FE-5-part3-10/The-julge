@@ -1,6 +1,6 @@
-import { NoticeList } from '@/src/components/common/feature-notice-list/NoticeList';
-import { Post } from '@/src/components/common/ui-post-card/Post';
-import { ProfileCard } from '@/src/components/common/ui-profile-card/ProfileCard';
+import { ListNotice } from '@/src/components/common/feature-list-notice/ListNotice';
+import { CardEmpty } from '@/src/components/common/ui-card-empty/CardEmpty';
+import { DetailLayout } from '@/src/components/common/ui-detail-layout/DetailLayout';
 import { Layout } from '@/src/layouts/global-layout/Layout';
 import { ShopLayout } from '@/src/layouts/shop-layout/ShopLayout';
 
@@ -10,9 +10,9 @@ export default function Shop() {
       <ShopLayout
         profile={
           false ? (
-            <ProfileCard />
+            <DetailLayout />
           ) : (
-            <Post
+            <CardEmpty
               description="내 가게를 소개하고 공고도 등록해보세요"
               btnText="가게 등록하기"
               href="/shopEdit"
@@ -21,9 +21,13 @@ export default function Shop() {
         }
         list={
           false ? (
-            <NoticeList />
+            <ListNotice />
           ) : (
-            <Post description="공고를 등록해보세요" btnText="공고 등록하기" href="/noticeEdit" />
+            <CardEmpty
+              description="공고를 등록해보세요"
+              btnText="공고 등록하기"
+              href="/noticeEdit"
+            />
           )
         }
       />

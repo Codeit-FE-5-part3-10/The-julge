@@ -1,5 +1,5 @@
-import { ApplicationList } from '@/src/components/common/feature-application-list/ApplicationList';
-import { ProfileCard } from '@/src/components/common/ui-profile-card/ProfileCard';
+import { ApplicationList } from '@/src/components/common/feature-list-application/ListApplication';
+import { ProfileCard } from '@/src/components/common/ui-profile-layout/ProfileCard';
 import { ApplicationLayout } from '@/src/layouts/application-layout/ApplicationLayout';
 import { Layout } from '@/src/layouts/global-layout/Layout';
 

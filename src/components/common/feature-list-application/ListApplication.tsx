@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Pagination } from '../ui-pagination/Pagination';
 import { TableForOwner } from '../ui-table/TableForOwner';
-import { TableForUser } from '../ui-table/TableForUser';
-import styles from './ApplicationList.module.scss';
+import { TableForCandidate } from '../ui-table/TableForCandidate';
+import styles from './ListApplication.module.scss';
 import { items } from '@/src/types/types';
 import { GetApplicationsByShopByNotice, GetApplicationsByUser } from '@/src/apis/getApplications';
 
 const cx = classNames.bind(styles);
 
-interface ApplicationListProps {
+interface ListApplicationProps {
   isOwnerPage: boolean;
   initialPage: number;
   siblings: number;
@@ -17,9 +17,9 @@ interface ApplicationListProps {
   countPerPage: number;
 }
 
-type ApplicationListType = React.FC<ApplicationListProps>;
+type ListApplicationType = React.FC<ListApplicationProps>;
 
-export const ApplicationList: ApplicationListType = ({
+export const ListApplication: ListApplicationType = ({
   isOwnerPage,
   initialPage,
   siblings,
@@ -42,7 +42,7 @@ export const ApplicationList: ApplicationListType = ({
         {isOwnerPage ? (
           <TableForOwner applications={applications} />
         ) : (
-          <TableForUser applications={applications} />
+          <TableForCandidate applications={applications} />
         )}
         <Pagination
           initialPage={initialPage}

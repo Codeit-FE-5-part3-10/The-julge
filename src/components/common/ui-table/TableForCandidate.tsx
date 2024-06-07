@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import { items } from '@/src/types/types';
-import { TableButton } from '../ui-table-button/TableButton';
+import { StatusTag } from '../ui-status-tag/StatusTag';
 import styles from './Table.module.scss';
 
 const cx = classNames.bind(styles);
@@ -12,7 +12,7 @@ interface TableProps {
 
 type TableType = React.FC<TableProps>;
 
-export const TableForUser: TableType = ({ applications }) => (
+export const TableForCandidate: TableType = ({ applications }) => (
   <table className={cx('table')}>
     <thead>
       <tr>
@@ -29,7 +29,7 @@ export const TableForUser: TableType = ({ applications }) => (
           <td>{application.item.notice.item.workhour ?? '.'}</td>
           <td>{application.item.notice.item.hourlyPay ?? '.'}</td>
           <td>
-            <TableButton status={application.item.status} />{' '}
+            <StatusTag status={application.item.status} />{' '}
             {/* TODO: status pending 일 때, 사장과 알바 각각 '거절하기'와 '승인하기' 버튼 & '취소하기' 버튼 */}
           </td>
         </tr>
