@@ -30,5 +30,9 @@ export const TableButton = ({ status }: TableButtonProps) => {
       break;
   }
 
-  return <button className={cx('button', className)}>{text}</button>;
+  return (
+    <button className={cx('button', className)} type="button">
+      {text}
+    </button>
+  );
 };

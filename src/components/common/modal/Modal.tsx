@@ -41,45 +41,38 @@ interface ModalItems {
 
 */
 
-
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import classNames from "classnames/bind";
-import styles from "./Modal.module.scss";
-import questionIcon from "public/images/modal-question.svg";
-import warningIcon from "public/images/modal-alert.svg";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import classNames from 'classnames/bind';
+import styles from './Modal.module.scss';
+import questionIcon from 'public/images/modal-question.svg';
+import warningIcon from 'public/images/modal-alert.svg';
 
 const cx = classNames.bind(styles);
 interface ModalProps {
   setModal: (value: ModalItems | null) => void;
   modalItems: {
     content: string;
-    modalType: "warning" | "success" | "question";
+    modalType: 'warning' | 'success' | 'question';
   };
   content?: string;
   link: string;
   btnText: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  setModal,
-  modalItems,
-  content,
-  link,
-  btnText = "예",
-}) => {
+const Modal: React.FC<ModalProps> = ({ setModal, modalItems, content, link, btnText = '예' }) => {
   const closeModal = () => {
     setModal(null);
   };
 
   const getModalImg = () => {
     switch (modalItems.modalType) {
-      case "success":
+      case 'success':
         return null;
-      case "warning": 
+      case 'warning':
         return warningIcon;
-      case "question":
+      case 'question':
         return questionIcon;
       default:
         return null;
@@ -88,26 +81,26 @@ const Modal: React.FC<ModalProps> = ({
 
   const getModalBtn = () => {
     switch (modalItems.modalType) {
-      case "success":
+      case 'success':
         return (
           <Link href={link} passHref>
-            <button className={cx("mainBtn")}>확인</button>
+            <button className={cx('mainBtn')}>확인</button>
           </Link>
         );
-      case "warning":
+      case 'warning':
         return (
-          <button className={cx("modalClose")} onClick={closeModal}>
+          <button className={cx('modalClose')} onClick={closeModal}>
             확인
           </button>
         );
-      case "question":
+      case 'question':
         return (
           <>
-            <button className={cx("modalClose")} onClick={closeModal}>
+            <button className={cx('modalClose')} onClick={closeModal}>
               아니요
             </button>
             <Link href={link} passHref>
-              <button className={cx("mainBtn")}>{btnText}</button>
+              <button className={cx('mainBtn')}>{btnText}</button>
             </Link>
           </>
         );
@@ -117,11 +110,11 @@ const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <section className={cx("modalBack")} onClick={closeModal}>
-      <div className={cx("modal")} onClick={(e) => e.stopPropagation()}>
-        <div className={cx("modalwrap")}>
-          {getModalImg() && <Image src={getModalImg() || ""} alt="modalIcon" />}
-          <div className={cx("modaltext")}>{content}</div>
+    <section className={cx('modalBack')} onClick={closeModal}>
+      <div className={cx('modal')} onClick={(e) => e.stopPropagation()}>
+        <div className={cx('modalwrap')}>
+          {getModalImg() && <Image src={getModalImg() || ''} alt="modalIcon" />}
+          <div className={cx('modaltext')}>{content}</div>
           {getModalBtn()}
         </div>
       </div>

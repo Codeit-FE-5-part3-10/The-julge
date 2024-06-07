@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-
 type shop = {
   item: {
     id: string;
@@ -30,7 +28,7 @@ type user = {
   item: {
     id: string;
     email: string;
-    type: "employer" | "employee";
+    type: 'employer' | 'employee';
     name?: string;
     phone?: string;
     address?: string;
@@ -44,12 +42,12 @@ type link = {
   description: string;
   method: string;
   href: string;
-  body: { status: "accepted" | "rejected" };
+  body: { status: 'accepted' | 'rejected' };
 };
 
 type item = {
   id: string;
-  status: "pending" | "accepted" | "rejected" | "canceled";
+  status: 'pending' | 'accepted' | 'rejected' | 'canceled';
   createdAt: string;
   user?: user;
   shop: shop;
