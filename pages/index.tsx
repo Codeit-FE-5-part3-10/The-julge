@@ -1,3 +1,11 @@
+import { Layout } from "@/src/layouts/feature-layout/Layout";
+
 export default function IndexPage() {
-  return <div></div>;
+  return (
+    <>
+      <Layout>
+        <main>dd</main>
+      </Layout>
+    </>
+  );
 }
