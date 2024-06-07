@@ -1,11 +1,9 @@
-import { Layout } from "@/src/layouts/feature-layout/Layout";
+import Application from './application';
 
 export default function IndexPage() {
   return (
-    <>
-      <Layout>
-        <main>dd</main>
-      </Layout>
-    </>
+    <div>
+      <Application />
+    </div>
   );
 }

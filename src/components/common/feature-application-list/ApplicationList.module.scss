@@ -1,4 +1,4 @@
-@import "@/styles/global.scss";
+@import "@/src/styles/global.scss";
 
 .container {
   display: flex;
@@ -12,4 +12,13 @@
   border-radius: 10px;
   background-color: white;
   overflow: hidden;
+  width: 351px;
+
+  @include tablet {
+    width: 680px;
+  }
+
+  @include desktop {
+    width: 964px;
+  }
 }
