@@ -1,10 +1,14 @@
-import "@mantine/core/styles.css";
-import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
-import { theme } from "../theme";
-import "@/src/styles/reset.css";
+import { useState } from 'react';
+import '@mantine/core/styles.css';
+import '@/src/styles/reset.css';
+import Head from 'next/head';
+import { MantineProvider } from '@mantine/core';
+import { theme } from '../theme';
+import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function App({ Component, pageProps }: any) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
     <MantineProvider theme={theme}>
       <Head>
@@ -15,7 +19,12 @@ export default function App({ Component, pageProps }: any) {
         />
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </HydrationBoundary>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </MantineProvider>
   );
 }

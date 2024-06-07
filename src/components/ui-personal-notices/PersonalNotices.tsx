@@ -1,20 +1,15 @@
-import { getNotices, postNotice } from '@/src/api/notices';
-import CardItem from '@/src/components/common/cardItem/CardItem';
-import PersonalNotices from '@/src/components/ui-personal-notices/PersonalNotices';
-import { Layout } from '@/src/layouts/feature-layout/Layout';
-import ListLayout from '@/src/layouts/list-layout/ListLayout';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
+import styles from './PersonalNotices.module.scss';
+import CardItem from '../common/cardItem/CardItem';
+import { getNotices, postNotice } from '@/src/api/notices';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-export default function IndexPage() {
-  const defaultRequestParams = {
-    offset: 0,
-    limit: 6,
-  };
+const cx = classNames.bind(styles);
 
+export default function PersonalNotices() {
   const { isPending, error, data } = useQuery({
     queryKey: ['notices'],
-    queryFn: () => getNotices(defaultRequestParams),
+    queryFn: () => getNotices(),
   });
 
   const items = data?.items.map((item: any) => ({
@@ -26,10 +21,9 @@ export default function IndexPage() {
   }));
 
   return (
-    <>
-      <Layout>
-        <PersonalNotices />
-        {/* <NoticesList /> */}
+    <div className={cx('container')}>
+      <h1 className={cx('title')}>맞춤 공고</h1>
+      <div className={cx('noticesList-container')}>
         {items?.map((items, index) => (
           <CardItem
             key={index}
@@ -40,7 +34,7 @@ export default function IndexPage() {
             wage={items.wage}
           />
         ))}
-      </Layout>
-    </>
+      </div>
+    </div>
   );
 }
