@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './cardItem.module.scss';
-import testImg from 'public/images/gom.png';
+import defaultImg from 'public/images/gom.png';
 import groupIcon from 'public/images/group.svg';
 import locationIcon from 'public/images/path11.svg';
 import UpIcon from './UpIcon';
@@ -13,9 +13,10 @@ import addHoursToTime from '@/src/utils/addHoursToTime';
 interface CardItemProps {
   title: string;
   date: string;
-  time: string;
+  time: number;
   location: string;
   wage: number;
+  imageUrl?: string;
 }
 
 type Time = {
@@ -23,9 +24,8 @@ type Time = {
   formattedTime: string;
 };
 
-export default function CardItem({ title, date, time, location, wage }: CardItemProps) {
+export default function CardItem({ title, date, time, location, wage, imageUrl }: CardItemProps) {
   const cx = classNames.bind(styles);
-  // const wage = 10000; // 시급
   const formattedWage = wage.toLocaleString(); // 천 단위 쉼표 추가
   const difference = wage - MIN_WAGE;
   const n = Math.ceil((difference / MIN_WAGE) * 100); // 최저 임금과 시급 비교해서 나온 %값
@@ -59,7 +59,13 @@ export default function CardItem({ title, date, time, location, wage }: CardItem
 
   return (
     <div className={cx('container')}>
-      <Image className={cx('img')} src={testImg} alt={'공고 이미지'} width={147} height={84} />
+      <Image
+        className={cx('img')}
+        src={imageUrl || defaultImg}
+        alt={'공고 이미지'}
+        width={147}
+        height={84}
+      />
       <p className={cx('title')}>{title}</p>
       <div className={cx('container_dateTime')}>
         <Image className={cx('groupIcon')} src={groupIcon} alt={'아이콘'} />

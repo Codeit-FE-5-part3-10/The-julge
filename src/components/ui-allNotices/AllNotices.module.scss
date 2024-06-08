@@ -1,0 +1,48 @@
+@import '@/src/styles/global.scss';
+
+.container {
+}
+
+.titleFilter-container {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 1.2rem 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.dropDownFilter-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.dropDown {
+  width: 10.5rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  background-color: $color-gray10;
+  border: none;
+  cursor: pointer;
+}
+
+.filter {
+  display: flex;
+  width: 7.9rem;
+  height: 3rem;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  align-items: center;
+  background-color: $color-red30;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+}

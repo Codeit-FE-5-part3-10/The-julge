@@ -26,6 +26,7 @@
 .img {
   border-radius: 1.2rem;
   margin-bottom: 1rem;
+  object-fit: cover;
 
   @include tablet {
     width: 30rem;
