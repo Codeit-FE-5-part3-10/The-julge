@@ -1,24 +1,25 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from './ApplicationLayout.module.scss';
+import styles from './NoticeLayout.module.scss';
+import { Section } from '@/src/components/common/ui-section/Section';
 
 const cx = classNames.bind(styles);
 
-type ApplicationLayoutProps = Record<'profile' | 'list', React.ReactNode>;
+type NoticeLayoutProps = Record<'profile' | 'list', React.ReactNode>;
 
-export const ApplicationLayout: React.FC<ApplicationLayoutProps> = ({ profile, list }) => (
+export const NoticeLayout: React.FC<NoticeLayoutProps> = ({ profile, list }) => (
   <>
-    <div className={cx('wrapper')}>
+    <Section>
       <div className={cx('container')}>
         <h1 className={cx('title')}>ex.도토리 식당</h1>
         {profile}
       </div>
-    </div>
-    <div className={cx('wrapper', 'list')}>
+    </Section>
+    <Section>
       <div className={cx('container')}>
         <h1 className={cx('title')}>신청자 목록</h1>
         {list}
       </div>
-    </div>
+    </Section>
   </>
 );

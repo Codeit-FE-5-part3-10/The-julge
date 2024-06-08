@@ -1,0 +1,106 @@
+{
+  "offset": 0,
+  "limit": 2,
+  "count": 19,
+  "hasNext": true,
+  "items": [
+    {
+      "item": {
+        "id": "e404eae1-8b36-49d6-94f2-c053f2eb7842",
+        "hourlyPay": 90000,
+        "startsAt": "2023-10-25T15:00:00.000Z",
+        "workhour": 6,
+        "description": "vv",
+        "closed": false
+      },
+      "links": [
+        {
+          "rel": "self",
+          "description": "공고 정보",
+          "method": "GET",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/e404eae1-8b36-49d6-94f2-c053f2eb7842"
+        },
+        {
+          "rel": "update",
+          "description": "공고 수정",
+          "method": "PUT",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/e404eae1-8b36-49d6-94f2-c053f2eb7842",
+          "body": {
+            "hourlyPay": "number",
+            "startsAt": "string",
+            "workhour": "number",
+            "description": "string"
+          }
+        }
+      ]
+    },
+    {
+      "item": {
+        "id": "17afb95f-ed4f-4325-a895-2bfa249d578b",
+        "hourlyPay": 99999,
+        "startsAt": "2023-09-30T14:00:00.000Z",
+        "workhour": 10,
+        "description": "수정 되나?",
+        "closed": false
+      },
+      "links": [
+        {
+          "rel": "self",
+          "description": "공고 정보",
+          "method": "GET",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b"
+        },
+        {
+          "rel": "update",
+          "description": "공고 수정",
+          "method": "PUT",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b",
+          "body": {
+            "hourlyPay": "number",
+            "startsAt": "string",
+            "workhour": "number",
+            "description": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "ref": "self",
+      "description": "현재 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices?offset=0&limit=2"
+    },
+    {
+      "rel": "prev",
+      "description": "이전 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices?offset=0&limit=2"
+    },
+    {
+      "rel": "next",
+      "description": "다음 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices?offset=2&limit=2"
+    },
+    {
+      "rel": "create",
+      "description": "공고 생성",
+      "method": "POST",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices",
+      "body": {
+        "hourlyPay": "number",
+        "startsAt": "string",
+        "workhour": "number",
+        "description": "string"
+      }
+    },
+    {
+      "rel": "shop",
+      "description": "가게 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+    }
+  ]
+}

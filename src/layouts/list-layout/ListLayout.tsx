@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { Layout } from '../feature-layout/Layout';
 import styles from './ListLayout.module.scss';
-import { ApplicationList } from '@/src/components/common/feature-list-application/ListApplication';
+import { ApplicationList } from '@/src/components/common/feature-list-applications/ListApplication';
 
 const cx = classNames.bind(styles);
 

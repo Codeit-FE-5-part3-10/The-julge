@@ -1,6 +1,13 @@
 @import '@/src/styles/global.scss';
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+}
+
+.list {
   display: grid;
   grid-template-columns: repeat(2, 171px);
   grid-template-rows: repeat(3, 261px);

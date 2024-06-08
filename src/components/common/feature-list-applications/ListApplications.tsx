@@ -46,9 +46,9 @@ export const ListApplication: ListApplicationType = ({
         )}
         <Pagination
           initialPage={initialPage}
-          page={page}
           siblings={siblings}
           boundaries={boundaries}
+          page={page}
           total={total}
           onChange={setPage}
         />

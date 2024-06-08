@@ -12,7 +12,7 @@ import addHoursToTime from '@/src/utils/addHoursToTime';
 
 interface CardItemProps {
   title: string;
-  date: string;
+  date: Date;
   time: string;
   location: string;
   wage: number;

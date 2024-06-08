@@ -6,8 +6,9 @@ import {
 } from '../types/apis/noticeTypes';
 import { axiosInstance } from './axiosInstance';
 
-export const getNotices = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
-  const response = await axiosInstance.get(`/notices`);
+export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesResponse> => {
+  const { offset, limit } = query;
+  const response = await axiosInstance.get(`/notices?offset=${offset}&limit=${limit}`);
 
   return response.data;
 };

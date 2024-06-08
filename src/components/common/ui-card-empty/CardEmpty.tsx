@@ -35,7 +35,7 @@ export const CardEmpty: React.FC<CardEmptyProps> = ({ description, btnText, href
     };
   }, []);
 
-  // 초기 값이 설정되기 전에는 아무것도 렌더링되지 않도록
+  // buttonSize, buttonWidth 값이 할당되기 전에는 아무것도 렌더링되지 않도록 처리.
   if (buttonSize === null || buttonWidth === null) {
     return null;
   }

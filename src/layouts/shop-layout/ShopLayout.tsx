@@ -1,24 +1,25 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ShopLayout.module.scss';
+import { Section } from '@/src/components/common/ui-section/Section';
 
 const cx = classNames.bind(styles);
 
-type ShopLayoutProps = Record<'profile' | 'list', React.ReactNode>;
+type ShopLayoutProps = Record<'detail' | 'list', React.ReactNode>;
 
-export const ShopLayout: React.FC<ShopLayoutProps> = ({ profile, list }) => (
+export const ShopLayout: React.FC<ShopLayoutProps> = ({ detail, list }) => (
   <>
-    <div className={cx('wrapper')}>
+    <Section>
       <div className={cx('container')}>
         <h1 className={cx('title')}>내 가게</h1>
-        {profile}
+        {detail}
       </div>
-    </div>
-    <div className={cx('wrapper', 'list')}>
+    </Section>
+    <Section gray>
       <div className={cx('container')}>
         <h1 className={cx('title')}>등록한 공고</h1>
         {list}
       </div>
-    </div>
+    </Section>
   </>
 );

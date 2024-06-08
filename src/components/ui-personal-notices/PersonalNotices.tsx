@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../common/cardItem/CardItem';
-import { getNotices, postNotice } from '@/src/api/notices';
+import { getNotices, postNotice } from '@/src/apis/notices';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 const cx = classNames.bind(styles);
