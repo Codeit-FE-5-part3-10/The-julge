@@ -32,7 +32,7 @@ export default function AllNotices() {
       date: item.item.startsAt.toString(),
       workhour: item.item.workhour,
       location: item.item.shop.item.address1,
-      wage: item.item.shop.item.originalHourlyPay,
+      wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
     })) || [];
 
@@ -54,7 +54,7 @@ export default function AllNotices() {
         <h1 className={cx('title')}>전체 공고</h1>
         <div className={cx('dropDownFilter-container')}>
           {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
-          <DropDown onSelectSortOption={handleSortOptionChange} />
+          <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
           <Filter />
         </div>
       </div>

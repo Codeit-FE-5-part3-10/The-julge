@@ -7,10 +7,6 @@ import {
 import { axiosInstance } from './axiosInstance';
 
 export const getNotices = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
-  // const { offset, limit } = request;
-  // const response = await axiosInstance.get(`/notices`, { params: { offset, limit } });
-  // console.log(request);
-  // return response.data;
   const response = await axiosInstance.get(`/notices`, { params: request });
   return response.data;
 };
