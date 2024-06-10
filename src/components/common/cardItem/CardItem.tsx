@@ -12,7 +12,7 @@ import addHoursToTime from '@/src/utils/addHoursToTime';
 
 interface CardItemProps {
   title: string;
-  date: string;
+  date: Date;
   time: string;
   location: string;
   wage: number;
@@ -57,6 +57,7 @@ export default function CardItem({ title, date, time, location, wage }: CardItem
     };
   }, []);
 
+  //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
     <div className={cx('container')}>
       <Image className={cx('img')} src={testImg} alt={'공고 이미지'} width={147} height={84} />

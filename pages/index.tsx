@@ -1,4 +1,4 @@
-import { getNotices, postNotice } from '@/src/api/notices';
+import { getNotices, postNotice } from '@/src/apis/notices';
 import CardItem from '@/src/components/common/cardItem/CardItem';
 import PersonalNotices from '@/src/components/ui-personal-notices/PersonalNotices';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
