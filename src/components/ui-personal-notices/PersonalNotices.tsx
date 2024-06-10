@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../common/cardItem/CardItem';
-import { getNotices } from '@/src/apis/notice';
+import { getNotice } from '@/src/apis/notices';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
@@ -17,7 +17,7 @@ export default function PersonalNotices() {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['notices'],
-    queryFn: () => getNotices(defaultRequestParams),
+    queryFn: () => getNotice(defaultRequestParams),
   });
 
   const items =

@@ -7,7 +7,7 @@ import { NoticeList } from '../common/feature-notice-list/NoticeList';
 import DropDown from './DropDown';
 import Filter from './Filter';
 import { PaginationTest } from '../common/ui-pagination/PaginationTest';
-import { getNotices, GetNoticesRequest } from '@/src/apis/notice';
+import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +23,7 @@ export default function AllNotices() {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['notices', currentPage, sortOption], // 페이지 번호와 정렬 옵션을 queryKey에 포함
-    queryFn: () => getNotices(defaultRequestParams), // getNotices 함수 호출
+    queryFn: () => getNotice(defaultRequestParams), // getNotices 함수 호출
   });
 
   const items =

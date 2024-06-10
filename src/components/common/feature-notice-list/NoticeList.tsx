@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import styles from './NoticeList.module.scss';
-import { NoticeCard } from '../ui-notice-card/NoticeCard';
+import styles from '@/src/components/shop-page/feature-list-notice/ListNotice.module.scss';
 import CardItem from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);

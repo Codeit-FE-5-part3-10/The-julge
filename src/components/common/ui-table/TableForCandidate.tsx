@@ -12,22 +12,22 @@ interface TableProps {
 
 type TableType = React.FC<TableProps>;
 
-export const TableForOwner: TableType = ({ applications }) => (
+export const TableForCandidate: TableType = ({ applications }) => (
   <table className={cx('table')}>
     <thead>
       <tr>
-        <th>신청자</th>
-        <th>소개</th>
-        <th>전화번호</th>
+        <th>가게</th>
+        <th>일자</th>
+        <th>시급</th>
         <th>상태</th>
       </tr>
     </thead>
     <tbody>
       {applications.map((application: any, index) => (
         <tr key={index}>
-          <td>{application.item.user.item.name ?? '.'}</td>
-          <td>{application.item.user.item.bio ?? '.'}</td>
-          <td>{application.item.user.item.phone ?? '.'}</td>
+          <td>{application.item.shop.item.name ?? '.'}</td>
+          <td>{application.item.notice.item.workhour ?? '.'}</td>
+          <td>{application.item.notice.item.hourlyPay ?? '.'}</td>
           <td>
             <StatusTag status={application.item.status} />{' '}
             {/* TODO: status pending 일 때, 사장과 알바 각각 '거절하기'와 '승인하기' 버튼 & '취소하기' 버튼 */}

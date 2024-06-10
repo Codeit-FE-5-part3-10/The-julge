@@ -16,31 +16,31 @@ interface PaginationParams {
 }
 
 export const Pagination = (params: PaginationParams) => {
-  const pagination = usePagination({ ...params });
+  const { range, active, setPage, next, previous, first, last } = usePagination({ ...params });
 
   const handleChange = (pageNumber: any) => {
     if (pageNumber === 'dots') {
       return;
     }
-    pagination.setPage(pageNumber);
+    setPage(pageNumber);
   };
 
   return (
     <div className={cx('container')}>
-      <button className={cx('arrow')} type="button" onClick={pagination.previous}>
+      <button className={cx('arrow')} type="button" onClick={previous}>
         <Image
           width={20}
           height={20}
-          src={pagination.active === 1 ? image.leftGray.src : image.leftBlack.src}
-          alt={pagination.active === 1 ? image.leftGray.alt : image.leftBlack.alt}
+          src={active === 1 ? image.leftGray.src : image.leftBlack.src}
+          alt={active === 1 ? image.leftGray.alt : image.leftBlack.alt}
         />
       </button>
       <div className={cx('numbers')}>
-        {pagination.range.map((pageNumber, index) => (
+        {range.map((pageNumber, index) => (
           <button
             key={index}
             className={cx('number', {
-              active: pageNumber === pagination.active,
+              active: pageNumber === active,
             })}
             type="button"
             onClick={() => {
@@ -52,12 +52,12 @@ export const Pagination = (params: PaginationParams) => {
         ))}
       </div>
 
-      <button className={cx('arrow')} type="button" onClick={pagination.next}>
+      <button className={cx('arrow')} type="button" onClick={next}>
         <Image
           width={20}
           height={20}
-          src={pagination.active === params.total ? image.rightGray.src : image.rightBlack.src}
-          alt={pagination.active === params.total ? image.rightGray.alt : image.rightBlack.alt}
+          src={active === params.total ? image.rightGray.src : image.rightBlack.src}
+          alt={active === params.total ? image.rightGray.alt : image.rightBlack.alt}
         />
       </button>
     </div>

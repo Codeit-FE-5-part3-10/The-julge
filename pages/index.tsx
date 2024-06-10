@@ -1,6 +1,5 @@
 import PersonalNotices from '@/src/components/ui-personal-notices/PersonalNotices';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
-import classNames from 'classnames/bind';
 import AllNotices from '@/src/components/ui-allNotices/AllNotices';
 
 export default function IndexPage() {
