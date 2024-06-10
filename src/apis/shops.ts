@@ -13,7 +13,7 @@ export const getShopNotices = async (
   countPerPage: number
 ): Promise<GetShopNoticesResponse> => {
   const response = await axiosInstance.get(
-    `/shops/${id}/notices??offset=${(page - 1) * countPerPage}&limit=${countPerPage}`
+    `/shops/${id}/notices?offset=${(page - 1) * countPerPage}&limit=${countPerPage}`
   );
   return response.data;
 };

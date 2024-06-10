@@ -1,6 +1,6 @@
 export const TEST_ID = {
   shop: 'be05aa78-7d4e-4f17-9b3a-babb41181caf',
-  notice: 'e404eae1-8b36-49d6-94f2-c053f2eb7842',
+  notice: 'fef6de9c-78cc-47b5-808a-69c9ccf87927',
   user: 'c47f8b82-06c0-4934-aac3-a9f35b46e6d0',
 };
 

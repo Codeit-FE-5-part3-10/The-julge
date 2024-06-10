@@ -56,7 +56,7 @@
       border-left: 0;
     }
 
-    // 숨기기
+    // 화면이 좁아지면 일부 열 숨기기
     th:nth-child(2),
     td:nth-child(2) {
       display: none;
@@ -82,5 +82,25 @@
         display: table-cell;
       }
     }
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 15%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 15%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: calc(100% - 75% - 30% - 20%);
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 25%;
   }
 }

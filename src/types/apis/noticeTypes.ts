@@ -6,7 +6,7 @@ export interface ItemElement {
 export interface ItemItem {
   id: string;
   hourlyPay: number;
-  startsAt: Date;
+  startsAt: string;
   workhour: number;
   description: string;
   closed: boolean;

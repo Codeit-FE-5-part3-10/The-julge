@@ -1,4 +1,3 @@
-import exp from 'constants';
 import type { GetShopsSingleNoticeResponse } from '../types/apis/notice/getShopSingleNotice';
 import {
   GetNoticesRequest,
