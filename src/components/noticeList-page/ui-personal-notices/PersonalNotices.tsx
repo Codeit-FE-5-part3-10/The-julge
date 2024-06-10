@@ -45,7 +45,7 @@ export default function PersonalNotices() {
         // 조건이 참이면 컨테이너가 끝까지 스크롤된 상태. 그럼 처음으로
         container.scrollLeft = 0;
       } else {
-        container.scrollLeft += 150; // 아니면 100픽셀씩 스크롤
+        container.scrollLeft += 350; // 아니면 100픽셀씩 스크롤
       }
     }, 2000);
 
@@ -64,21 +64,21 @@ export default function PersonalNotices() {
 
   return (
     <div className={cx('container')}>
-      <div>
+      <div className={cx('title-container')}>
         <h1 className={cx('title')}>맞춤 공고</h1>
-        <div className={cx('noticesList-container')} ref={containerRef}>
-          {sortedItems.map((item, index) => (
-            <CardItem
-              key={index}
-              title={item.title}
-              date={item.date}
-              time={item.workhour}
-              location={item.location}
-              wage={item.wage}
-              imageUrl={item.imageUrl}
-            />
-          ))}
-        </div>
+      </div>
+      <div className={cx('noticesList-container')} ref={containerRef}>
+        {sortedItems.map((item, index) => (
+          <CardItem
+            key={index}
+            title={item.title}
+            date={item.date}
+            time={item.workhour}
+            location={item.location}
+            wage={item.wage}
+            imageUrl={item.imageUrl}
+          />
+        ))}
       </div>
     </div>
   );

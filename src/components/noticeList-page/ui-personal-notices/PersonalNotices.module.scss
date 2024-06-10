@@ -6,14 +6,18 @@
   background-color: $color-red10;
   height: 38.1rem;
   align-items: center;
+  width: 100%;
 
   @include tablet {
     height: 53.5rem;
     padding: 6rem 3.2rem;
   }
-  @include desktop {
-    padding: 6rem 23.8rem;
-  }
+}
+
+.title-container {
+  display: flex;
+  width: 100%;
+  max-width: 96.5rem;
 }
 
 .title {

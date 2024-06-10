@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
 import { NoticeList } from '../../common/feature-notice-list/NoticeList';
 import DropDown from './DropDown';
-import Filter from './Filter';
+import FilterButton from './FilterButton';
 import { PaginationTest } from '../../common/ui-pagination/PaginationTest';
 import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 
@@ -64,7 +64,7 @@ export default function AllNotices() {
           <div className={cx('dropDownFilter-container')}>
             {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
             <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
-            <Filter />
+            <FilterButton />
           </div>
         </div>
         {/* NoticeList에 정렬된 items 전달 */}
