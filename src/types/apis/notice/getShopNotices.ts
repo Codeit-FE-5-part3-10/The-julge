@@ -1,4 +1,4 @@
-export interface GetShopsNoticesResponse {
+export interface GetShopNoticesResponse {
   offset: number;
   limit: number;
   count: number;
@@ -7,12 +7,12 @@ export interface GetShopsNoticesResponse {
   links: Link[];
 }
 
-export interface ItemElement {
+interface ItemElement {
   item: ItemItem;
   links: Link[];
 }
 
-export interface ItemItem {
+interface ItemItem {
   id: string;
   hourlyPay: number;
   startsAt: Date;
@@ -21,7 +21,7 @@ export interface ItemItem {
   closed: boolean;
 }
 
-export interface Link {
+interface Link {
   rel?: string;
   description: string;
   method: string;
@@ -30,7 +30,7 @@ export interface Link {
   ref?: string;
 }
 
-export interface Body {
+interface Body {
   hourlyPay: string;
   startsAt: string;
   workhour: string;

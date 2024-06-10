@@ -1,3 +1,4 @@
+import type { GetShopsSingleNoticeResponse } from '../types/apis/notice/getShopSingleNotice';
 import {
   GetNoticesRequest,
   GetNoticesResponse,
@@ -15,5 +16,13 @@ export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesRe
 
 export const postNotice = async (request: PostNoticeRequest): Promise<PostNoticeResponse> => {
   const response = await axiosInstance.post(`shops/${request.shopId}/notices`, request);
+  return response.data;
+};
+
+export const getShopSingleNotice = async (
+  shopId: string,
+  noticeId: string
+): Promise<GetShopsSingleNoticeResponse> => {
+  const response = await axiosInstance.get(`/shops/${shopId}/notices/${noticeId}`);
   return response.data;
 };

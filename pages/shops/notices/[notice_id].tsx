@@ -2,26 +2,31 @@ import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { ListNotice } from '@/src/components/shop-page/feature-list-notice/ListNotice';
 import { DetailShop } from '@/src/components/shop-page/ui-detail-shop/DetailShop';
+import { ShopLayout } from '@/src/layouts/detail-layout/ShopLayout';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
-import { getShop } from '@/src/apis/shops';
+import { getShopSingleNotice } from '@/src/apis/notices';
 import { Section } from '@/src/layouts/section/Section';
+import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
 
-export default function Shop() {
+export default function Notice() {
   const router = useRouter();
-  const { shop_id: shopId } = router.query;
+  const { shop_id: shopId, notice_id: noticeId } = router.query;
 
   if (typeof shopId !== 'string') {
     return <div>Invalid shop ID</div>;
   }
 
-  // 자식인 DetailShop 에서 쓰는 데이터지만 ListNotice 에 넘겨줘야 하는 prop 때문에 여기서 요청
+  if (typeof noticeId !== 'string') {
+    return <div>Invalid notice ID</div>;
+  }
+
   const { data, error, isLoading } = useQuery({
-    queryKey: ['getShops', shopId],
+    queryKey: ['getShopSingleNotice', shopId, noticeId],
     queryFn: async () => {
-      const response = await getShop(shopId);
+      const response = await getShopSingleNotice(shopId, noticeId);
       return response;
     },
-    enabled: !!shopId,
+    enabled: !!shopId && !!noticeId,
   });
 
   // TODO: 로딩, 오류 처리
@@ -38,18 +43,13 @@ export default function Shop() {
     return <div>No data</div>;
   }
 
-  const { name, address1, description, imageUrl } = data.item;
-  const shop = { name, address1, description, imageUrl };
+  const { hourlyPay, startsAt, workhour, description, closed } = data.item;
+  const { address1, imageUrl } = data.item.shop.item;
+  const notice = { hourlyPay, startsAt, workhour, description, closed, address1, imageUrl };
 
   return (
     <Layout>
-      <Section title="내 가게" content={<DetailShop params={shop} />} />
-      <Section
-        title="등록한 공고"
-        content={<ListNotice title={shop.name} location={shop.address1} shopId={shopId} />}
-        gray
-        bottom
-      />
+      <Section title={data.item.shop.item.name} content={<DetailNotice params={notice} />} />
     </Layout>
   );
 }

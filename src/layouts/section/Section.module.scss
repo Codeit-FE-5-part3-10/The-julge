@@ -15,9 +15,31 @@
 
   &.gray {
     background-color: $color-gray0;
+  }
+
+  &.bottom {
     padding: 40px 0 80px;
+    @include tablet {
+      padding: 60px 0 120px;
+    }
   }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  row-gap: 16px;
+  text-align: left;
+
   @include tablet {
-    padding: 60px 0 120px;
+    row-gap: 24px;
   }
+}
+
+.title {
+  font-size: 28px;
+  color: $color-black;
+  font-weight: 700;
+  letter-spacing: 0.56px;
 }

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 import styles from './ListNotice.module.scss';
-import { getShopsNotices } from '@/src/apis/shops';
-import CardItem from '../cardItem/CardItem';
-import { Pagination } from '../ui-pagination/Pagination';
+import { getShopNotices } from '@/src/apis/shops';
+import CardItem from '../../common/cardItem/CardItem';
+import { Pagination } from '../../common/ui-pagination/Pagination';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
 
 const cx = classNames.bind(styles);
@@ -24,7 +24,7 @@ export const ListNotice: React.FC<ListNoticeProps> = ({ title, location, shopId 
     isLoading,
   } = useQuery({
     queryKey: ['getShopsNotices', shopId, page],
-    queryFn: () => getShopsNotices(shopId, page, countPerPage),
+    queryFn: () => getShopNotices(shopId, page, countPerPage),
     enabled: !!shopId,
   });
 

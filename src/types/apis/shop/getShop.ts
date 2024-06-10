@@ -3,7 +3,7 @@ export interface GetShopResponse {
   links: Link[];
 }
 
-export interface ShopTypesItem {
+interface ShopTypesItem {
   id: string;
   name: string;
   category: string;
@@ -15,18 +15,18 @@ export interface ShopTypesItem {
   user: User;
 }
 
-export interface User {
+interface User {
   item: UserItem;
   href: string;
 }
 
-export interface UserItem {
+interface UserItem {
   id: string;
   email: string;
   type: string;
 }
 
-export interface Link {
+interface Link {
   rel: string;
   description: string;
   method: string;
@@ -35,7 +35,7 @@ export interface Link {
   query?: Query;
 }
 
-export interface Body {
+interface Body {
   name: string;
   category: string;
   address1: string;
@@ -45,7 +45,7 @@ export interface Body {
   originalHourlyPay: string;
 }
 
-export interface Query {
+interface Query {
   offset: string;
   limit: string;
 }

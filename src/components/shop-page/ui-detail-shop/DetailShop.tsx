@@ -3,16 +3,16 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import styles from './DetailShop.module.scss';
 import locationIcon from '@/public/images/card-location-red.svg';
-import { Button } from '../ui-button/Button';
+import { Button } from '../../common/ui-button/Button';
 
 const cx = classNames.bind(styles);
 
 interface DetailShopProps {
-  shop: { name: string; address1: string; description: string; imageUrl: string };
+  params: { name: string; address1: string; description: string; imageUrl: string };
 }
 
-export const DetailShop: React.FC<{ shop: DetailShopProps['shop'] }> = ({
-  shop: { name, address1, description, imageUrl },
+export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
+  params: { name, address1, description, imageUrl },
 }) => (
   <div className={cx('container')}>
     <div className={cx('image')} style={{ backgroundImage: `url(${imageUrl})` }}></div>
