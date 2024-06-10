@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import styles from '@/src/components/shop-page/feature-list-notice/ListNotice.module.scss';
+import styles from './NoticeList.module.scss';
 import CardItem from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);
@@ -19,7 +19,7 @@ interface NoticeListProps {
 }
 
 export const NoticeList: React.FC<NoticeListProps> = ({ items }) => (
-  <div className={cx('container')}>
+  <div className={cx('list')}>
     {items?.map((item, index) => (
       <CardItem
         key={index}
