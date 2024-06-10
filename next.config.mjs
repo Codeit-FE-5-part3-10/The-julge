@@ -9,4 +9,7 @@ export default withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['bootcamp-project-api.s3.ap-northeast-2.amazonaws.com', 'i.pinimg.com'],
+  },
 });

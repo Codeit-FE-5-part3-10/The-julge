@@ -1,3 +1,4 @@
+import exp from 'constants';
 import type { GetShopsSingleNoticeResponse } from '../types/apis/notice/getShopSingleNotice';
 import {
   GetNoticesRequest,
@@ -26,3 +27,10 @@ export const getShopSingleNotice = async (
   const response = await axiosInstance.get(`/shops/${shopId}/notices/${noticeId}`);
   return response.data;
 };
+
+export const getNotice = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
+  const response = await axiosInstance.get(`/notices`, { params: request });
+  return response.data;
+};
+
+export type { GetNoticesRequest };
