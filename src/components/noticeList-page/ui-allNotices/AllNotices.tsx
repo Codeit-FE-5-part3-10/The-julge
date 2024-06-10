@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
-import { NoticeList } from '../common/feature-notice-list/NoticeList';
+import { NoticeList } from '../../common/feature-notice-list/NoticeList';
 import DropDown from './DropDown';
 import Filter from './Filter';
-import { PaginationTest } from '../common/ui-pagination/PaginationTest';
+import { PaginationTest } from '../../common/ui-pagination/PaginationTest';
 import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
@@ -34,11 +34,15 @@ export default function AllNotices() {
       location: item.item.shop.item.address1,
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
-      count: data.count,
     })) || [];
 
-  // console.log(items.count);
-  // const totPage = data.count / 6;
+  const count = data?.count ?? 1;
+  let totPage;
+  if (count % 6) {
+    totPage = count / 6 + 1;
+  } else {
+    totPage = count / 6;
+  }
 
   const handleSortOptionChange = (option: 'time' | 'pay' | 'hour' | 'shop') => {
     setSortOption(option);
@@ -65,7 +69,7 @@ export default function AllNotices() {
         </div>
         {/* NoticeList에 정렬된 items 전달 */}
         <NoticeList items={items} />
-        <PaginationTest total={50} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <PaginationTest total={totPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
     </div>
   );
