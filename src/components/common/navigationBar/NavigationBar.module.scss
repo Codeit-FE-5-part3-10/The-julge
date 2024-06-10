@@ -3,12 +3,12 @@
 .navBar {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: auto;
   padding: 2rem 2rem 1rem 2rem;
   gap: 1rem;
 
   @include tablet {
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
@@ -19,6 +19,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 96.4rem;
 
   @include tablet {
     flex-direction: row;
