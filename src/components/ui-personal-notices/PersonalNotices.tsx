@@ -64,19 +64,21 @@ export default function PersonalNotices() {
 
   return (
     <div className={cx('container')}>
-      <h1 className={cx('title')}>맞춤 공고</h1>
-      <div className={cx('noticesList-container')} ref={containerRef}>
-        {sortedItems.map((item, index) => (
-          <CardItem
-            key={index}
-            title={item.title}
-            date={item.date}
-            time={item.workhour}
-            location={item.location}
-            wage={item.wage}
-            imageUrl={item.imageUrl}
-          />
-        ))}
+      <div>
+        <h1 className={cx('title')}>맞춤 공고</h1>
+        <div className={cx('noticesList-container')} ref={containerRef}>
+          {sortedItems.map((item, index) => (
+            <CardItem
+              key={index}
+              title={item.title}
+              date={item.date}
+              time={item.workhour}
+              location={item.location}
+              wage={item.wage}
+              imageUrl={item.imageUrl}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

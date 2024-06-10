@@ -34,7 +34,11 @@ export default function AllNotices() {
       location: item.item.shop.item.address1,
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
+      count: data.count,
     })) || [];
+
+  // console.log(items.count);
+  // const totPage = data.count / 6;
 
   const handleSortOptionChange = (option: 'time' | 'pay' | 'hour' | 'shop') => {
     setSortOption(option);
@@ -50,17 +54,19 @@ export default function AllNotices() {
 
   return (
     <div className={cx('container')}>
-      <div className={cx('titleFilter-container')}>
-        <h1 className={cx('title')}>전체 공고</h1>
-        <div className={cx('dropDownFilter-container')}>
-          {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
-          <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
-          <Filter />
+      <div>
+        <div className={cx('titleFilter-container')}>
+          <h1 className={cx('title')}>전체 공고</h1>
+          <div className={cx('dropDownFilter-container')}>
+            {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
+            <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
+            <Filter />
+          </div>
         </div>
+        {/* NoticeList에 정렬된 items 전달 */}
+        <NoticeList items={items} />
+        <PaginationTest total={50} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
-      {/* NoticeList에 정렬된 items 전달 */}
-      <NoticeList items={items} />
-      <PaginationTest total={50} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 }
