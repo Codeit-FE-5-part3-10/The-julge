@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
-import { NoticeList } from '../common/feature-notice-list/NoticeList';
+import { NoticeList } from '../../common/feature-notice-list/NoticeList';
 import DropDown from './DropDown';
 import Filter from './Filter';
-import { PaginationTest } from '../common/ui-pagination/PaginationTest';
+import { PaginationTest } from '../../common/ui-pagination/PaginationTest';
 import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
