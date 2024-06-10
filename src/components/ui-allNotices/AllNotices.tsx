@@ -7,7 +7,7 @@ import { NoticeList } from '../common/feature-notice-list/NoticeList';
 import DropDown from './DropDown';
 import Filter from './Filter';
 import { PaginationTest } from '../common/ui-pagination/PaginationTest';
-import { getNotices, GetNoticesRequest } from '@/src/api/notices';
+import { getNotices, GetNoticesRequest } from '@/src/apis/notice';
 
 const cx = classNames.bind(styles);
 

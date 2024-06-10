@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../common/cardItem/CardItem';
-import { getNotices } from '@/src/api/notices';
+import { getNotices } from '@/src/apis/notice';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 

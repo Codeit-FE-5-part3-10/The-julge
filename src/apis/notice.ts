@@ -3,7 +3,7 @@ import {
   GetNoticesResponse,
   PostNoticeRequest,
   PostNoticeResponse,
-} from '@/src/types/api/noticeType';
+} from '../types/apis/noticeTypes';
 import { axiosInstance } from './axiosInstance';
 
 export const getNotices = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
