@@ -1,4 +1,4 @@
-export interface GetShopNoticeApplicationsResponse {
+export interface getShopNoticeApplicationsResponse {
   offset: number;
   limit: number;
   count: number;
