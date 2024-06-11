@@ -59,11 +59,6 @@ export default function AllNotices() {
     queryFn: () => getNotice(queryString), // getNotices 함수 호출
   });
 
-  // const { isLoading, error, data } = useQuery<GetNoticesResponse>({
-  //   queryKey: ['notices', currentPage, sortOption, filterData], // 페이지 번호와 정렬 옵션을 queryKey에 포함
-  //   queryFn: () => getNotice(defaultRequestParams), // getNotices 함수 호출
-  // });
-
   const items =
     data?.items.map((item) => ({
       title: item.item.shop.item.name,

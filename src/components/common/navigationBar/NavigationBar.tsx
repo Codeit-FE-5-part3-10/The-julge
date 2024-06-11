@@ -8,19 +8,26 @@ import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
 import NotificationIconNew from '@/public/images/navigationbar-new.svg';
 import { useRouter } from 'next/router';
+import { useToken } from '@/src/utils/TokenProvider';
 
 type NavigationBarProps = {
   isSticky: boolean;
 };
 
 export default function NavigationBar({ isSticky }: NavigationBarProps) {
+  const { token } = useToken();
   const cx = classNames.bind(styles);
   const [searchTerm, setSearchTerm] = useState('');
   const [isTablet, setIsTablet] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
     const handleResize = () => {
       setIsTablet(window.innerWidth >= 768);
     };
@@ -36,9 +43,10 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       router.push(`/search?keyword=${searchTerm}`);
-      console.log('enter');
     }
   };
+
+  const handleToken = () => {};
 
   return (
     <div className={cx('navBar', { sticky: isSticky })}>
