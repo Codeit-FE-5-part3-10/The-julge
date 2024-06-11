@@ -3,7 +3,9 @@ import styles from './PersonalNotices.module.scss';
 import CardItem from '../../common/cardItem/CardItem';
 import { getPersonalNotice } from '@/src/apis/notices';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useToken } from '@/src/utils/TokenProvider';
+import { axiosInstance } from '@/src/apis/axiosInstance';
 
 const cx = classNames.bind(styles);
 
@@ -12,9 +14,52 @@ export default function PersonalNotices() {
     offset: 0,
     limit: 6,
   };
-
   const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
+  const { token, setToken } = useToken();
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userAddress, setUserAddress] = useState<string | null>(null);
 
+  useEffect(() => {
+    // 로컬 스토리지에서 토큰 값 가져오기
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, [setToken]);
+
+  useEffect(() => {
+    if (token) {
+      // 토큰을 디코드해서 userId를 얻음.
+      const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
+      const userIdFromToken = decodedToken.userId;
+      setUserId(userIdFromToken);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const fetchUserData = async (userId: string) => {
+      try {
+        const response = await axiosInstance.get(`/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.data && response.data.item && response.data.item.address) {
+          setUserAddress(response.data.item.address);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserData(userId);
+    }
+  }, [userId, token]);
+
+  if (!token) {
+  }
   const { isLoading, error, data } = useQuery({
     queryKey: ['notices'],
     queryFn: () => getPersonalNotice(defaultRequestParams),
