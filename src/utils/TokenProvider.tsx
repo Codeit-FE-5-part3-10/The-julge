@@ -29,8 +29,8 @@ export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const login = async (email: string, password: string) => {
     try {
       const response = await axiosInstance.post('/token', { email, password });
-      setToken(response.data.token);
-      localStorage.setItem('token', response.data.token); // 토큰을 로컬 스토리지에 저장
+      setToken(response.data.item.token);
+      localStorage.setItem('token', response.data.item.token); // 토큰을 로컬 스토리지에 저장
       console.log('로그인성공');
       router.push('/');
     } catch (error) {

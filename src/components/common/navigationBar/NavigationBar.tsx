@@ -15,12 +15,20 @@ type NavigationBarProps = {
 };
 
 export default function NavigationBar({ isSticky }: NavigationBarProps) {
-  const { token } = useToken();
   const cx = classNames.bind(styles);
   const [searchTerm, setSearchTerm] = useState('');
   const [isTablet, setIsTablet] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
+  const { token, setToken } = useToken(); // useToken 훅
+
+  useEffect(() => {
+    // 로컬 스토리지에서 토큰 값 가져오기
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, [setToken]);
 
   useEffect(() => {
     if (token) {
@@ -31,6 +39,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
     const handleResize = () => {
       setIsTablet(window.innerWidth >= 768);
     };
+    console.log(token);
 
     window.addEventListener('resize', handleResize);
     handleResize(); // 초기 로드 시 크기 체크
@@ -46,7 +55,11 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
     }
   };
 
-  const handleToken = () => {};
+  const handleLogout = () => {
+    // 로컬 스토리지의 모든 값을 비우기
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return (
     <div className={cx('navBar', { sticky: isSticky })}>
@@ -75,14 +88,14 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
           {isLoggedIn ? (
             <>
               <Link href="/profile">내 프로필</Link>
-              <Link href="/logout">로그아웃</Link>
-              <Link href="/notifications">
+              <button onClick={handleLogout}>로그아웃</button>
+              <Link className={cx('notification')} href="/notifications">
                 <Image src={NotificationIcon} alt="알림 아이콘"></Image>
               </Link>
             </>
           ) : (
             <>
-              <Link href="/login">로그인</Link>
+              <Link href="/loginTest">로그인</Link>
               <Link href="/signup">회원가입</Link>
             </>
           )}
