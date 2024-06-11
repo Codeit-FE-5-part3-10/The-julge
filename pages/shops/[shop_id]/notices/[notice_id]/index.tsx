@@ -5,6 +5,7 @@ import { getShopSingleNotice } from '@/src/apis/notices';
 import { Section } from '@/src/layouts/section/Section';
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
 import { ListApplication } from '@/src/components/notice-page/feature-list-applications/ListApplications';
+import { ModalProvider } from '@/src/contexts/ModalContext';
 
 export default function Notice() {
   const router = useRouter();
@@ -63,7 +64,9 @@ export default function Notice() {
   return (
     <Layout>
       <Section title={data.item.shop.item.name} content={<DetailNotice params={notice} />} gray />
-      <Section title="신청자 목록" content={<ListApplication />} />
+      <ModalProvider>
+        <Section title="신청자 목록" content={<ListApplication />} />
+      </ModalProvider>
     </Layout>
   );
 }

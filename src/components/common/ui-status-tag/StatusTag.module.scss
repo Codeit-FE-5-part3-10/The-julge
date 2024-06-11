@@ -2,28 +2,61 @@
 
 .button {
   display: flex;
-  padding: 6px 10px;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
-
-  font-size: 14px;
+  width: fit-content;
+  font-size: 1.2rem;
   font-weight: 700;
+  line-height: 1.6rem;
+
+  &.disabled {
+    border-radius: 2rem;
+    padding: 0.6rem 1rem;
+
+    &.pending {
+      color: $color-green20;
+      background-color: $color-green10;
+    }
+    &.rejected {
+      color: $color-red40;
+      background-color: $color-red10;
+    }
+    &.accepted {
+      color: $color-blue20;
+      background-color: $color-blue10;
+    }
+    &.canceled {
+      color: $color-gray50;
+      background-color: $color-gray10;
+    }
+  }
+
+  &.enabled {
+    border-radius: 0.6rem;
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    &.decline {
+      color: $color-primary;
+      border: 1px solid $color-primary;
+    }
+    &.approve {
+      color: $color-blue20;
+      border: 1px solid $color-blue20;
+    }
+
+    @include tablet {
+      padding: 1rem 2rem;
+    }
+  }
+
+  @include tablet {
+    font-size: 14px;
+    font-weight: 700;
+  }
 }
 
-.pending {
-  color: $color-green20;
-  background-color: $color-green10;
-}
-.rejected {
-  color: $color-red40;
-  background-color: $color-red10;
-}
-.accepted {
-  color: $color-blue20;
-  background-color: $color-blue10;
-}
-.canceled {
-  color: $color-gray50;
-  background-color: $color-gray10;
+.box {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 0.8rem;
 }

@@ -7,15 +7,17 @@ import { Table } from '../../common/ui-table/Table';
 import styles from './ListApplications.module.scss';
 import { initialPage, boundaries, countPerPage, siblings, tableHeaders } from './constants';
 import { getShopNoticeApplications } from '@/src/apis/applications';
+import { QuestionModal } from '../../common/ui-modal-question/QuestionModal';
+import { modalType } from '@/src/constants/constant';
+import { useModal } from '@/src/contexts/ModalContext';
 
 const cx = classNames.bind(styles);
 
 export const ListApplication: React.FC = () => {
   const [page, setPage] = useState<number>(initialPage);
-
   const router = useRouter();
+  const { currentModal, applicationId, closeModal } = useModal();
 
-  // NOTE: 2.필요한 데이터를 불러와주세요.
   const { shop_id: shopId, notice_id: noticeId } = router.query;
 
   if (typeof shopId !== 'string') {
@@ -26,6 +28,7 @@ export const ListApplication: React.FC = () => {
     return <div>Invalid notice ID</div>;
   }
 
+  // 지원 목록 불러오기
   const { data, error, isLoading } = useQuery({
     queryKey: ['getShopNoticeApplications', shopId, noticeId, page, countPerPage],
     queryFn: async () => {
@@ -35,7 +38,6 @@ export const ListApplication: React.FC = () => {
     enabled: !!shopId && !!noticeId,
   });
 
-  // TODO: 로딩, 오류 처리
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -50,17 +52,16 @@ export const ListApplication: React.FC = () => {
 
   const total = Math.ceil(data.count / countPerPage);
 
-  // NOTE: 3.불러온 데이터를 프로퍼티 값으로 넣어주세요.
+  // 테이블 prop 생성
   const tableBody = data.items.map((application) => ({
     id: application.item.id || '',
     status: application.item.status,
-    // ex.신청자
     [tableHeaders[0]]: application.item.user.item.name || '',
-    // ex.전화번호
     [tableHeaders[1]]: application.item.user.item.phone || '',
-    // ex.소개
     [tableHeaders[2]]: application.item.user.item.bio || '',
   }));
+
+  // 특정 지원서 거절, 승인
 
   return (
     <div className={cx('container')}>
@@ -73,6 +74,16 @@ export const ListApplication: React.FC = () => {
           page={page}
           total={total}
           onChange={setPage}
+        />
+        <QuestionModal
+          isOpen={currentModal === modalType.decline}
+          modalText="신청을 거절하시겠어요?"
+          onCloseClick={closeModal}
+        />
+        <QuestionModal
+          isOpen={currentModal === modalType.approve}
+          modalText="신청을 승인하시겠어요?"
+          onCloseClick={closeModal}
         />
       </div>
     </div>

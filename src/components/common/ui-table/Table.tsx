@@ -33,8 +33,7 @@ export const Table: React.FC<TableProps> = ({ headers, body }) => (
             <td>{application[header]}</td>
           ))}
           <td>
-            <StatusTag status={application.status} />
-            {/* TODO: status pending 일 때, 사장과 알바 각각 '거절하기'와 '승인하기' 버튼 & '취소하기' 버튼 */}
+            <StatusTag status={application.status} id={application.id} />
           </td>
         </tr>
       ))}
