@@ -26,8 +26,12 @@ export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
       <p className={cx('description')}>{description}</p>
     </div>
     <div className={cx('buttons')}>
-      <Button text="편집하기" color="white" to="/shopEdit" />
-      <Button text="공고 등록하기" color="primary" to="/NoticeEdit" />
+      <Button color="white" to="/shopEdit">
+        편집하기
+      </Button>
+      <Button color="primary" to="/NoticeEdit">
+        공고 등록하기
+      </Button>
     </div>
   </div>
 );

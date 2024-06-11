@@ -98,7 +98,9 @@ export const DetailNotice: React.FC<{ params: DetailNoticeProps['params'] }> = (
           <p className={cx('description')}>{shopDescription}</p>
         </div>
         <div className={cx('buttons')}>
-          <Button text="공고 편집하기" color="white" to="/NoticeEdit" />
+          <Button color="white" to="/NoticeEdit">
+            공고 편집하기
+          </Button>
         </div>
       </div>
       <div className={cx('container_bottom')}>
