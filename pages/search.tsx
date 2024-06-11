@@ -5,7 +5,7 @@ import { Section } from '@/src/layouts/section/Section';
 export default function search() {
   return (
     <Layout>
-      <Section title={''} content={<SearchResult />} />
+      <SearchResult />
     </Layout>
   );
 }

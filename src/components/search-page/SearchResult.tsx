@@ -24,7 +24,6 @@ export default function SearchResult() {
   });
   const router = useRouter();
   const { keyword } = router.query;
-  const [searchResults, setSearchResults] = useState<string>('');
 
   const handleApplyFilter = (filterData: FilterData) => {
     setFilterData(filterData);
@@ -96,7 +95,7 @@ export default function SearchResult() {
     <div className={cx('container')}>
       <div>
         <div className={cx('titleFilter-container')}>
-          <h1 className={cx('title')}>{keyword}에 대한 검색 결과</h1>
+          <h1 className={cx('title')}>{keyword}에 대한 공고 목록</h1>
           <div className={cx('dropDownFilter-container')}>
             {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
             <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
@@ -104,8 +103,18 @@ export default function SearchResult() {
           </div>
         </div>
         {/* NoticeList에 정렬된 items 전달 */}
-        <NoticeList items={items} />
-        <PaginationTest total={totPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        {items.length > 0 ? (
+          <>
+            <NoticeList items={items} />
+            <PaginationTest
+              total={totPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </>
+        ) : (
+          <div className={cx('noResults')}>검색 결과가 없습니다.</div>
+        )}
       </div>
     </div>
   );
