@@ -27,7 +27,7 @@ export interface FilterData {
 export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
-  const [wage, setWage] = useState<number>();
+  const [wage, setWage] = useState<number>(0);
 
   const handleRegionSelect = (regionName: string) => {
     if (!selectedRegions.includes(regionName)) {
@@ -50,7 +50,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
   const handleReset = () => {
     setSelectedRegions([]); // 선택된 지역 초기화
     setSelectedDate(''); // 선택된 날짜 초기화
-    setWage(undefined); // 시급 초기화
+    setWage(0); // 시급 초기화
   };
 
   const handleApply = () => {
@@ -100,7 +100,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
         <div className={cx('line')}></div>
         <StartAt onDateChage={handleDateChage} setSelectedDate={setSelectedDate} />
         <div className={cx('line')}></div>
-        <Wage onWageChange={handleWageChage} setWage={setWage} />
+        <Wage wage={wage} onWageChange={handleWageChage} />
         <div className={cx('line')}></div>
         <ResetButton onClick={handleReset} />
         <ApplyButton onClick={handleApply} />

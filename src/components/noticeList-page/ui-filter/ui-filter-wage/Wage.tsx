@@ -1,24 +1,28 @@
 import classNames from 'classnames/bind';
 import styles from './Wage.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { setWeek } from 'date-fns';
+import { el } from 'date-fns/locale';
 
 const cx = classNames.bind(styles);
 
 interface WageProps {
+  wage: number;
   onWageChange: (wage: number) => void;
-  setWage: (wage: number | undefined) => void; // 부모 컴포넌트로부터 setWage 전달 받음
 }
 
-export default function Wage({ onWageChange, setWage }: WageProps) {
+export default function Wage({ wage, onWageChange }: WageProps) {
   const [inputData, setInputData] = useState<number>(0); // 초기값을 빈 문자열로 설정
+
+  useEffect(() => {
+    setInputData(wage);
+  }, [wage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const numberValue = parseInt(value, 10); // 숫자로 변환
     setInputData(numberValue);
     onWageChange(numberValue);
-    setWage(numberValue);
   };
 
   return (
