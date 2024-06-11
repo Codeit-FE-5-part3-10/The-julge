@@ -1,5 +1,5 @@
 // AllNotices.tsx
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
@@ -8,23 +8,62 @@ import DropDown from './DropDown';
 import FilterButton from './FilterButton';
 import { PaginationTest } from '../../common/ui-pagination/PaginationTest';
 import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
+import { FilterData } from '../ui-filter/Filter';
+import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
+import { formatDate } from '@/src/utils/formatDateTime';
 
 const cx = classNames.bind(styles);
 
 export default function AllNotices() {
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지 상태
   const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time'); // 기본 정렬 옵션을 'time'으로 설정
+  const [filterData, setFilterData] = useState<FilterData>({
+    selectedRegions: [],
+    selectedDate: '',
+  });
+  const [filteredItems, setFilteredItems] = useState<any>();
+
+  const handleApplyFilter = (filterData: FilterData) => {
+    setFilterData(filterData);
+  };
 
   const defaultRequestParams: GetNoticesRequest = {
     offset: (currentPage - 1) * 6,
     limit: 6,
+    // address: filterData.selectedRegions.join('&'), // 배열을 문자열로 결합하여 할당,
+    startsAtGte: filterData.selectedDate
+      ? formatDate(new Date(filterData.selectedDate))
+      : undefined,
+    hourlyPayGte: filterData.wage,
     sort: sortOption,
   };
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['notices', currentPage, sortOption], // 페이지 번호와 정렬 옵션을 queryKey에 포함
-    queryFn: () => getNotice(defaultRequestParams), // getNotices 함수 호출
+  let queryString = `?offset=${defaultRequestParams.offset}&limit=${defaultRequestParams.limit}&sort=${defaultRequestParams.sort}`;
+
+  if (filterData.selectedRegions.length > 0) {
+    const addressParams = filterData.selectedRegions
+      .map((region) => `address=${encodeURIComponent(region)}`)
+      .join('&');
+    queryString += `&${addressParams}`;
+  }
+
+  if (filterData.selectedDate && defaultRequestParams.startsAtGte) {
+    queryString += `&startsAtGte=${encodeURIComponent(defaultRequestParams.startsAtGte)}`;
+  }
+
+  if (filterData.wage && defaultRequestParams.hourlyPayGte) {
+    queryString += `&hourlyPayGte=${defaultRequestParams.hourlyPayGte}`;
+  }
+
+  const { isLoading, error, data } = useQuery<GetNoticesResponse>({
+    queryKey: ['notices', currentPage, sortOption, filterData], // 페이지 번호와 정렬 옵션을 queryKey에 포함
+    queryFn: () => getNotice(queryString), // getNotices 함수 호출
   });
+
+  // const { isLoading, error, data } = useQuery<GetNoticesResponse>({
+  //   queryKey: ['notices', currentPage, sortOption, filterData], // 페이지 번호와 정렬 옵션을 queryKey에 포함
+  //   queryFn: () => getNotice(defaultRequestParams), // getNotices 함수 호출
+  // });
 
   const items =
     data?.items.map((item) => ({
@@ -64,7 +103,7 @@ export default function AllNotices() {
           <div className={cx('dropDownFilter-container')}>
             {/* DropDown 컴포넌트에 onSelectSortOption 콜백 함수 전달 */}
             <DropDown onSelectSortOption={handleSortOptionChange} selectedOption={sortOption} />
-            <FilterButton />
+            <FilterButton onApply={handleApplyFilter} />
           </div>
         </div>
         {/* NoticeList에 정렬된 items 전달 */}

@@ -1,4 +1,9 @@
+@import '/src/styles/global.scss';
+
 .filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -6,7 +11,75 @@
   height: 100%;
   background-color: #ffffff; /* 반투명한 배경색 */
   z-index: 1000; /* 다른 요소들보다 위에 나타나도록 함 */
+  padding: 2.4rem 1rem;
+}
+
+.location-container {
+  margin-top: 2rem;
+}
+
+.title-container {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.title {
+  font-size: 2rem;
+  width: 700;
+}
+
+.close-button {
+}
+
+.location-container {
+}
+
+.location-title {
+  font-size: 1.6rem;
+}
+
+.location-select-container {
+  display: grid;
+  height: 25.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border: 1px solid #e5e4e7;
+  border-radius: 0.6rem;
+  grid-template-columns: 1fr 1fr;
+  overflow-y: scroll;
+  grid-gap: 20px;
+}
+
+.location-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.selected-region {
+  display: flex;
+  height: 3rem;
   justify-content: center;
   align-items: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $color-red40;
+  border-radius: 2rem;
+  padding: 0.6rem 1rem;
+  background-color: $color-red10;
+}
+
+.remove-button {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-primary;
+  margin-left: 0.3rem;
+}
+
+.line {
+  margin: 2rem 0;
+  border: 1px solid $color-gray10;
 }
