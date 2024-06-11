@@ -8,6 +8,7 @@ export default function IndexPage() {
       <Layout>
         <PersonalNotices />
         <AllNotices />
+        
       </Layout>
     </>
   );
