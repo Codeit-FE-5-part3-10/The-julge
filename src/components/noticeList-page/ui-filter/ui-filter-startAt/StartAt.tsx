@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './StartAt.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import formatDateTimeWithDateFns from '@/src/utils/formatDateTime';
 
 const cx = classNames.bind(styles);
 
 interface StartAtProps {
+  selectedDate: any;
   onDateChage: (date: string) => void;
-  setSelectedDate: (date: string) => void; // 부모 컴포넌트로부터 setSelectedDate 전달 받음
 }
 
-export default function StartAt({ onDateChage, setSelectedDate }: StartAtProps) {
+export default function StartAt({ onDateChage, selectedDate }: StartAtProps) {
   const [selectDate, setSelectDate] = useState<string>('');
 
   const handleDateChage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +19,11 @@ export default function StartAt({ onDateChage, setSelectedDate }: StartAtProps) 
     const formattedDate = formatDateTimeWithDateFns(date.toString()).formattedDate; // 수정된 부분
     setSelectDate(formattedDate);
     onDateChage(formattedDate);
-    setSelectedDate(formattedDate); // 상태 변경이 아닌 props를 통해 부모 컴포넌트로 전달
   };
+
+  useEffect(() => {
+    setSelectDate(selectedDate);
+  }, [selectedDate]);
 
   return (
     <div className={cx('container')}>

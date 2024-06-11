@@ -98,7 +98,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
           </div>
         </div>
         <div className={cx('line')}></div>
-        <StartAt onDateChage={handleDateChage} setSelectedDate={setSelectedDate} />
+        <StartAt onDateChage={handleDateChage} selectedDate={selectedDate} />
         <div className={cx('line')}></div>
         <Wage wage={wage} onWageChange={handleWageChage} />
         <div className={cx('line')}></div>
