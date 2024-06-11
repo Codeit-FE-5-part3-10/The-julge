@@ -8,11 +8,11 @@ import { Button } from '../../common/ui-button/Button';
 const cx = classNames.bind(styles);
 
 interface DetailShopProps {
-  params: { name: string; address1: string; description: string; imageUrl: string };
+  params: { name: string; location: string; description: string; imageUrl: string };
 }
 
 export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
-  params: { name, address1, description, imageUrl },
+  params: { name, location, description, imageUrl },
 }) => (
   <div className={cx('container')}>
     <div className={cx('image')} style={{ backgroundImage: `url(${imageUrl})` }}></div>
@@ -21,7 +21,7 @@ export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
       <p className={cx('name')}>{name}</p>
       <div className={cx('box')}>
         <Image className={cx('icon')} src={locationIcon} alt="주소 아이콘" />
-        <p className={cx('address1')}>{address1}</p>
+        <p className={cx('description', 'gray')}>{location}</p>
       </div>
       <p className={cx('description')}>{description}</p>
     </div>
