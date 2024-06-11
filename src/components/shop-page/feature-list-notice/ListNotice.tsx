@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 import styles from './ListNotice.module.scss';
-import { getShopNotices } from '@/src/apis/shops';
 import CardItem from '../../common/cardItem/CardItem';
 import { Pagination } from '../../common/ui-pagination/Pagination';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
+import { getShopNotices } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
 
 interface ListNoticeProps {
-  title: string;
-  location: string;
+  params: { name: string; location: string; imageUrl: string; originalWage: number };
   shopId: string;
 }
 
-export const ListNotice: React.FC<ListNoticeProps> = ({ title, location, shopId }) => {
+export const ListNotice: React.FC<ListNoticeProps> = ({
+  params: { name, location, imageUrl, originalWage },
+  shopId,
+}) => {
   const [page, setPage] = useState<number>(initialPage);
 
   const {
@@ -48,15 +50,16 @@ export const ListNotice: React.FC<ListNoticeProps> = ({ title, location, shopId 
       <div className={cx('list')}>
         {notices.items.map((notice) => {
           const { id, startsAt, workhour, hourlyPay } = notice.item;
-          const time = workhour.toString();
           return (
             <CardItem
               key={id}
-              title={title}
-              location={location}
               date={startsAt}
-              time={time}
+              time={workhour}
               wage={hourlyPay}
+              title={name}
+              location={location}
+              imageUrl={imageUrl}
+              originalWage={originalWage}
             />
           );
         })}
