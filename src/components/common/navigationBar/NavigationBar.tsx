@@ -1,12 +1,13 @@
-import Logo from "@/public/images/global-logo.svg";
-import Image from "next/image";
-import classNames from "classnames/bind";
-import styles from "./NavigationBar.module.scss";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import SearchBarIcon from "@/public/images/navigationbar-search.svg";
-import NotificationIcon from "@/public/images/navigationbar-empty.svg";
-import NotificationIconNew from "@/public/images/navigationbar-new.svg";
+import Logo from '@/public/images/global-logo.svg';
+import Image from 'next/image';
+import classNames from 'classnames/bind';
+import styles from './NavigationBar.module.scss';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import SearchBarIcon from '@/public/images/navigationbar-search.svg';
+import NotificationIcon from '@/public/images/navigationbar-empty.svg';
+import NotificationIconNew from '@/public/images/navigationbar-new.svg';
+import { useRouter } from 'next/router';
 
 type NavigationBarProps = {
   isSticky: boolean;
@@ -14,50 +15,55 @@ type NavigationBarProps = {
 
 export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const cx = classNames.bind(styles);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isTablet, setIsTablet] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
-      setIsTablet(window.innerWidth >= 768); // 예시로 768px 이상을 테블릿으로 설정
+      setIsTablet(window.innerWidth >= 768);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     handleResize(); // 초기 로드 시 크기 체크
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.push(`/search?keyword=${searchTerm}`);
+      console.log('enter');
+    }
+  };
+
   return (
-    <div className={cx("navBar", { sticky: isSticky })}>
-      <div className={cx("logoButton_container")}>
-        <div className={cx("logo_container")}>
-          <Link href="/" className={cx("logo")}>
+    <div className={cx('navBar', { sticky: isSticky })}>
+      <div className={cx('logoButton_container')}>
+        <div className={cx('logo_container')}>
+          <Link href="/" className={cx('logo')}>
             <Image src={Logo} alt="로고"></Image>
           </Link>
         </div>
 
         {isTablet && (
-          <div className={cx("searchBar-container-tablet")}>
+          <div className={cx('searchBar-container-tablet')}>
             <input
-              className={cx("searchBar")}
+              className={cx('searchBar')}
               type="text"
               placeholder="가게 이름으로 찾아보세요"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearch} // Enter 키 이벤트 처리
             />
-            <Image
-              className={cx("searchBarIcon")}
-              src={SearchBarIcon}
-              alt="검색 아이콘"
-            />
+            <Image className={cx('searchBarIcon')} src={SearchBarIcon} alt="검색 아이콘" />
           </div>
         )}
 
-        <div className={cx("buttons-container")}>
+        <div className={cx('buttons-container')}>
           {isLoggedIn ? (
             <>
               <Link href="/profile">내 프로필</Link>
@@ -76,19 +82,16 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
       </div>
 
       {!isTablet && (
-        <div className={cx("searchBar-container-mobile")}>
+        <div className={cx('searchBar-container-mobile')}>
           <input
-            className={cx("searchBar")}
+            className={cx('searchBar')}
             type="text"
             placeholder="가게 이름으로 찾아보세요"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleSearch} // Enter 키 이벤트 처리
           />
-          <Image
-            className={cx("searchBarIcon")}
-            src={SearchBarIcon}
-            alt="검색 아이콘"
-          />
+          <Image className={cx('searchBarIcon')} src={SearchBarIcon} alt="검색 아이콘" />
         </div>
       )}
     </div>
