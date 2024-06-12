@@ -103,6 +103,7 @@ export default function PersonalNotices() {
       location: item.item.shop.item.address1,
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
+      originalWage: item.item.shop.item.originalHourlyPay,
     })) || [];
 
   return (
@@ -120,6 +121,7 @@ export default function PersonalNotices() {
             location={item.location}
             wage={item.wage}
             imageUrl={item.imageUrl}
+            originalWage={item.originalWage}
           />
         ))}
       </div>
