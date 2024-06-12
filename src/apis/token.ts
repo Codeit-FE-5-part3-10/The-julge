@@ -3,7 +3,10 @@ import { axiosInstance } from './axiosInstance';
 import { GetTokenResponse } from '@/src/types/apis/user/getToken';
 
 // eslint-disable-next-line max-len
-export const getToken = async (userEmail: string, userPassword: string): Promise<GetTokenResponse> => {
+export const getToken = async (
+  userEmail: string,
+  userPassword: string
+): Promise<GetTokenResponse> => {
   try {
     const response = await axiosInstance.post<GetTokenResponse>('/token', {
       email: userEmail,
