@@ -39,25 +39,6 @@ export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
     }
   }, [setToken]);
 
-  //예시 코드입니당 TODO. 삭제
-  // const {
-  //   data: profileData,
-  //   isLoading: isProfileLoading,
-  //   error: profileError,
-  // } = useQuery({
-  //   queryKey: ['profile', userId],
-  //   queryFn: async () => {
-  //     if (userId) {
-  //       const result = await getUserType(userId);
-  //       setEmployInfo(profileData?.item.type);
-  //       return result;
-  //     }
-  //     return null;
-  //   },
-  //   enabled: !!userId, // userId가 존재할 때만 쿼리 실행
-  // });
-  // console.log(profileData?.item.type);
-
   return (
     <div className={cx('list')}>
       {items?.map((item, index) => (

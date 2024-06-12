@@ -18,7 +18,6 @@ export default function Notice() {
   const { userInfo } = useToken();
   const [myShopId, setMyShopId] = useState<string>();
   const [isMyShop, setIsMyShop] = useState<boolean>();
-
   useEffect(() => {
     if (userInfo?.type === 'employer') {
       setUserType('employer');
@@ -119,9 +118,7 @@ export default function Notice() {
         </>
       ) : (
         <>
-          <Section title={'test'} content={undefined}>
-            <div>hi test</div>
-          </Section>
+          <Section title={'test'} content={<NoticeDetail />}></Section>
         </>
       )}
     </Layout>

@@ -20,7 +20,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const [isTablet, setIsTablet] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
-  const { token, setToken } = useToken(); // useToken 훅
+  const { token, setToken, userInfo } = useToken(); // useToken 훅
 
   useEffect(() => {
     // 로컬 스토리지에서 토큰 값 가져오기
@@ -87,7 +87,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
         <div className={cx('buttons-container')}>
           {token ? (
             <>
-              <Link href="/myprofile">내 프로필</Link>
+              <Link href={`/user/${userInfo?.id}`}>내 프로필</Link>
               <button onClick={handleLogout}>로그아웃</button>
               <Link className={cx('notification')} href="/notifications">
                 <Image src={NotificationIcon} alt="알림 아이콘"></Image>
