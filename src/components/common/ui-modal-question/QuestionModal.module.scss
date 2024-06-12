@@ -28,7 +28,6 @@
   background: white;
   padding: 2.4rem;
   width: 29.8rem;
-  height: 18.4rem;
 }
 
 .icon {
@@ -39,14 +38,13 @@
 
 .text {
   grid-area: text;
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 400;
   line-height: 2.6rem;
   text-align: center;
 
   @include tablet {
     font-size: 1.6rem;
-    font-weight: 400;
     line-height: 2.6rem;
   }
 }
