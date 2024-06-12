@@ -21,22 +21,30 @@ export const Table: React.FC<TableProps> = ({ headers, body }) => (
     <thead>
       <tr>
         {headers.map((header) => (
-          <th>{header}</th>
+          <th key={header}>{header}</th>
         ))}
         <th>상태</th>
       </tr>
     </thead>
     <tbody>
-      {body.map((application) => (
-        <tr key={application.id}>
-          {headers.map((header) => (
-            <td>{application[header]}</td>
-          ))}
-          <td>
-            <StatusTag status={application.status} id={application.id} />
+      {body.length === 0 ? (
+        <tr>
+          <td colSpan={headers.length + 1} className={cx('empty')}>
+            등록된 지원서가 없습니다
           </td>
         </tr>
-      ))}
+      ) : (
+        body.map((application) => (
+          <tr key={application.id}>
+            {headers.map((header) => (
+              <td key={header}>{application[header]}</td>
+            ))}
+            <td>
+              <StatusTag status={application.status} id={application.id} />
+            </td>
+          </tr>
+        ))
+      )}
     </tbody>
   </table>
 );

@@ -134,3 +134,13 @@
     }
   }
 }
+
+.empty {
+  font-size: 14px;
+  line-height: 157.143%;
+  text-align: center;
+
+  @include tablet {
+    font-size: 16px;
+  }
+}

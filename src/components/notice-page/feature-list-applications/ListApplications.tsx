@@ -61,8 +61,6 @@ export const ListApplication: React.FC = () => {
     [tableHeaders[2]]: application.item.user.item.bio || '',
   }));
 
-  // 특정 지원서 거절, 승인
-
   return (
     <div className={cx('container')}>
       <div className={cx('wrapper')}>

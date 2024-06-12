@@ -12,6 +12,7 @@
   &.disabled {
     border-radius: 2rem;
     padding: 0.6rem 1rem;
+    cursor: default;
 
     &.pending {
       color: $color-green20;

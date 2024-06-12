@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import styles from './ListNotice.module.scss';
 import CardItem from '../../common/cardItem/CardItem';
 import { Pagination } from '../../common/ui-pagination/Pagination';
@@ -49,18 +50,20 @@ export const ListNotice: React.FC<ListNoticeProps> = ({
     <div className={cx('container')}>
       <div className={cx('list')}>
         {notices.items.map((notice) => {
-          const { id, startsAt, workhour, hourlyPay } = notice.item;
+          const { id: noticeId, startsAt, workhour, hourlyPay } = notice.item;
           return (
-            <CardItem
-              key={id}
-              date={startsAt}
-              time={workhour}
-              wage={hourlyPay}
-              title={name}
-              location={location}
-              imageUrl={imageUrl}
-              originalWage={originalWage}
-            />
+            <Link href={`/shops/${shopId}/notices/${noticeId}`}>
+              <CardItem
+                key={noticeId}
+                date={startsAt}
+                time={workhour}
+                wage={hourlyPay}
+                title={name}
+                location={location}
+                imageUrl={imageUrl}
+                originalWage={originalWage}
+              />
+            </Link>
           );
         })}
       </div>
