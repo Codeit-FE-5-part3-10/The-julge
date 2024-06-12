@@ -85,7 +85,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
         )}
 
         <div className={cx('buttons-container')}>
-          {isLoggedIn ? (
+          {token ? (
             <>
               <Link href="/myprofile">내 프로필</Link>
               <button onClick={handleLogout}>로그아웃</button>
