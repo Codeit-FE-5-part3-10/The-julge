@@ -1,18 +1,20 @@
 import classNames from 'classnames/bind';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../../common/cardItem/CardItem';
-import { getPersonalNotice } from '@/src/apis/notices';
+import { GetNoticesRequest, getNotice, getPersonalNotice } from '@/src/apis/notices';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useToken } from '@/src/utils/TokenProvider';
 import { axiosInstance } from '@/src/apis/axiosInstance';
+import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 
 const cx = classNames.bind(styles);
 
 export default function PersonalNotices() {
-  const defaultRequestParams = {
+  const defaultRequestParams: GetNoticesRequest = {
     offset: 0,
     limit: 6,
+    // address: filterData.selectedRegions.join('&'), // 배열을 문자열로 결합하여 할당,
   };
   const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
   const { token, setToken } = useToken();
@@ -60,24 +62,6 @@ export default function PersonalNotices() {
 
   if (!token) {
   }
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['notices'],
-    queryFn: () => getPersonalNotice(defaultRequestParams),
-  });
-
-  const items =
-    data?.items.map((item) => ({
-      title: item.item.shop.item.name,
-      date: item.item.startsAt.toString(),
-      workhour: item.item.workhour,
-      location: item.item.shop.item.address1,
-      wage: item.item.shop.item.originalHourlyPay,
-      imageUrl: item.item.shop.item.imageUrl,
-    })) || [];
-
-  const sortedItems = items
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 6); // 맞춤 공고 비로그인 상태일때 마감일자 기준 정렬
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
@@ -99,13 +83,27 @@ export default function PersonalNotices() {
     // 이전 타이머 정리
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  let queryString = `?offset=${defaultRequestParams.offset}&limit=${defaultRequestParams.limit}`;
+
+  if (userAddress) {
+    const addressParams = `address=${encodeURIComponent(userAddress)}`;
+    queryString += `&${addressParams}`;
   }
 
-  if (error) {
-    return <div>Error loading notices</div>;
-  }
+  const { isLoading, error, data } = useQuery<GetNoticesResponse>({
+    queryKey: ['notices', userAddress], // 주소가 변경될 때마다 쿼리 다시 실행
+    queryFn: () => getNotice(queryString), // getNotices 함수 호출
+  });
+
+  const items =
+    data?.items.map((item) => ({
+      title: item.item.shop.item.name,
+      date: item.item.startsAt.toString(),
+      workhour: item.item.workhour,
+      location: item.item.shop.item.address1,
+      wage: item.item.hourlyPay,
+      imageUrl: item.item.shop.item.imageUrl,
+    })) || [];
 
   return (
     <div className={cx('container')}>
@@ -113,7 +111,7 @@ export default function PersonalNotices() {
         <h1 className={cx('title')}>맞춤 공고</h1>
       </div>
       <div className={cx('noticesList-container')} ref={containerRef}>
-        {sortedItems.map((item, index) => (
+        {items.map((item, index) => (
           <CardItem
             key={index}
             title={item.title}
