@@ -11,7 +11,9 @@ export default function ResetButton({ onClick }: ResetButtonProps) {
 
   return (
     <>
-      <Button text="초기화" color="white" width={82} onClick={handleClick}></Button>
+      <Button color="white" width={82} onClick={handleClick}>
+        초기화
+      </Button>
     </>
   );
 }

@@ -3,10 +3,7 @@ import { Footer } from '@/src/components/common/ui-footer/Footer';
 import classNames from 'classnames/bind';
 import { ReactNode, RefObject } from 'react';
 import styles from './Layout.module.scss';
-import { ReactNode, RefObject } from 'react';
 import NavigationBar from '@/src/components/common/navigationBar/NavigationBar';
-import { Footer } from '@/src/components/common/ui-footer/Footer';
-
 
 const cx = classNames.bind(styles);
 
@@ -17,9 +14,9 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children, isSticky = true, footerRef }: LayoutProps) => (
-    <div>
-      <NavigationBar isSticky={isSticky} />
-      <main className={cx('main')}>{children}</main>
-      <Footer />
-    </div>
-  );
+  <div>
+    <NavigationBar isSticky={isSticky} />
+    <main className={cx('main')}>{children}</main>
+    <Footer />
+  </div>
+);

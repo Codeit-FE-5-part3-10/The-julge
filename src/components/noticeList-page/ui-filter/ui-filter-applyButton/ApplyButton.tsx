@@ -14,7 +14,9 @@ export default function ApplyButton({ onClick }: any) {
 
   return (
     <>
-      <Button text="적용하기" color="primary" width={50} onClick={handleClick}></Button>
+      <Button color="primary" width={150} onClick={handleClick}>
+        적용하기
+      </Button>
     </>
   );
 }

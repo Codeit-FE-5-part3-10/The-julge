@@ -20,12 +20,10 @@ export const postNotice = async (request: PostNoticeRequest): Promise<PostNotice
   return response.data;
 };
 
-export const getNotice = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
-  const response = await axiosInstance.get('/notices', { params: request });
-  return response.data;
-};
-
-export type { GetNoticesRequest };
+// export const getNotice = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
+//   const response = await axiosInstance.get('/notices', { params: request });
+//   return response.data;
+// };
 
 // 가게의 공고 목록 조회(의진)
 export const getShopNotices = async (
@@ -61,4 +59,3 @@ export const getPersonalNotice = async (
 };
 
 export type { GetNoticesRequest };
-
