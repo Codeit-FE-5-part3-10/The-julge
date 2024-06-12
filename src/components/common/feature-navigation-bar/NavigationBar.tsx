@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useToken } from '@/src/contexts/TokenProvider';
 import styles from './NavigationBar.module.scss';
 import Logo from '@/public/images/global-logo.svg';
 import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
+import { useAuth } from '@/src/contexts/AuthProvider';
 
 type NavigationBarProps = {
   isSticky: boolean;
@@ -17,15 +17,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const cx = classNames.bind(styles);
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
-  const { token, setToken } = useToken(); // useToken 훅
-
-  useEffect(() => {
-    // 로컬 스토리지에서 토큰 값 가져오기
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, [setToken]);
+  const { userId, userType, logout } = useAuth();
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -34,7 +26,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
   };
 
   const handleLogout = () => {
-    // 로컬 스토리지의 모든 값을 비우기
+    logout();
     localStorage.clear();
     window.location.reload();
   };
@@ -54,13 +46,12 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
             placeholder="가게 이름으로 찾아보세요"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={handleSearch} // Enter 키 이벤트 처리
+            onKeyDown={handleSearch}
           />
         </div>
-
-        {token ? (
+        {userType === 'employee' && (
           <div className={cx('buttons')}>
-            <Link href="/myprofile" className={cx('text')}>
+            <Link href={`user/${userId}`} className={cx('text')}>
               내 프로필
             </Link>
             <button type="button" onClick={handleLogout} className={cx('button')}>
@@ -68,7 +59,19 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
             </button>
             <Image src={NotificationIcon} className={cx('icon')} alt="알림 아이콘" />
           </div>
-        ) : (
+        )}
+        {userType === 'employee' && (
+          <div className={cx('buttons')}>
+            <Link href={`/shops/${userId}`} className={cx('text')}>
+              내 가게
+            </Link>
+            <button type="button" onClick={handleLogout} className={cx('button')}>
+              로그아웃
+            </button>
+            <Image src={NotificationIcon} className={cx('icon')} alt="알림 아이콘" />
+          </div>
+        )}
+        {userType === null && (
           <div className={cx('buttons')}>
             <Link href="/loginTest" className={cx('text')}>
               로그인

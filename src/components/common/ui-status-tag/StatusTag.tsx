@@ -1,7 +1,7 @@
 // StatusTag.tsx
 import classNames from 'classnames/bind';
 import styles from './StatusTag.module.scss';
-import { ModalProvider, useModal } from '@/src/contexts/ModalContext';
+import { useModal } from '@/src/contexts/ModalContext';
 import { modalType } from '@/src/constants/constant';
 
 const cx = classNames.bind(styles);

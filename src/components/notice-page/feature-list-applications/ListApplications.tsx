@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 export const ListApplication: React.FC = () => {
   const [page, setPage] = useState<number>(initialPage);
   const router = useRouter();
-  const { currentModal, applicationId, closeModal } = useModal();
+  const { currentModal, closeModal } = useModal();
 
   const { shop_id: shopId, notice_id: noticeId } = router.query;
 
