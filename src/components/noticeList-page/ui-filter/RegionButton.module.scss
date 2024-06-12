@@ -1,0 +1,13 @@
+@import '/src/styles/global.scss';
+
+.region-button {
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+.region-button.selected {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background-color: $color-red10;
+}

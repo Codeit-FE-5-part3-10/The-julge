@@ -4,6 +4,7 @@ export interface ItemElement {
 }
 
 export interface ItemItem {
+  address1: any;
   id: string;
   hourlyPay: number;
   startsAt: string;

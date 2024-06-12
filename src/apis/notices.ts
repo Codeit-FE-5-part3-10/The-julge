@@ -47,3 +47,18 @@ export const getShopSingleNotice = async (
   const response = await axiosInstance.get(`/shops/${shopId}/notices/${noticeId}`);
   return response.data;
 };
+
+export const getNotice = async (queryString: string): Promise<GetNoticesResponse> => {
+  const response = await axiosInstance.get(`/notices${queryString}`);
+  return response.data;
+};
+
+export const getPersonalNotice = async (
+  request: GetNoticesRequest
+): Promise<GetNoticesResponse> => {
+  const response = await axiosInstance.get(`/notices`, { params: request });
+  return response.data;
+};
+
+export type { GetNoticesRequest };
+

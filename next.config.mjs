@@ -10,6 +10,10 @@ export default withBundleAnalyzer({
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['bootcamp-project-api.s3.ap-northeast-2.amazonaws.com', 'i.pinimg.com'],
+    domains: [
+      'bootcamp-project-api.s3.ap-northeast-2.amazonaws.com',
+      'i.pinimg.com',
+      'encrypted-tbn0.gstatic.com',
+    ],
   },
 });
