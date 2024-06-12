@@ -67,6 +67,7 @@ export default function AllNotices() {
       location: item.item.shop.item.address1,
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
+      originalWage: item.item.shop.item.originalHourlyPay,
     })) || [];
 
   const count = data?.count ?? 1;

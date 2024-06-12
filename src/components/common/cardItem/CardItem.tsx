@@ -5,11 +5,10 @@ import locationIcon from 'public/images/path11.svg';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
+import Link from 'next/link';
 import styles from './cardItem.module.scss';
 import UpIcon from './UpIcon';
 import addHoursToTime from '@/src/utils/addHoursToTime';
-import Link from 'next/link';
-import { MIN_WAGE } from '@/src/constants/constant';
 
 interface CardItemProps {
   date: string;
@@ -18,13 +17,22 @@ interface CardItemProps {
   title: string;
   location: string;
   imageUrl?: string;
+  originalWage: number;
 }
 
-export default function CardItem({ title, date, time, location, wage, imageUrl }: CardItemProps) {
+export default function CardItem({
+  title,
+  date,
+  time,
+  location,
+  wage,
+  imageUrl,
+  originalWage,
+}: CardItemProps) {
   const cx = classNames.bind(styles);
   const formattedWage = wage.toLocaleString(); // 천 단위 쉼표 추가
-  const difference = wage - MIN_WAGE;
-  const n = Math.ceil((difference / MIN_WAGE) * 100); // 최저 임금과 시급 비교해서 나온 %값
+  const difference = wage - originalWage;
+  const n = Math.ceil((difference / originalWage) * 100); // 최저 임금과 시급 비교해서 나온 %값
   const upIcon = n <= 49 ? '#ff8d72' : '#ff4040';
   const [iconColor, setIconColor] = useState('#ff4040');
   const [textColor, setTextColor] = useState('#ff8d72');
@@ -55,7 +63,7 @@ export default function CardItem({ title, date, time, location, wage, imageUrl }
 
   //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <Link href={''} className={cx('container')}>
+    <>
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -86,6 +94,6 @@ export default function CardItem({ title, date, time, location, wage, imageUrl }
           <UpIcon color={iconColor} />
         </div>
       </div>
-    </Link>
+    </>
   );
 }
