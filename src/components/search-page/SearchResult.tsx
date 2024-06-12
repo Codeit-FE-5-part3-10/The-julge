@@ -70,6 +70,8 @@ export default function SearchResult() {
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
       originalWage: item.item.shop.item.originalHourlyPay,
+      shopId: item.item.shop.item.id,
+      noticeId: item.item.id,
     })) || [];
 
   const count = data?.count ?? 1;

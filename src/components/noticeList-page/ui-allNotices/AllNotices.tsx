@@ -11,6 +11,8 @@ import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 import { FilterData } from '../ui-filter/Filter';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 import { formatDate } from '@/src/utils/formatDateTime';
+import { userInfo } from 'os';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +23,9 @@ export default function AllNotices() {
     selectedRegions: [],
     selectedDate: '',
   });
+
+  const { userInfo } = useToken();
+  console.log('userInfo: ', userInfo);
 
   const handleApplyFilter = (filterData: FilterData) => {
     setFilterData(filterData);
@@ -68,8 +73,11 @@ export default function AllNotices() {
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
       originalWage: item.item.shop.item.originalHourlyPay,
+      shopId: item.item.shop.item.id,
+      noticeId: item.item.id,
     })) || [];
 
+  console.log(data);
   const count = data?.count ?? 1;
   let totPage;
   if (count % 6) {
