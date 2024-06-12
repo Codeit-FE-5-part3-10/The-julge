@@ -1,6 +1,16 @@
 @import '@/src/styles/global.scss';
 
-.container {
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+
+  @include tablet {
+    row-gap: 2.4rem;
+  }
+}
+
+.container_top {
   display: grid;
   grid-template-areas:
     'image'
@@ -8,16 +18,17 @@
     'info'
     '.'
     'buttons';
-  grid-template-rows: auto 12px auto 24px auto;
-  border-radius: 12px;
-  background-color: $color-red10;
-  padding: 20px;
-  width: 351px;
+  grid-template-rows: auto 1.2rem auto 2.4rem auto;
+  border-radius: 1.2rem;
+  border: 0.1rem solid $color-gray20;
+  background-color: white;
+  padding: 2rem;
+  width: 35.1rem;
 
   @include tablet {
-    grid-template-rows: auto 12px auto 40px auto;
-    padding: 24px;
-    width: 680px;
+    grid-template-rows: auto 1.2rem auto 4rem auto;
+    padding: 2.4rem;
+    width: 68rem;
   }
 
   @include desktop {
@@ -25,29 +36,38 @@
       'image . info'
       'image . .'
       'image . buttons';
-    grid-template-columns: 546px 30px auto;
+    grid-template-columns: 54.6rem 3rem auto;
     grid-template-rows: auto auto auto;
-    width: 964px;
+    width: 96.4rem;
   }
+}
+
+.container_bottom {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+  border-radius: 1.2rem;
+  background-color: $color-gray10;
+  padding: 3.2rem;
 }
 
 .image {
   grid-area: image;
-  border-radius: 12px;
-  width: 311px;
-  height: 178px;
+  border-radius: 1.2rem;
+  width: 31.1rem;
+  height: 17.8rem;
   overflow: hidden;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 
   @include tablet {
-    width: 632px;
-    height: 362px;
+    width: 63.2rem;
+    height: 36.2rem;
   }
   @include desktop {
-    width: 546px;
-    height: 313px;
+    width: 54.6rem;
+    height: 31.3rem;
   }
 }
 
@@ -56,25 +76,22 @@
   display: flex;
   align-items: start;
   flex-direction: column;
-  row-gap: 8px;
-
-  @include desktop {
-    margin-top: 16px;
-  }
+  row-gap: 0.8rem;
 }
 
 .box {
   display: flex;
-  column-gap: 6px;
+  align-items: center;
+  column-gap: 0.6rem;
 }
 
 .icon {
-  width: 16px;
-  height: 16px;
+  width: 1.6rem;
+  height: 1.6rem;
 
   @include tablet {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
   }
 }
 
@@ -83,48 +100,77 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  column-gap: 8px;
+  column-gap: 0.8rem;
 }
 
 .label {
   color: $color-primary;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 700;
   line-height: 125%;
 
   @include tablet {
-    font-size: 16px;
+    font-size: 1.6rem;
   }
 }
 
 .name {
   color: $color-black;
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 700;
-  letter-spacing: 0.48px;
+  letter-spacing: 0.048rem;
 
   @include tablet {
-    font-size: 28px;
-    letter-spacing: 0.56px;
+    font-size: 2.8rem;
+    letter-spacing: 0.056rem;
   }
 }
 
-.address1,
 .description {
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 400;
-  line-height: 22px;
+  line-height: 2.2rem;
+  color: $color-black;
 
   @include tablet {
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+
+  &.gray {
+    color: $color-gray50;
+  }
+  &.head {
+    font-weight: 700;
   }
 }
 
-.address1 {
-  color: $color-gray50;
+.container_compare {
+  display: flex;
+  align-items: center;
+  column-gap: 0.2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: 400;
+
+  @include tablet {
+    justify-content: center;
+    height: 3.6rem;
+    border-radius: 2rem;
+    padding: 1.2rem;
+    background-color: $color-red40;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    font-weight: 700;
+  }
 }
 
-.description {
-  color: $color-black;
+.compare {
+  color: inherit;
+
+  @include tablet {
+    color: white;
+    font-weight: 700;
+  }
 }

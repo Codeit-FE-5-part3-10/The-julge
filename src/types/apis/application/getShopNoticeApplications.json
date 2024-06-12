@@ -1,0 +1,154 @@
+{
+  "offset": 0,
+  "limit": 2,
+  "count": 9,
+  "hasNext": true,
+  "items": [
+    {
+      "item": {
+        "id": "845537d3-319d-4764-8a09-f8b36918ea8f",
+        "status": "pending",
+        "createdAt": "2023-07-20T06:04:14.360Z",
+        "user": {
+          "item": {
+            "id": "3f2002fa-895d-4448-86ed-5209f10be166",
+            "email": "a1@a1.com",
+            "type": "employee",
+            "name": "dasdas",
+            "phone": "01022224444",
+            "address": "서울시 중구",
+            "bio": "dasdada"
+          },
+          "href": "/api/0-1/the-julge/users/3f2002fa-895d-4448-86ed-5209f10be166"
+        },
+        "shop": {
+          "item": {
+            "id": "be05aa78-7d4e-4f17-9b3a-babb41181caf",
+            "name": "와인 한 모금",
+            "category": "중식",
+            "address1": "서울시 용산구",
+            "address2": "백범로77길 33",
+            "description": "스페인 음식점",
+            "imageUrl": "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/0-1/the-julge/d3fdf139-8b17-46ac-8e72-9ceb9893ae68-xef.jpeg",
+            "originalHourlyPay": 40000
+          },
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+        },
+        "notice": {
+          "item": {
+            "id": "fef6de9c-78cc-47b5-808a-69c9ccf87927",
+            "hourlyPay": 100000,
+            "description": "도와주세요ㅌㅋㅋㅋ",
+            "startsAt": "2023-09-22T14:00:00.000Z",
+            "workhour": 23,
+            "closed": false
+          },
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927"
+        }
+      },
+      "links": [
+        {
+          "rel": "update",
+          "description": "지원 승인/거절",
+          "method": "PUT",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications/845537d3-319d-4764-8a09-f8b36918ea8f",
+          "body": {
+            "status": "accepted | rejected"
+          }
+        }
+      ]
+    },
+    {
+      "item": {
+        "id": "2e0a03ef-222a-49fb-b15b-a8e914adcbe9",
+        "status": "pending",
+        "createdAt": "2023-07-20T01:04:23.252Z",
+        "user": {
+          "item": {
+            "id": "b0c263f5-62fe-49c0-873a-908821d2e686",
+            "email": "uu@uu.com",
+            "type": "employee",
+            "name": "이이",
+            "phone": "01022228888",
+            "address": "서울시 종로구",
+            "bio": "안녕하세요 ㅋㅋ"
+          },
+          "href": "/api/0-1/the-julge/users/b0c263f5-62fe-49c0-873a-908821d2e686"
+        },
+        "shop": {
+          "item": {
+            "id": "be05aa78-7d4e-4f17-9b3a-babb41181caf",
+            "name": "와인 한 모금",
+            "category": "중식",
+            "address1": "서울시 용산구",
+            "address2": "백범로77길 33",
+            "description": "스페인 음식점",
+            "imageUrl": "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/0-1/the-julge/d3fdf139-8b17-46ac-8e72-9ceb9893ae68-xef.jpeg",
+            "originalHourlyPay": 40000
+          },
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+        },
+        "notice": {
+          "item": {
+            "id": "fef6de9c-78cc-47b5-808a-69c9ccf87927",
+            "hourlyPay": 100000,
+            "description": "도와주세요ㅌㅋㅋㅋ",
+            "startsAt": "2023-09-22T14:00:00.000Z",
+            "workhour": 23,
+            "closed": false
+          },
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927"
+        }
+      },
+      "links": [
+        {
+          "rel": "update",
+          "description": "지원 승인/거절",
+          "method": "PUT",
+          "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications/2e0a03ef-222a-49fb-b15b-a8e914adcbe9",
+          "body": {
+            "status": "accepted | rejected"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "description": "현재 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications?offset=0&limit=2"
+    },
+    {
+      "rel": "prev",
+      "description": "이전 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications?offset=0&limit=2"
+    },
+    {
+      "rel": "next",
+      "description": "다음 페이지",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications?offset=2&limit=2"
+    },
+    {
+      "rel": "create",
+      "description": "지원하기",
+      "method": "POST",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927/applications"
+    },
+    {
+      "rel": "shop",
+      "description": "가게 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+    },
+    {
+      "rel": "notice",
+      "description": "공고 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/fef6de9c-78cc-47b5-808a-69c9ccf87927"
+    }
+  ]
+}

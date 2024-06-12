@@ -3,13 +3,12 @@ export default function addHoursToTime(formattedTime: string, time: number): str
   // formattedTime을 "HH:mm" 형식에서 시간과 분으로 분리
   const [hoursStr, minutesStr] = formattedTime.split(':');
   const hours = parseInt(hoursStr, 10); // 문자열을 숫자로 변환
-  const minutes = parseInt(minutesStr, 10); // 문자열을 숫자로 변환
 
   // 새로운 시간 계산
   let newHours = hours + time;
 
   // 시간이 24 이상이면 24로 나눈 나머지를 취하여 시간 정규화
-  newHours = newHours % 24;
+  newHours %= 24;
 
   // 문자열로 변환
   const newHoursStr = newHours.toString().padStart(2, '0');

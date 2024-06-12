@@ -56,7 +56,7 @@
       border-left: 0;
     }
 
-    // 숨기기
+    // 화면이 좁아지면 일부 열 숨기기
     th:nth-child(2),
     td:nth-child(2) {
       display: none;
@@ -82,5 +82,65 @@
         display: table-cell;
       }
     }
+  }
+
+  // 열 너비
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 50%;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 50%;
+  }
+
+  @include tablet {
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 30%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 30%;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 40%;
+    }
+  }
+
+  @include tablet {
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 15%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 15%;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 40%;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 30%;
+    }
+  }
+}
+
+.empty {
+  font-size: 14px;
+  line-height: 157.143%;
+  text-align: center;
+
+  @include tablet {
+    font-size: 16px;
   }
 }

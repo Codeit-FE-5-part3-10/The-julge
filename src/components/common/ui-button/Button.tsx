@@ -5,18 +5,18 @@ import styles from './Button.module.scss';
 const cx = classNames.bind(styles);
 
 interface ButtonProps {
-  text: string;
+  children: React.PropsWithChildren<string>;
   color: 'primary' | 'white' | 'gray';
-  width?: number;
-  to?: string; // 클릭시 이동할 URL을 받을 prop
-  onClick?: () => void; // 클릭 이벤트 핸들러 함수를 받을 prop
+  width?: number | string;
+  to?: string;
+  onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ text, color, width, to, onClick }) => {
-  const className = cx('button', color, width);
+export const Button: React.FC<ButtonProps> = ({ children, color, width, to, onClick }) => {
+  const className = cx('button', color);
 
   const handleClick = () => {
-    // 만약 onClick prop이 주어졌다면 실행
+    //  안전성 검사 : 만약 prop이 제대로 주어졌다면 실행
     if (onClick) {
       onClick();
     }
@@ -27,9 +27,14 @@ export const Button: React.FC<ButtonProps> = ({ text, color, width, to, onClick 
     }
   };
 
+  // width가 주어지지 않았을 때 기본값을 '100%'로 설정
+  const buttonStyle = {
+    width: width || '100%',
+  };
+
   return (
-    <button type="button" onClick={handleClick} className={className}>
-      {text}
+    <button type="button" onClick={handleClick} className={className} style={buttonStyle}>
+      {children}
     </button>
   );
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import { items } from '@/src/types/types';
 import { StatusTag } from '../ui-status-tag/StatusTag';
 import styles from './Table.module.scss';
 

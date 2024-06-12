@@ -38,15 +38,23 @@ export default function Shop() {
     return <div>No data</div>;
   }
 
-  const { name, address1, description, imageUrl } = data.item;
-  const shop = { name, address1, description, imageUrl };
+  const {
+    name,
+    address1: location,
+    description,
+    imageUrl,
+    originalHourlyPay: originalWage,
+  } = data.item;
 
   return (
     <Layout>
-      <Section title="내 가게" content={<DetailShop params={shop} />} />
+      <Section
+        title="내 가게"
+        content={<DetailShop params={{ name, location, description, imageUrl }} />}
+      />
       <Section
         title="등록한 공고"
-        content={<ListNotice title={shop.name} location={shop.address1} shopId={shopId} />}
+        content={<ListNotice params={{ name, location, imageUrl, originalWage }} shopId={shopId} />}
         gray
         bottom
       />

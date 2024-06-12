@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { ListNotice } from '@/src/components/shop-page/feature-list-notice/ListNotice';
-import { DetailShop } from '@/src/components/shop-page/ui-detail-shop/DetailShop';
-import { ShopLayout } from '@/src/layouts/detail-layout/ShopLayout';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { getShopSingleNotice } from '@/src/apis/notices';
 import { Section } from '@/src/layouts/section/Section';
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
+import { ListApplication } from '@/src/components/notice-page/feature-list-applications/ListApplications';
+import { ModalProvider } from '@/src/contexts/ModalContext';
 
 export default function Notice() {
   const router = useRouter();
@@ -43,13 +42,31 @@ export default function Notice() {
     return <div>No data</div>;
   }
 
-  const { hourlyPay, startsAt, workhour, description, closed } = data.item;
-  const { address1, imageUrl } = data.item.shop.item;
-  const notice = { hourlyPay, startsAt, workhour, description, closed, address1, imageUrl };
+  const { hourlyPay, startsAt, workhour, description: noticeDescription, closed } = data.item;
+  const {
+    address1,
+    imageUrl,
+    description: shopDescription,
+    originalHourlyPay,
+  } = data.item.shop.item;
+  const notice = {
+    wage: hourlyPay,
+    originalWage: originalHourlyPay,
+    date: startsAt.toString(),
+    time: workhour,
+    noticeDescription,
+    shopDescription,
+    closed,
+    location: address1,
+    imageUrl,
+  };
 
   return (
     <Layout>
-      <Section title={data.item.shop.item.name} content={<DetailNotice params={notice} />} />
+      <Section title={data.item.shop.item.name} content={<DetailNotice params={notice} />} gray />
+      <ModalProvider>
+        <Section title="신청자 목록" content={<ListApplication />} />
+      </ModalProvider>
     </Layout>
   );
 }
