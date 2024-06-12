@@ -9,6 +9,7 @@ import { MIN_WAGE } from '@/src/constants/constant';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
 import addHoursToTime from '@/src/utils/addHoursToTime';
+import Link from 'next/link';
 
 interface CardItemProps {
   title: string;
@@ -59,7 +60,7 @@ export default function CardItem({ title, date, time, location, wage, imageUrl }
 
   //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <div className={cx('container')}>
+    <Link href={''} className={cx('container')}>
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -90,6 +91,6 @@ export default function CardItem({ title, date, time, location, wage, imageUrl }
           <UpIcon color={iconColor} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
