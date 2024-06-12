@@ -1,5 +1,9 @@
 import { useToken } from '@/src/utils/TokenProvider';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
+import styles from './loginTest.module.scss';
+
+const cx = classNames.bind(styles);
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,15 +16,15 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={cx('warp')} onSubmit={handleSubmit}>
       <div>
-        <label>
+        <label className={cx('container')}>
           이메일:
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </label>
       </div>
       <div>
-        <label>
+        <label className={cx('container')}>
           비밀번호:
           <input
             type="password"
@@ -30,7 +34,9 @@ const Login = () => {
           />
         </label>
       </div>
-      <button type="submit">로그인</button>
+      <button className={cx('btn')} type="submit">
+        로그인
+      </button>
     </form>
   );
 };
