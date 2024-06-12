@@ -6,6 +6,7 @@ import { MantineProvider } from '@mantine/core';
 import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { theme } from '../theme';
+import { TokenProvider } from '@/src/utils/TokenProvider';
 
 export default function App({ Component, pageProps }: any) {
   const [queryClient] = useState(() => new QueryClient());
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps }: any) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
+          <TokenProvider>
+            <Component {...pageProps} />
+          </TokenProvider>
         </HydrationBoundary>
         <ReactQueryDevtools />
       </QueryClientProvider>

@@ -4,9 +4,10 @@ export interface ItemElement {
 }
 
 export interface ItemItem {
+  address1: any;
   id: string;
   hourlyPay: number;
-  startsAt: Date;
+  startsAt: string;
   workhour: number;
   description: string;
   closed: boolean;

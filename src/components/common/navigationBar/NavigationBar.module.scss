@@ -54,9 +54,14 @@
 
 .buttons-container {
   display: flex;
+  align-items: center;
   gap: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
+}
+
+.notification {
+  display: flex;
 }
 
 .searchBar {

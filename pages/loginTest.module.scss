@@ -1,0 +1,21 @@
+@import '/src/styles/global.scss';
+
+.warp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 10rem;
+  height: 10rem;
+  font-size: 2rem;
+}
+
+.btn {
+  border: 1px solid black;
+  width: 20rem;
+  height: 10rem;
+  font-size: 2rem;
+}
