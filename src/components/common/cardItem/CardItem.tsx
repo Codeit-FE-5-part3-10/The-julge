@@ -63,7 +63,7 @@ export default function CardItem({
 
   //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <>
+    <div className={cx('container')}>
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -94,6 +94,6 @@ export default function CardItem({
           <UpIcon color={iconColor} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
