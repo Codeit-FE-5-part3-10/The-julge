@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import { useToken } from '@/src/utils/TokenProvider';
 import styles from './loginTest.module.scss';
+import { useAuth } from '@/src/contexts/AuthProvider';
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login }: any = useToken();
+  const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email, password);
+    login(email, password);
   };
 
   return (

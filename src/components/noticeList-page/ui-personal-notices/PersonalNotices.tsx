@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../../common/cardItem/CardItem';
 import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
 import { axiosInstance } from '@/src/apis/axiosInstance';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 import { useToken } from '@/src/contexts/TokenProvider';
@@ -59,9 +59,6 @@ export default function PersonalNotices() {
       fetchUserData(userId);
     }
   }, [userId, token]);
-
-  if (!token) {
-  }
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
