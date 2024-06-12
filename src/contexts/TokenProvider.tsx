@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { axiosInstance } from '../apis/axiosInstance';
 import { useRouter } from 'next/router';
+import { axiosInstance } from '../apis/axiosInstance';
 
 // 테스트 토큰
 // wjy123@test.com  test123 employee

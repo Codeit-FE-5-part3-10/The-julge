@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './PersonalNotices.module.scss';
 import CardItem from '../../common/cardItem/CardItem';
-import { GetNoticesRequest, getNotice, getPersonalNotice } from '@/src/apis/notices';
+import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
-import { useToken } from '@/src/utils/TokenProvider';
 import { axiosInstance } from '@/src/apis/axiosInstance';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
+import { useToken } from '@/src/contexts/TokenProvider';
 
 const cx = classNames.bind(styles);
 
