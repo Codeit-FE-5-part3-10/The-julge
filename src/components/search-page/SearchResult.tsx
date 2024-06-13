@@ -1,17 +1,16 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 import styles from './SearchResult.module.scss';
 import DropDown from '../noticeList-page/ui-allNotices/DropDown';
 import FilterButton from '../noticeList-page/ui-allNotices/FilterButton';
 import { NoticeList } from '../common/feature-notice-list/NoticeList';
-import PaginationTest from '../common/ui-pagination/PaginationTest';
-import { useEffect, useState } from 'react';
+import { PaginationTest } from '../common/ui-pagination/PaginationTest';
 import { FilterData } from '../noticeList-page/ui-filter/Filter';
-import error from 'next/error';
 import { formatDate } from '@/src/utils/formatDateTime';
 import { GetNoticesRequest, GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 import { getNotice } from '@/src/apis/notices';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/router';
 
 const cx = classNames.bind(styles);
 
@@ -25,8 +24,8 @@ export default function SearchResult() {
   const router = useRouter();
   const { keyword } = router.query;
 
-  const handleApplyFilter = (filterData: FilterData) => {
-    setFilterData(filterData);
+  const handleApplyFilter = (filteredData: FilterData) => {
+    setFilterData(filteredData);
   };
 
   const defaultRequestParams: GetNoticesRequest = {

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { getShopSingleNotice } from '@/src/apis/notices';
 import { Section } from '@/src/layouts/section/Section';
@@ -8,7 +9,6 @@ import { ListApplication } from '@/src/components/notice-page/feature-list-appli
 import { ModalProvider } from '@/src/contexts/ModalContext';
 import NoticeDetail from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
 import { useToken } from '@/src/utils/TokenProvider';
-import { useEffect, useState } from 'react';
 import { getUserItem } from '@/src/apis/user';
 
 export default function Notice() {
@@ -52,11 +52,7 @@ export default function Notice() {
   });
 
   const userId = userInfo?.id;
-  const {
-    data: profileData,
-    isLoading: isProfileLoading,
-    error: profileError,
-  } = useQuery({
+  const { data: profileData } = useQuery({
     queryKey: ['profile', userId],
     queryFn: async () => {
       if (userId) {
@@ -82,7 +78,6 @@ export default function Notice() {
   if (!data || !data.item) {
     return <div>No data</div>;
   }
-  console.log('userInfo: ', userInfo?.type);
 
   const { hourlyPay, startsAt, workhour, description: noticeDescription, closed } = data.item;
   const {
@@ -118,7 +113,7 @@ export default function Notice() {
         </>
       ) : (
         <>
-          <Section title={'test'} content={<NoticeDetail />}></Section>
+          <Section title="test" content={<NoticeDetail />}></Section>
         </>
       )}
     </Layout>

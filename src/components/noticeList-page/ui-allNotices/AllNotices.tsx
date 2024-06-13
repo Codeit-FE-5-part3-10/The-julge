@@ -1,5 +1,5 @@
 // AllNotices.tsx
-import React, { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
@@ -11,8 +11,6 @@ import { getNotice, GetNoticesRequest } from '@/src/apis/notices';
 import { FilterData } from '../ui-filter/Filter';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 import { formatDate } from '@/src/utils/formatDateTime';
-import { userInfo } from 'os';
-import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 
@@ -24,11 +22,8 @@ export default function AllNotices() {
     selectedDate: '',
   });
 
-  const { userInfo } = useToken();
-  console.log('userInfo: ', userInfo);
-
-  const handleApplyFilter = (filterData: FilterData) => {
-    setFilterData(filterData);
+  const handleApplyFilter = (filteredData: FilterData) => {
+    setFilterData(filteredData);
   };
 
   const defaultRequestParams: GetNoticesRequest = {
@@ -77,7 +72,6 @@ export default function AllNotices() {
       noticeId: item.item.id,
     })) || [];
 
-  console.log(data);
   const count = data?.count ?? 1;
   let totPage;
   if (count % 6) {
