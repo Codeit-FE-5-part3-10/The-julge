@@ -25,18 +25,20 @@ export default function PersonalNotices() {
   const handleWidthCalculated = (width: number) => {
     setCardWidth(width); // CardItem 컴포넌트의 너비를 상태로 관리
   };
+  const [scrollPosition, setScrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
 
     if (!container) return;
-
+    // 새로고침 시 스크롤 위치 복원
+    container.scrollLeft = scrollPosition;
     const interval = setInterval(() => {
       // // const scrollAmount =
-      // console.log('width:', cardWidth);
-      // console.log('container.scrollLeft: ', container.scrollLeft);
-      // console.log('container.clientWidth: ', container.clientWidth);
-      // console.log('container.scrollWidth: ', container.scrollWidth);
+      console.log('width:', cardWidth);
+      console.log('container.scrollLeft: ', container.scrollLeft);
+      console.log('container.clientWidth: ', container.clientWidth);
+      console.log('container.scrollWidth: ', container.scrollWidth);
 
       if (container.scrollLeft + container.clientWidth + 1 >= container.scrollWidth) {
         // 스크롤 위치와 컨테이너의 가시 너비의 합이 전체 콘텐츠 너비와 같거나 더 큰지 확인
@@ -54,7 +56,7 @@ export default function PersonalNotices() {
     };
     // useEffect의 클린업 함수. 컴포넌트가 언마운트 되거나 useEffect가 다시 실행될 때 clearInterval을 호출
     // 이전 타이머 정리
-  }, []);
+  }, [cardWidth, scrollPosition]);
 
   useEffect(() => {
     if (userInfo && userInfo.address) {
