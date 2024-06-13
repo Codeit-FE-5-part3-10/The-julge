@@ -7,7 +7,7 @@ import { Section } from '@/src/layouts/section/Section';
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
 import { ListApplication } from '@/src/components/notice-page/feature-list-applications/ListApplications';
 import { ModalProvider } from '@/src/contexts/ModalContext';
-import NoticeDetail from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
+import { NoticeDetail } from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
 import { useToken } from '@/src/utils/TokenProvider';
 import { getUserItem } from '@/src/apis/user';
 
@@ -119,7 +119,13 @@ export default function Notice() {
           </ModalProvider>
         </>
       ) : (
-        userType === 'employee' && <Section title="test" content={<NoticeDetail />} />
+        (userType === 'employee' || userType === '') && (
+          <Section
+            title={data.item.shop.item.name}
+            content={<NoticeDetail params={notice} />}
+            gray
+          />
+        )
       )}
     </Layout>
   );

@@ -5,7 +5,6 @@ import locationIcon from 'public/images/path11.svg';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
-import Link from 'next/link';
 import styles from './cardItem.module.scss';
 import UpIcon from './UpIcon';
 import addHoursToTime from '@/src/utils/addHoursToTime';
