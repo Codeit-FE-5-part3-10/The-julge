@@ -1,8 +1,7 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
-import { axiosInstance } from '../apis/axiosInstance';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { atom, useRecoilState } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
+import { useRecoilState } from 'recoil';
+import { axiosInstance } from '../apis/axiosInstance';
 import { UserAtom, UserInfoType } from './atoms';
 
 type Token = string | null;
@@ -21,7 +20,7 @@ const TokenContext = createContext<TokenContextType | undefined>(undefined);
 export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<Token>(null);
   const router = useRouter();
-  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom); // UserAtom불러옴
 
   const login = async (email: string, password: string) => {
     try {
