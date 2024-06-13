@@ -56,9 +56,9 @@ export const NoticeDetail: React.FC<{
   const { formattedDate, formattedTime } = formatDateTime(date);
   const newFormattedTime = addHoursToTime(formattedTime, time);
   const { token, userInfo } = useToken();
-  const [isApply, setIsApply] = useState<boolean>();
+  const [isApply, setIsApply] = useState<boolean>(); // 지원한 공고인가
   const [applicationId, setApplicationId] = useState<string>(); // 지원ID
-  const [isCanceled, setIsCanceled] = useState<boolean>(false);
+  const [isCanceled, setIsCanceled] = useState<boolean>(false); // 취소한 공고인가
 
   useEffect(() => {
     fetchUserApplications({ userInfo, token, noticeId, setApplicationId, setIsApply });

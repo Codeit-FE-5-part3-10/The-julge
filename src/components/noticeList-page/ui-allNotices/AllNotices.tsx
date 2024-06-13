@@ -1,4 +1,3 @@
-// AllNotices.tsx
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';

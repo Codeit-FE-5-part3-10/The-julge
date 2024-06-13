@@ -1,68 +1,30 @@
 import classNames from 'classnames/bind';
-import styles from './PersonalNotices.module.scss';
-import CardItem from '../../common/cardItem/CardItem';
-import { GetNoticesRequest, getNotice, getPersonalNotice } from '@/src/apis/notices';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
-import { useToken } from '@/src/utils/TokenProvider';
-import { axiosInstance } from '@/src/apis/axiosInstance';
-import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 import Link from 'next/link';
+import { Loader } from '@mantine/core';
+import styles from './PersonalNotices.module.scss';
+import CardItem from '../../common/cardItem/CardItem';
+import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
+import { useToken } from '@/src/utils/TokenProvider';
+import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
 
 const cx = classNames.bind(styles);
 
 export default function PersonalNotices() {
+  const { userInfo } = useToken();
+  const [userAddress, setUserAddress] = useState<string>('');
   const defaultRequestParams: GetNoticesRequest = {
     offset: 0,
     limit: 6,
-    // address: filterData.selectedRegions.join('&'), // 배열을 문자열로 결합하여 할당,
   };
   const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
-  const { token, setToken } = useToken();
-  const [userId, setUserId] = useState<string | null>(null);
-  const [userAddress, setUserAddress] = useState<string | null>(null);
 
   useEffect(() => {
-    // 로컬 스토리지에서 토큰 값 가져오기
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+    if (userInfo && userInfo.address) {
+      setUserAddress(userInfo.address);
     }
-  }, [setToken]);
-
-  useEffect(() => {
-    if (token) {
-      // 토큰을 디코드해서 userId를 얻음.
-      const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
-      const userIdFromToken = decodedToken.userId;
-      setUserId(userIdFromToken);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    const fetchUserData = async (userId: string) => {
-      try {
-        const response = await axiosInstance.get(`/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.data && response.data.item && response.data.item.address) {
-          setUserAddress(response.data.item.address);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    if (userId) {
-      fetchUserData(userId);
-    }
-  }, [userId, token]);
-
-  if (!token) {
-  }
+  }, [userInfo]);
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
@@ -79,7 +41,10 @@ export default function PersonalNotices() {
       }
     }, 2000);
 
-    return () => clearInterval(interval);
+    // eslint-disable-next-line consistent-return
+    return () => {
+      clearInterval(interval);
+    };
     // useEffect의 클린업 함수. 컴포넌트가 언마운트 되거나 useEffect가 다시 실행될 때 clearInterval을 호출
     // 이전 타이머 정리
   }, []);
@@ -96,6 +61,13 @@ export default function PersonalNotices() {
     queryFn: () => getNotice(queryString), // getNotices 함수 호출
   });
 
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (error) {
+    return <div>API 전송 오류</div>;
+  }
+
   const items =
     data?.items.map((item) => ({
       title: item.item.shop.item.name,
@@ -105,6 +77,8 @@ export default function PersonalNotices() {
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
       originalWage: item.item.shop.item.originalHourlyPay,
+      shopId: item.item.shop.item.id,
+      noticeId: item.item.id,
     })) || [];
 
   return (
@@ -113,10 +87,9 @@ export default function PersonalNotices() {
         <h1 className={cx('title')}>맞춤 공고</h1>
       </div>
       <div className={cx('noticesList-container')} ref={containerRef}>
-        <Link href={''}>
-          {items.map((item, index) => (
+        {items.map((item, index) => (
+          <Link href={`/shops/${item.shopId}/notices/${item.noticeId}`} key={index}>
             <CardItem
-              key={index}
               title={item.title}
               date={item.date}
               time={item.workhour}
@@ -125,8 +98,8 @@ export default function PersonalNotices() {
               imageUrl={item.imageUrl}
               originalWage={item.originalWage}
             />
-          ))}
-        </Link>
+          </Link>
+        ))}
       </div>
     </div>
   );
