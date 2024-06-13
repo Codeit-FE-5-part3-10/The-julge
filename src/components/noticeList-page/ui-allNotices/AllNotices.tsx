@@ -1,5 +1,5 @@
 // AllNotices.tsx
-import React, { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
@@ -22,8 +22,8 @@ export default function AllNotices() {
     selectedDate: '',
   });
 
-  const handleApplyFilter = (filterData: FilterData) => {
-    setFilterData(filterData);
+  const handleApplyFilter = (filteredData: FilterData) => {
+    setFilterData(filteredData);
   };
 
   const defaultRequestParams: GetNoticesRequest = {
@@ -68,6 +68,8 @@ export default function AllNotices() {
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
       originalWage: item.item.shop.item.originalHourlyPay,
+      shopId: item.item.shop.item.id,
+      noticeId: item.item.id,
     })) || [];
 
   const count = data?.count ?? 1;
