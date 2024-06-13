@@ -11,6 +11,7 @@ import locationIcon from '@/public/images/card-location-red.svg';
 import { postNoticeApplication, putShopNoticeApplicationStatus } from '@/src/apis/applications';
 import { fetchUserApplications } from '../feature-noticeDetail-page/fetchUserApplications';
 import { useToken } from '@/src/utils/TokenProvider';
+import Modal from '../../common/modal/Modal';
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +60,7 @@ export const NoticeDetail: React.FC<{
   const [isApply, setIsApply] = useState<boolean>(); // 지원한 공고인가
   const [applicationId, setApplicationId] = useState<string>(); // 지원ID
   const [isCanceled, setIsCanceled] = useState<boolean>(false); // 취소한 공고인가
+  const [isModalOpen, setModalOpen] = useState<ModalItems | null>(null);
 
   useEffect(() => {
     fetchUserApplications({ userInfo, token, noticeId, setApplicationId, setIsApply });
@@ -87,7 +89,28 @@ export const NoticeDetail: React.FC<{
   }, []);
 
   const handleApplication = async () => {
-    if (token) {
+    if (!token) {
+      setModalOpen({
+        content: '로그인 후 사용해주세요!',
+        modalType: 'success',
+        link: '/loginTest',
+        btnText: 'question에서 메인컬러 버튼 Text',
+      });
+    } else if (token && userInfo?.type === 'employer') {
+      setModalOpen({
+        content: '사장님은 사용할 수 없습니다!',
+        modalType: 'warning',
+        link: '',
+        btnText: 'question에서 메인컬러 버튼 Text',
+      });
+    } else if (token && !userInfo?.name) {
+      setModalOpen({
+        content: '프로필 등록 후 사용해주세요!',
+        modalType: 'success',
+        link: `${userInfo?.id}'/profile'`,
+        btnText: 'question에서 메인컬러 버튼 Text',
+      });
+    } else {
       try {
         const response = await postNoticeApplication(shopId, noticeId, token);
         setApplicationId(response.item.id);
@@ -115,6 +138,13 @@ export const NoticeDetail: React.FC<{
       console.error('토큰 혹은 신청 ID가 없습니다.');
     }
   };
+
+  interface ModalItems {
+    content: string;
+    modalType: 'warning' | 'success' | 'question';
+    link: string;
+    btnText: string;
+  }
 
   return (
     <div className={cx('wrapper')}>
@@ -160,6 +190,15 @@ export const NoticeDetail: React.FC<{
         <h1 className={cx('description', 'head')}>공고 설명</h1>
         <p className={cx('description')}>{noticeDescription}</p>
       </div>
+      {isModalOpen && (
+        <Modal
+          setModal={setModalOpen}
+          modalItems={isModalOpen}
+          content={isModalOpen.content}
+          link={isModalOpen.link}
+          btnText={isModalOpen.btnText}
+        />
+      )}
     </div>
   );
 };

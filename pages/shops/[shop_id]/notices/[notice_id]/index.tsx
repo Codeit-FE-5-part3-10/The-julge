@@ -120,7 +120,7 @@ export default function Notice() {
           </ModalProvider>
         </>
       ) : (
-        (userType === 'employee' || userType === '') && (
+        (userType === 'employee' || userType === '' || userType === 'employer') && (
           <>
             <Section
               title={data.item.shop.item.name}
