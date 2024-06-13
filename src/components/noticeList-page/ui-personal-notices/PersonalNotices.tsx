@@ -32,6 +32,12 @@ export default function PersonalNotices() {
     if (!container) return;
 
     const interval = setInterval(() => {
+      // // const scrollAmount =
+      // console.log('width:', cardWidth);
+      // console.log('container.scrollLeft: ', container.scrollLeft);
+      // console.log('container.clientWidth: ', container.clientWidth);
+      // console.log('container.scrollWidth: ', container.scrollWidth);
+
       if (container.scrollLeft + container.clientWidth + 1 >= container.scrollWidth) {
         // 스크롤 위치와 컨테이너의 가시 너비의 합이 전체 콘텐츠 너비와 같거나 더 큰지 확인
         // 조건이 참이면 컨테이너가 끝까지 스크롤된 상태. 그럼 처음으로

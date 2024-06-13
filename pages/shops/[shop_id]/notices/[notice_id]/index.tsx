@@ -71,7 +71,6 @@ export default function Notice() {
     },
     enabled: !!userId,
   });
-  console.log('profileData: ', profileData);
 
   // TODO: 로딩, 오류 처리
   if (isLoading) {

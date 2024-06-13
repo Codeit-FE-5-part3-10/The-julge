@@ -29,7 +29,6 @@ export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
 
     // 중복된 noticeId가 있는지 확인
     if (storedItems.some((storedItem) => storedItem.noticeId === item.noticeId)) {
-      console.log('Item already exists in localStorage:', item);
       return; // 중복된 경우 저장하지 않고 종료
     }
 
@@ -37,7 +36,6 @@ export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
     const newItems = [item, ...storedItems.slice(0, MAX_ITEMS - 1)];
 
     localStorage.setItem('recentItems', JSON.stringify(newItems));
-    console.log('Item selected:', item);
   };
 
   return (
