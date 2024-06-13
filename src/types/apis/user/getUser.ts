@@ -3,7 +3,7 @@ export interface GetUserResponse {
   links: Link[];
 }
 
-interface GetUserItem {
+export interface GetUserItem {
   id: string;
   email: string;
   type: 'employer' | 'employee';

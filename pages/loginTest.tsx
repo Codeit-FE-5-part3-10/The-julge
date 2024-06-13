@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './loginTest.module.scss';
-import { useAuth } from '@/src/contexts/AuthProvider';
+import { useToken } from '@/src/contexts/TokenProvider';
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login } = useToken();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

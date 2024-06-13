@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import styles from './PersonalNotices.module.scss';
-import CardItem from '../../common/cardItem/CardItem';
 import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
+import CardItem from '../../common/cardItem/CardItem';
+import { useToken } from '@/src/contexts/TokenProvider';
 import { axiosInstance } from '@/src/apis/axiosInstance';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
-import { useToken } from '@/src/contexts/TokenProvider';
 
 const cx = classNames.bind(styles);
 
@@ -17,31 +17,13 @@ export default function PersonalNotices() {
     // address: filterData.selectedRegions.join('&'), // 배열을 문자열로 결합하여 할당,
   };
   const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
-  const { token, setToken } = useToken();
-  const [userId, setUserId] = useState<string | null>(null);
+  const { token, userInfo } = useToken();
   const [userAddress, setUserAddress] = useState<string | null>(null);
 
   useEffect(() => {
-    // 로컬 스토리지에서 토큰 값 가져오기
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, [setToken]);
-
-  useEffect(() => {
-    if (token) {
-      // 토큰을 디코드해서 userId를 얻음.
-      const decodedToken: any = JSON.parse(atob(token.split('.')[1]));
-      const userIdFromToken = decodedToken.userId;
-      setUserId(userIdFromToken);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    const fetchUserData = async (userId: string) => {
+    const fetchUserData = async (param: string) => {
       try {
-        const response = await axiosInstance.get(`/users/${userId}`, {
+        const response = await axiosInstance.get(`/users/${param}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -55,10 +37,10 @@ export default function PersonalNotices() {
       }
     };
 
-    if (userId) {
-      fetchUserData(userId);
+    if (userInfo?.id) {
+      fetchUserData(userInfo.id);
     }
-  }, [userId, token]);
+  }, [userInfo, token]);
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당

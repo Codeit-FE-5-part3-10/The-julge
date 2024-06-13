@@ -23,6 +23,6 @@ export interface UserItem {
   bio: string;
 }
 
-export type Token = string | null;
-export type UserType = 'employee' | 'employer' | null;
-export type UserId = string | null;
+export type Token = string;
+export type UserType = 'employee' | 'employer';
+export type UserId = string;

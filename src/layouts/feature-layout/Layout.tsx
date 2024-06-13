@@ -12,9 +12,9 @@ type LayoutProps = {
   footerRef?: RefObject<HTMLElement>;
 };
 
-export const Layout = ({ children, isSticky = true, footerRef }: LayoutProps) => (
+export const Layout = ({ children, footerRef }: LayoutProps) => (
   <div>
-    <NavigationBar isSticky={isSticky} />
+    <NavigationBar />
     <main className={cx('main')}>{children}</main>
     <Footer />
   </div>

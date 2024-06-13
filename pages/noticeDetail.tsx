@@ -1,5 +1,5 @@
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
-import { useToken } from '@/src/contexts/TokenProvider';
+import { useToken } from '@/src/utils/TokenProvider';
 import { useEffect, useState } from 'react';
 
 function noticeDetail() {

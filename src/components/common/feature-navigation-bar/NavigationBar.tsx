@@ -1,13 +1,15 @@
+// NavigationBar.tsx
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from './NavigationBar.module.scss';
 import Logo from '@/public/images/global-logo.svg';
 import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
-import { useAuth } from '@/src/contexts/AuthProvider';
+import { useToken } from '@/src/contexts/TokenProvider';
+import { getUser } from '@/src/apis/user';
 
 type NavigationBarProps = {
   isSticky: boolean;
@@ -16,8 +18,10 @@ type NavigationBarProps = {
 export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const cx = classNames.bind(styles);
   const [searchTerm, setSearchTerm] = useState('');
+  const [shopId, setShopId] = useState<string | null>(null);
   const router = useRouter();
-  const { userId, userType, logout } = useAuth();
+  const { userInfo, logout } = useToken();
+  const { id: userId, type: userType } = userInfo || { id: null, type: null };
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -25,11 +29,22 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    localStorage.clear();
-    window.location.reload();
-  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (userType === 'employer' && userId) {
+        try {
+          const response = await getUser(userId);
+          if (response.item.shop) {
+            setShopId(response.item.shop.item.id);
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [userType, userId]);
 
   return (
     <div className={cx('wrapper', { sticky: isSticky })}>
@@ -49,28 +64,31 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
             onKeyDown={handleSearch}
           />
         </div>
+        {userType === 'employer' && (
+          <div className={cx('buttons')}>
+            {shopId && (
+              <Link href={`/shops/${shopId}`} className={cx('text')}>
+                내 가게
+              </Link>
+            )}
+            <button type="button" onClick={logout} className={cx('button')}>
+              로그아웃
+            </button>
+            <Image src={NotificationIcon} className={cx('icon')} alt="알림 아이콘" />
+          </div>
+        )}
         {userType === 'employee' && (
           <div className={cx('buttons')}>
             <Link href={`user/${userId}`} className={cx('text')}>
               내 프로필
             </Link>
-            <button type="button" onClick={handleLogout} className={cx('button')}>
+            <button type="button" onClick={logout} className={cx('button')}>
               로그아웃
             </button>
             <Image src={NotificationIcon} className={cx('icon')} alt="알림 아이콘" />
           </div>
         )}
-        {userType === 'employee' && (
-          <div className={cx('buttons')}>
-            <Link href={`/shops/${userId}`} className={cx('text')}>
-              내 가게
-            </Link>
-            <button type="button" onClick={handleLogout} className={cx('button')}>
-              로그아웃
-            </button>
-            <Image src={NotificationIcon} className={cx('icon')} alt="알림 아이콘" />
-          </div>
-        )}
+
         {userType === null && (
           <div className={cx('buttons')}>
             <Link href="/loginTest" className={cx('text')}>
