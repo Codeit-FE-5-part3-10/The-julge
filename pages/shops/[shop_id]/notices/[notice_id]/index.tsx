@@ -1,15 +1,38 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { getShopSingleNotice } from '@/src/apis/notices';
 import { Section } from '@/src/layouts/section/Section';
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
 import { ListApplication } from '@/src/components/notice-page/feature-list-applications/ListApplications';
 import { ModalProvider } from '@/src/contexts/ModalContext';
+import NoticeDetail from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
+import { useToken } from '@/src/utils/TokenProvider';
+import { getUserItem } from '@/src/apis/user';
 
 export default function Notice() {
   const router = useRouter();
   const { shop_id: shopId, notice_id: noticeId } = router.query;
+  const [userType, setUserType] = useState('');
+  const { userInfo } = useToken();
+  const [myShopId, setMyShopId] = useState<string>();
+  const [isMyShop, setIsMyShop] = useState<boolean>();
+  useEffect(() => {
+    if (userInfo?.type === 'employer') {
+      setUserType('employer');
+    } else if (userInfo?.type === 'employee') {
+      setUserType('employee');
+    } else {
+      setUserType('');
+    }
+
+    if (shopId === myShopId) {
+      setIsMyShop(true);
+    } else {
+      setIsMyShop(false);
+    }
+  }, [userInfo, myShopId]);
 
   if (typeof shopId !== 'string') {
     return <div>Invalid shop ID</div>;
@@ -26,6 +49,20 @@ export default function Notice() {
       return response;
     },
     enabled: !!shopId && !!noticeId,
+  });
+
+  const userId = userInfo?.id;
+  const { data: profileData } = useQuery({
+    queryKey: ['profile', userId],
+    queryFn: async () => {
+      if (userId) {
+        const result = await getUserItem(userId);
+        setMyShopId(profileData?.item.shop?.item.id);
+        return result;
+      }
+      return null;
+    },
+    enabled: !!userId,
   });
 
   // TODO: 로딩, 오류 처리
@@ -63,10 +100,22 @@ export default function Notice() {
 
   return (
     <Layout>
-      <Section title={data.item.shop.item.name} content={<DetailNotice params={notice} />} gray />
-      <ModalProvider>
-        <Section title="신청자 목록" content={<ListApplication />} />
-      </ModalProvider>
+      {userType === 'employer' && isMyShop ? (
+        <>
+          <Section
+            title={data.item.shop.item.name}
+            content={<DetailNotice params={notice} />}
+            gray
+          />
+          <ModalProvider>
+            <Section title="신청자 목록" content={<ListApplication />} />
+          </ModalProvider>
+        </>
+      ) : (
+        <>
+          <Section title="test" content={<NoticeDetail />}></Section>
+        </>
+      )}
     </Layout>
   );
 }

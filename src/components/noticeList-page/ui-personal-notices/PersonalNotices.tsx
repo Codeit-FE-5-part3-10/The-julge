@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useToken } from '@/src/utils/TokenProvider';
 import { axiosInstance } from '@/src/apis/axiosInstance';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
+import Link from 'next/link';
 
 const cx = classNames.bind(styles);
 
@@ -103,6 +104,7 @@ export default function PersonalNotices() {
       location: item.item.shop.item.address1,
       wage: item.item.hourlyPay,
       imageUrl: item.item.shop.item.imageUrl,
+      originalWage: item.item.shop.item.originalHourlyPay,
     })) || [];
 
   return (
@@ -111,17 +113,20 @@ export default function PersonalNotices() {
         <h1 className={cx('title')}>맞춤 공고</h1>
       </div>
       <div className={cx('noticesList-container')} ref={containerRef}>
-        {items.map((item, index) => (
-          <CardItem
-            key={index}
-            title={item.title}
-            date={item.date}
-            time={item.workhour}
-            location={item.location}
-            wage={item.wage}
-            imageUrl={item.imageUrl}
-          />
-        ))}
+        <Link href={''}>
+          {items.map((item, index) => (
+            <CardItem
+              key={index}
+              title={item.title}
+              date={item.date}
+              time={item.workhour}
+              location={item.location}
+              wage={item.wage}
+              imageUrl={item.imageUrl}
+              originalWage={item.originalWage}
+            />
+          ))}
+        </Link>
       </div>
     </div>
   );

@@ -1,14 +1,8 @@
-import axios from 'axios';
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { axiosInstance } from '../apis/axiosInstance';
 import { useRouter } from 'next/router';
-
-// 테스트 토큰
-// wjy123@test.com  test123 employee
-const TestToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MWYzNWQ2Mi1hNzM0LTRkOWUtOGQ4Yi05NzNhMzkxNjEzNDEiLCJpYXQiOjE3MTgxMjQyMjd9.BM9TuI8dVRJ5W10EQLTmPEGFtMFhggR4gj4iXQYU5ug';
-const email = 'wjy123@test.com';
-const password = 'test123';
+import { useRecoilState } from 'recoil';
+import { axiosInstance } from '../apis/axiosInstance';
+import { UserAtom, UserInfoType } from './atoms';
 
 type Token = string | null;
 
@@ -17,19 +11,22 @@ interface TokenContextType {
   token: Token;
   setToken: (token: Token) => void;
   login: any;
+  userInfo: UserInfoType | null;
+  setUserInfo: (userInfo: UserInfoType) => void;
 }
 
 const TokenContext = createContext<TokenContextType | undefined>(undefined);
 
-// 토큰을 제공하는 프로바이더
 export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<Token>(null);
   const router = useRouter();
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom); // UserAtom불러옴
 
   const login = async (email: string, password: string) => {
     try {
       const response = await axiosInstance.post('/token', { email, password });
       setToken(response.data.item.token);
+      setUserInfo(response.data.item.user.item);
       localStorage.setItem('token', response.data.item.token); // 토큰을 로컬 스토리지에 저장
       console.log('로그인성공');
       router.push('/');
@@ -39,7 +36,9 @@ export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <TokenContext.Provider value={{ token, setToken, login }}>{children}</TokenContext.Provider>
+    <TokenContext.Provider value={{ token, setToken, login, userInfo, setUserInfo }}>
+      {children}
+    </TokenContext.Provider>
   );
 };
 

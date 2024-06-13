@@ -7,27 +7,30 @@ import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/r
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { theme } from '../theme';
 import { TokenProvider } from '@/src/utils/TokenProvider';
+import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: any) {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <MantineProvider theme={theme}>
-      <Head>
-        <title>Mantine Template</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
-        />
-        <link rel="shortcut icon" href="/favicon.svg" />
-      </Head>
-      <QueryClientProvider client={queryClient}>
-        <HydrationBoundary state={pageProps.dehydratedState}>
-          <TokenProvider>
-            <Component {...pageProps} />
-          </TokenProvider>
-        </HydrationBoundary>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </MantineProvider>
+    <RecoilRoot>
+      <MantineProvider theme={theme}>
+        <Head>
+          <title>Mantine Template</title>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+          />
+          <link rel="shortcut icon" href="/favicon.svg" />
+        </Head>
+        <QueryClientProvider client={queryClient}>
+          <HydrationBoundary state={pageProps.dehydratedState}>
+            <TokenProvider>
+              <Component {...pageProps} />
+            </TokenProvider>
+          </HydrationBoundary>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </MantineProvider>
+    </RecoilRoot>
   );
 }
