@@ -10,6 +10,7 @@ import { ModalProvider } from '@/src/contexts/ModalContext';
 import { NoticeDetail } from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
 import { useToken } from '@/src/utils/TokenProvider';
 import { getUserItem } from '@/src/apis/user';
+import { RecentNotice } from '@/src/components/detail-page/ui-recent-notice/RecentNotice';
 
 export default function Notice() {
   const router = useRouter();
@@ -120,11 +121,14 @@ export default function Notice() {
         </>
       ) : (
         (userType === 'employee' || userType === '') && (
-          <Section
-            title={data.item.shop.item.name}
-            content={<NoticeDetail params={notice} noticeId={noticeId} shopId={shopId} />}
-            gray
-          />
+          <>
+            <Section
+              title={data.item.shop.item.name}
+              content={<NoticeDetail params={notice} noticeId={noticeId} shopId={shopId} />}
+              gray
+            />
+            <Section title="최근에 본 공고" content={<RecentNotice />} />
+          </>
         )
       )}
     </Layout>

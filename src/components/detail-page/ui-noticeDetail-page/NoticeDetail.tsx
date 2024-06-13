@@ -97,8 +97,6 @@ export const NoticeDetail: React.FC<{
       } catch (error) {
         console.error('신청 오류:', error);
       }
-    } else {
-      console.error('토큰이 없습니다.');
     }
   };
 
