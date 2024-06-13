@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import axios from 'axios';
-import { Box, Button, Center, Container, TextInput, Text } from '@mantine/core';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import logoImage from '@/public/images/global-logo.svg';
+import React, { useCallback, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { Box, Button, Center, Container, TextInput, Text } from "@mantine/core";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import logoImage from "@/public/images/global-logo.svg";
 
 type Inputs = {
   email: string;
@@ -23,21 +23,21 @@ const LoginPage = () => {
     formState: { errors },
     watch,
   } = useForm<Inputs>();
-  const emailValue = watch('email');
-  const passwordValue = watch('password');
+  const emailValue = watch("email");
+  const passwordValue = watch("password");
 
   const onSubmit: SubmitHandler<Inputs> = useCallback(
     async (data) => {
       try {
         const response = await axios.post(
-          'https://bootcamp-api.codeit.kr/api/0-1/the-julge/token',
+          "https://bootcamp-api.codeit.kr/api/0-1/the-julge/token",
           data
         );
-        const accessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', accessToken);
-        router.push('/index');
+        const accessToken = response.data.item.token;
+        localStorage.setItem("accessToken", accessToken);
+        router.push("/index");
       } catch (error) {
-        setApiError('비밀번호가 일치하지 않습니다.');
+        setApiError("비밀번호가 일치하지 않습니다.");
       }
     },
     [router]
@@ -46,8 +46,8 @@ const LoginPage = () => {
   const handleEmailBlur = useCallback(() => {
     if (!errors.email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(emailValue || '')) {
-        setEmailError('이메일 형식으로 작성해 주세요.');
+      if (!emailRegex.test(emailValue || "")) {
+        setEmailError("이메일 형식으로 작성해 주세요.");
       } else {
         setEmailError(null);
       }
@@ -57,7 +57,7 @@ const LoginPage = () => {
   const handlePasswordBlur = useCallback(() => {
     if (!errors.password) {
       if (passwordValue.length < 8) {
-        setPasswordError('8자 이상 작성해 주세요.');
+        setPasswordError("8자 이상 작성해 주세요.");
       } else {
         setPasswordError(null);
       }
@@ -65,23 +65,23 @@ const LoginPage = () => {
   }, [passwordValue]);
 
   const handleLogoClick = () => {
-    router.push('/index');
+    router.push("/index");
   };
 
   const handleSignUpClick = () => {
-    router.push('/signup');
+    router.push("/signup");
   };
 
   return (
     <Container
       style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Box style={{ width: '100%', maxWidth: 400 }}>
+      <Box style={{ width: "100%", maxWidth: 400 }}>
         <Center>
           <Button onClick={handleLogoClick} style={{ padding: 0 }}>
             <Image src={logoImage} alt="로고" width={248} height={45} />
@@ -91,16 +91,16 @@ const LoginPage = () => {
           component="form"
           onSubmit={handleSubmit(onSubmit)}
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <TextInput
             my={24}
             label="이메일"
             placeholder="입력"
-            {...register('email', { required: '이메일을 입력해 주세요.' })}
+            {...register("email", { required: "이메일을 입력해 주세요." })}
             onBlur={handleEmailBlur}
             error={emailError || (errors.email && errors.email.message)}
             w={350}
@@ -109,18 +109,21 @@ const LoginPage = () => {
 
           <TextInput
             my={24}
+            display={"flex"}
             label="비밀번호"
             placeholder="입력"
             type="password"
-            {...register('password', { required: '비밀번호를 입력해 주세요.' })}
+            {...register("password", { required: "비밀번호를 입력해 주세요." })}
             onBlur={handlePasswordBlur}
-            error={passwordError || (errors.password && errors.password.message)}
+            error={
+              passwordError || (errors.password && errors.password.message)
+            }
             w={350}
             h={58}
           />
           {apiError && <Text color="red">{apiError}</Text>}
           <Center>
-            <Button type="submit" w={350} style={{ width: '100%' }}>
+            <Button type="submit" w={350} style={{ width: "100%" }}>
               로그인
             </Button>
           </Center>
@@ -137,3 +140,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
