@@ -39,7 +39,6 @@ export default function Notice() {
     };
     fetchMyShopId();
   }, [userInfo, myShopId]);
-  console.log(isMyShop);
 
   if (typeof shopId !== 'string') {
     return <div>Invalid shop ID</div>;
@@ -71,6 +70,7 @@ export default function Notice() {
     },
     enabled: !!userId,
   });
+  console.log('profileData: ', profileData);
 
   // TODO: 로딩, 오류 처리
   if (isLoading) {
@@ -122,7 +122,7 @@ export default function Notice() {
         (userType === 'employee' || userType === '') && (
           <Section
             title={data.item.shop.item.name}
-            content={<NoticeDetail params={notice} />}
+            content={<NoticeDetail params={notice} noticeId={noticeId} shopId={shopId} />}
             gray
           />
         )

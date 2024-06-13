@@ -8,6 +8,9 @@ import UpIcon from '../../common/cardItem/UpIcon';
 import watchIcon from '@/public/images/card-time-red.svg';
 import { Button } from '../../common/ui-button/Button';
 import locationIcon from '@/public/images/card-location-red.svg';
+import { postNoticeApplication, putShopNoticeApplicationStatus } from '@/src/apis/applications';
+import { fetchUserApplications } from '../feature-noticeDetail-page/fetchUserApplications';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +28,13 @@ interface DetailNoticeProps {
   };
 }
 
-export const NoticeDetail: React.FC<{ params: DetailNoticeProps['params'] }> = ({
+export const NoticeDetail: React.FC<{
+  noticeId: string;
+  shopId: string;
+  params: DetailNoticeProps['params'];
+}> = ({
+  noticeId,
+  shopId,
   params: {
     wage,
     originalWage,
@@ -46,6 +55,14 @@ export const NoticeDetail: React.FC<{ params: DetailNoticeProps['params'] }> = (
   const formattedWage = wage.toLocaleString();
   const { formattedDate, formattedTime } = formatDateTime(date);
   const newFormattedTime = addHoursToTime(formattedTime, time);
+  const { token, userInfo } = useToken();
+  const [isApply, setIsApply] = useState<boolean>();
+  const [applicationId, setApplicationId] = useState<string>(); // 지원ID
+  const [isCanceled, setIsCanceled] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchUserApplications({ userInfo, token, noticeId, setApplicationId, setIsApply });
+  }, [userInfo, token, noticeId, shopId, setApplicationId, setIsApply]);
 
   useEffect(() => {
     //업 아이콘 색상변경
@@ -68,6 +85,38 @@ export const NoticeDetail: React.FC<{ params: DetailNoticeProps['params'] }> = (
       window.removeEventListener('resize', updateColors);
     };
   }, []);
+
+  const handleApplication = async () => {
+    if (token) {
+      try {
+        const response = await postNoticeApplication(shopId, noticeId, token);
+        setApplicationId(response.item.id);
+        setIsApply(true);
+        setIsCanceled(false);
+        console.log('신청하기 완료');
+      } catch (error) {
+        console.error('신청 오류:', error);
+      }
+    } else {
+      console.error('토큰이 없습니다.');
+    }
+  };
+
+  const handleCancel = async () => {
+    if (token && applicationId) {
+      try {
+        await putShopNoticeApplicationStatus(shopId, noticeId, applicationId, 'canceled', token);
+        setIsApply(false);
+        setIsCanceled(true);
+        setApplicationId(''); // 취소 후에 applicationId 초기화
+        console.log('취소 성공');
+      } catch (error) {
+        console.error('취소 오류: ', error);
+      }
+    } else {
+      console.error('토큰 혹은 신청 ID가 없습니다.');
+    }
+  };
 
   return (
     <div className={cx('wrapper')}>
@@ -98,9 +147,15 @@ export const NoticeDetail: React.FC<{ params: DetailNoticeProps['params'] }> = (
           <p className={cx('description')}>{shopDescription}</p>
         </div>
         <div className={cx('buttons')}>
-          <Button color="primary" to="/NoticeEdit">
-            신청하기
-          </Button>
+          {isApply && !isCanceled ? (
+            <Button color="white" onClick={handleCancel}>
+              취소하기
+            </Button>
+          ) : (
+            <Button color="primary" onClick={handleApplication}>
+              신청하기
+            </Button>
+          )}
         </div>
       </div>
       <div className={cx('container_bottom')}>
