@@ -18,6 +18,7 @@ export default function Notice() {
   const { userInfo } = useToken();
   const [myShopId, setMyShopId] = useState<string>();
   const [isMyShop, setIsMyShop] = useState<boolean>();
+
   useEffect(() => {
     if (userInfo?.type === 'employer') {
       setUserType('employer');
@@ -26,13 +27,19 @@ export default function Notice() {
     } else {
       setUserType('');
     }
-
-    if (shopId === myShopId) {
-      setIsMyShop(true);
-    } else {
-      setIsMyShop(false);
-    }
+    const fetchMyShopId = async () => {
+      // 사용자 정보로부터 해당 사용자의 상점 ID를 가져옵니다.
+      const userId = userInfo?.id;
+      if (userId) {
+        const result = await getUserItem(userId);
+        const myShopID = result?.item.shop?.item.id;
+        // 페이지 진입 전에 isMyShop 값을 설정합니다.
+        setIsMyShop(shopId === myShopID);
+      }
+    };
+    fetchMyShopId();
   }, [userInfo, myShopId]);
+  console.log(isMyShop);
 
   if (typeof shopId !== 'string') {
     return <div>Invalid shop ID</div>;
@@ -112,9 +119,7 @@ export default function Notice() {
           </ModalProvider>
         </>
       ) : (
-        <>
-          <Section title="test" content={<NoticeDetail />}></Section>
-        </>
+        userType === 'employee' && <Section title="test" content={<NoticeDetail />} />
       )}
     </Layout>
   );
