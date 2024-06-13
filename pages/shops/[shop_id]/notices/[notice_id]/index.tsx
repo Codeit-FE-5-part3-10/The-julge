@@ -8,8 +8,8 @@ import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/Deta
 import { ListApplication } from '@/src/components/notice-page/feature-list-applications/ListApplications';
 import { ModalProvider } from '@/src/contexts/ModalContext';
 import NoticeDetail from '@/src/components/detail-page/ui-noticeDetail-page/NoticeDetail';
-import { useToken } from '@/src/utils/TokenProvider';
 import { getUserItem } from '@/src/apis/user';
+import { useToken } from '@/src/contexts/TokenProvider';
 
 export default function Notice() {
   const router = useRouter();

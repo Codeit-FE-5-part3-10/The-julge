@@ -1,4 +1,4 @@
-import { useToken } from '@/src/utils/TokenProvider';
+import { useToken } from '@/src/contexts/TokenProvider';
 import { useEffect, useState } from 'react';
 
 export default function NoticeDetail() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useToken } from '@/src/utils/TokenProvider';
 import { decodeUserId } from '@/src/utils/decodeUserId';
+import { useToken } from '../contexts/TokenProvider';
 
 export const useUserId = () => {
   const { token } = useToken();

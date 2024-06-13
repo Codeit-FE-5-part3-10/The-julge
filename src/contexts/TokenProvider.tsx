@@ -2,7 +2,6 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 import { useRouter } from 'next/router';
 import { axiosInstance } from '../apis/axiosInstance';
 import { GetUserItem } from '../types/apis/user/getUser';
-import { Token } from '../types/apis/authentication/authentication';
 
 // 컨텍스트 생성
 interface TokenContextType {

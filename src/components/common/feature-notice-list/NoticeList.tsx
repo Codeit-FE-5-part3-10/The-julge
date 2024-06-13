@@ -4,10 +4,10 @@ import Link from 'next/link';
 import styles from './NoticeList.module.scss';
 import CardItem from '../cardItem/CardItem';
 import { getToken } from '@/src/apis/token';
-import { useToken } from '@/src/utils/TokenProvider';
 import { useUserId } from '@/src/utils/useUserId';
 import { getUser } from '@/src/apis/user';
 import { useQuery } from '@tanstack/react-query';
+import { useToken } from '@/src/contexts/TokenProvider';
 
 const cx = classNames.bind(styles);
 
