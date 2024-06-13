@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getShopNoticeApplicationsResponse } from '../types/apis/application/getShopNoticeApplications';
 import { axiosInstance } from './axiosInstance';
 
@@ -16,23 +15,25 @@ export const getShopNoticeApplications = async (
 };
 
 // 가게의 특정 공고 지원 승인, 거절 또는 취소
-export const putShopNoticeApplicationStatus = async (
-  shopId: string,
-  noticeId: string,
-  applicationId: string,
-  status: 'accepted' | 'rejected' | 'canceled',
-  token: string
-) => {
-  const response = await axios.put(
-    `/shops/${shopId}/notices/${noticeId}/application/${applicationId}`,
-    {
-      status,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+export interface UpdateStatusParams {
+  shopId: string | string[] | undefined;
+  noticeId: string | string[] | undefined;
+  applicationId: string | null;
+  newStatus: 'accepted' | 'rejected' | 'canceled';
+  token: string | null;
+}
+
+export const putShopNoticeApplicationStatus = async ({
+  shopId,
+  noticeId,
+  applicationId,
+  newStatus,
+  token,
+}: UpdateStatusParams): Promise<any> => {
+  const response = await axiosInstance.put(
+    `/shops/${shopId}/notices/${noticeId}/applications/${applicationId}`,
+    { status: newStatus },
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   return response.data;
 };

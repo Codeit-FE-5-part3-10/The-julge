@@ -9,6 +9,7 @@ export const MIN_WAGE = 9860;
 export const modalType = {
   decline: 'decline',
   approve: 'approve',
+  cancel: 'cancel',
 };
 
 export const TEST_TOKEN = {

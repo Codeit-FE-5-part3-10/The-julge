@@ -44,6 +44,10 @@
       color: $color-blue20;
       border: 1px solid $color-blue20;
     }
+    &.cancel {
+      color: $color-blue20;
+      border: 1px solid $color-blue20;
+    }
 
     @include tablet {
       padding: 1rem 2rem;
