@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Loader } from '@mantine/core';
 import styles from './PersonalNotices.module.scss';
-import CardItem from '../../common/cardItem/CardItem';
+import { CardItem } from '../../common/cardItem/CardItem';
 import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
 import { useToken } from '@/src/utils/TokenProvider';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
@@ -18,13 +18,13 @@ export default function PersonalNotices() {
     offset: 0,
     limit: 6,
   };
-  const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
 
-  useEffect(() => {
-    if (userInfo && userInfo.address) {
-      setUserAddress(userInfo.address);
-    }
-  }, [userInfo]);
+  const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
+  const itemRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState<number>(0);
+  const handleWidthCalculated = (width: number) => {
+    setCardWidth(width); // CardItem 컴포넌트의 너비를 상태로 관리
+  };
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
@@ -32,12 +32,13 @@ export default function PersonalNotices() {
     if (!container) return;
 
     const interval = setInterval(() => {
-      if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+      if (container.scrollLeft + container.clientWidth + 1 >= container.scrollWidth) {
         // 스크롤 위치와 컨테이너의 가시 너비의 합이 전체 콘텐츠 너비와 같거나 더 큰지 확인
         // 조건이 참이면 컨테이너가 끝까지 스크롤된 상태. 그럼 처음으로
         container.scrollLeft = 0;
       } else {
-        container.scrollLeft += 350; // 아니면 100픽셀씩 스크롤
+        // container.scrollLeft += 100;
+        container.scrollLeft += cardWidth;
       }
     }, 2000);
 
@@ -48,6 +49,12 @@ export default function PersonalNotices() {
     // useEffect의 클린업 함수. 컴포넌트가 언마운트 되거나 useEffect가 다시 실행될 때 clearInterval을 호출
     // 이전 타이머 정리
   }, []);
+
+  useEffect(() => {
+    if (userInfo && userInfo.address) {
+      setUserAddress(userInfo.address);
+    }
+  }, [userInfo]);
 
   let queryString = `?offset=${defaultRequestParams.offset}&limit=${defaultRequestParams.limit}`;
 
@@ -83,23 +90,28 @@ export default function PersonalNotices() {
 
   return (
     <div className={cx('container')}>
-      <div className={cx('title-container')}>
-        <h1 className={cx('title')}>맞춤 공고</h1>
-      </div>
-      <div className={cx('noticesList-container')} ref={containerRef}>
-        {items.map((item, index) => (
-          <Link href={`/shops/${item.shopId}/notices/${item.noticeId}`} key={index}>
-            <CardItem
-              title={item.title}
-              date={item.date}
-              time={item.workhour}
-              location={item.location}
-              wage={item.wage}
-              imageUrl={item.imageUrl}
-              originalWage={item.originalWage}
-            />
-          </Link>
-        ))}
+      <div className={cx('section')}>
+        <div className={cx('title-container')}>
+          <h1 className={cx('title')}>맞춤 공고</h1>
+        </div>
+        <div className={cx('scroll-container')} ref={containerRef}>
+          <div className={cx('noticesList-container')} ref={itemRef}>
+            {items.map((item, index) => (
+              <Link href={`/shops/${item.shopId}/notices/${item.noticeId}`} key={index}>
+                <CardItem
+                  title={item.title}
+                  date={item.date}
+                  time={item.workhour}
+                  location={item.location}
+                  wage={item.wage}
+                  imageUrl={item.imageUrl}
+                  originalWage={item.originalWage}
+                  onWidthCalculated={handleWidthCalculated}
+                />
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

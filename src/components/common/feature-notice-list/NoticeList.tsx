@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './NoticeList.module.scss';
-import CardItem from '../cardItem/CardItem';
+import { CardItem } from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 

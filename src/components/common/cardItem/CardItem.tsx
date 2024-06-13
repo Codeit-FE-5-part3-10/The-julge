@@ -2,7 +2,7 @@ import Image from 'next/image';
 import defaultImg from 'public/images/gom.png';
 import groupIcon from 'public/images/group.svg';
 import locationIcon from 'public/images/path11.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
 import styles from './cardItem.module.scss';
@@ -17,9 +17,11 @@ interface CardItemProps {
   location: string;
   imageUrl?: string;
   originalWage: number;
+  onWidthCalculated?: (width: number) => void; // 너비를 전달하기 위한 콜백 함수
 }
 
-export default function CardItem({
+export const CardItem: React.FC<CardItemProps> = ({
+  onWidthCalculated,
   title,
   date,
   time,
@@ -27,7 +29,7 @@ export default function CardItem({
   wage,
   imageUrl,
   originalWage,
-}: CardItemProps) {
+}: CardItemProps) => {
   const cx = classNames.bind(styles);
   const formattedWage = wage.toLocaleString(); // 천 단위 쉼표 추가
   const difference = wage - originalWage;
@@ -37,6 +39,15 @@ export default function CardItem({
   const [textColor, setTextColor] = useState('#ff8d72');
   const { formattedDate, formattedTime } = formatDateTime(date);
   const endTime = addHoursToTime(formattedTime, time);
+  const cardRef: any = useRef(null);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되었을 때 너비를 계산하고 부모 컴포넌트로 전달
+    if (cardRef.current && typeof onWidthCalculated === 'function') {
+      const width = cardRef.current.offsetWidth;
+      onWidthCalculated(width);
+    }
+  }, [onWidthCalculated]);
 
   useEffect(() => {
     //업 아이콘 색상변경
@@ -62,7 +73,7 @@ export default function CardItem({
 
   //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <div className={cx('container')}>
+    <div className={cx('container')} ref={cardRef}>
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -95,4 +106,4 @@ export default function CardItem({
       </div>
     </div>
   );
-}
+};
