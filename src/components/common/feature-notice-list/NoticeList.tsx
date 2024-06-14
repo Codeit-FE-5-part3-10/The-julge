@@ -5,7 +5,7 @@ import { CardItem } from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 
-interface CardItemProps {
+export interface CardItemProps {
   title: string;
   date: string;
   workhour: number;
