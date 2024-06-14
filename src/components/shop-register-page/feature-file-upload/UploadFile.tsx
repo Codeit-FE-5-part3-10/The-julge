@@ -17,7 +17,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      onFileChange(file);
+      onFileChange(event);
     }
   };
 
