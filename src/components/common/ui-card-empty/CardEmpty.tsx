@@ -14,7 +14,7 @@ export const CardEmpty: React.FC<CardEmptyProps> = ({ description, btnText, href
   <div className={cx('wrapper')}>
     <div className={cx('container')}>
       <h1 className={cx('description')}>{description}</h1>
-      <Button color="primary" width={200} to={href}>
+      <Button color="primary" width={270} to={href}>
         {btnText}
       </Button>
     </div>

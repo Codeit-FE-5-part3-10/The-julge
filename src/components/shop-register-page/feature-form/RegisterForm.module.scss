@@ -10,6 +10,18 @@
   width: 351px;
 
   @include tablet {
+    display: grid;
+    grid-template:
+      'name category'
+      'address1 address2'
+      'originalHourlyPay .'
+      'imageUrl imageUrl'
+      'description description'
+      'button button';
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 2rem;
+    row-gap: 2rem;
     width: 680px;
   }
 
@@ -29,6 +41,31 @@
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 2.6rem;
+  }
+
+  &.name {
+    grid-area: name;
+  }
+  &.category {
+    grid-area: category;
+  }
+  &.address1 {
+    grid-area: address1;
+  }
+  &.address2 {
+    grid-area: address2;
+  }
+  &.originalHourlyPay {
+    grid-area: originalHourlyPay;
+  }
+  &.imageUrl {
+    grid-area: imageUrl;
+  }
+  &.description {
+    grid-area: description;
+  }
+  &.button {
+    grid-area: button;
   }
 }
 

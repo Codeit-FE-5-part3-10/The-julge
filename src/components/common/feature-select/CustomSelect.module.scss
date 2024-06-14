@@ -19,7 +19,6 @@
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 2.6rem;
-  color: $color-gray40;
 }
 
 .select-arrow {
@@ -38,7 +37,7 @@
 .select-options {
   z-index: $z-index-popover;
   position: absolute;
-  top: 100%;
+  top: 120%;
   left: 0;
   background-color: white;
   box-shadow: none;
