@@ -10,13 +10,26 @@ import { getShopNotices } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
 
+interface Notice {
+  id: string;
+  startsAt: string;
+  workhour: string;
+  hourlyPay: number;
+}
+
 interface ListNoticeProps {
-  params: { name: string; location: string; imageUrl: string; originalWage: number };
+  name: string;
+  location: string;
+  imageUrl: string;
+  originalWage: number;
   shopId: string;
 }
 
 export const ListNotice: React.FC<ListNoticeProps> = ({
-  params: { name, location, imageUrl, originalWage },
+  name,
+  location,
+  imageUrl,
+  originalWage,
   shopId,
 }) => {
   const [page, setPage] = useState<number>(initialPage);
@@ -26,22 +39,21 @@ export const ListNotice: React.FC<ListNoticeProps> = ({
     error,
     isLoading,
   } = useQuery({
-    queryKey: ['getShopsNotices', shopId, page],
+    queryKey: ['getShopNotices', shopId, page],
     queryFn: () => getShopNotices(shopId, page, countPerPage),
     enabled: !!shopId,
   });
 
-  //TODO: 로딩과 에러 처리
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>로딩 중...</div>;
   }
 
   if (error) {
-    return <div>Error loading notices</div>;
+    return <div>공고를 불러오는 중 오류가 발생했습니다.</div>;
   }
 
   if (!notices || !notices.items || notices.items.length === 0) {
-    return <div>No notices</div>;
+    return <div>공고가 없습니다.</div>;
   }
 
   const total = Math.ceil(notices.count / countPerPage);
@@ -49,23 +61,19 @@ export const ListNotice: React.FC<ListNoticeProps> = ({
   return (
     <div className={cx('container')}>
       <div className={cx('list')}>
-        {notices.items.map((notice) => {
-          const { id: noticeId, startsAt, workhour, hourlyPay } = notice.item;
-          return (
-            <Link href={`/shops/${shopId}/notices/${noticeId}`}>
-              <CardItem
-                key={noticeId}
-                date={startsAt}
-                time={workhour}
-                wage={hourlyPay}
-                title={name}
-                location={location}
-                imageUrl={imageUrl}
-                originalWage={originalWage}
-              />
-            </Link>
-          );
-        })}
+        {notices.items.map((notice: Notice) => (
+          <Link key={notice.id} href={`/shops/${shopId}/notices/${notice.id}`}>
+            <CardItem
+              date={notice.startsAt}
+              time={notice.workhour}
+              wage={notice.hourlyPay}
+              title={name}
+              location={location}
+              imageUrl={imageUrl}
+              originalWage={originalWage}
+            />
+          </Link>
+        ))}
       </div>
       <Pagination
         initialPage={initialPage}

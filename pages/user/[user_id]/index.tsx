@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getUser, GetUserResponse } from '@/src/apis/user';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { CardEmpty } from '@/src/components/common/ui-card-empty/CardEmpty';
-import { MyprofileLayout } from '@/src/layouts/myprofile-layout/MyprofileLayout';
 import { ProfileCard } from '@/src/components/User-page/ui-profile-card/ProfileCard';
 import { Section } from '@/src/layouts/section/Section';
-import { ListApplication } from '@/src/components/User-page/list-notice/ListNotice';
+import { ListNotice } from '@/src/components/User-page/list-notice/ListNotice';
 import { useToken } from '@/src/utils/TokenProvider';
 
-export default function Myprofile() {
+const Myprofile = () => {
   const router = useRouter();
   const { user_id: userId } = router.query;
   const { userInfo } = useToken();
 
-  const { data: userProfile, error, isLoading } = useQuery<GetUserResponse>({
+  const {
+    data: userProfile,
+    error,
+    isLoading,
+  } = useQuery<GetUserResponse>({
     queryKey: ['getUser', userInfo?.id],
     queryFn: async () => {
       if (userInfo && userInfo.id) {
@@ -44,27 +47,16 @@ export default function Myprofile() {
   }
 
   const userProfileData = userProfile.item ?? {};
-  const usershop = userProfile.item.shop ?? {};
-
-  function hasKey(obj: object, key: string) {
-    if (typeof obj === 'object') {
-      return Object.prototype.hasOwnProperty.call(obj, key);
-    }
-    return false;
-  }
-
-  const hasProfile = hasKey(userProfileData, 'name');
-  const hasNotices = userProfile.item.shop !== undefined;
+  const hasProfile = !!userProfileData.name;
+  const hasShop = !!userProfileData.shop;
 
   return (
     <Layout>
-      <MyprofileLayout
-        profile={
+      <Section
+        title="내 프로필"
+        content={
           hasProfile ? (
-            <Section
-              title="내 가게"
-              content={<ProfileCard userData={userProfileData} />}
-            />
+            <ProfileCard userData={userProfileData} />
           ) : (
             <CardEmpty
               description="내 프로필을 등록하고 원하는 가게에 지원해보세요"
@@ -73,18 +65,36 @@ export default function Myprofile() {
             />
           )
         }
-        list={
-          hasProfile && hasNotices ? (
-            <ListApplication />
-          ) : hasProfile ? (
-            <CardEmpty
-              description="아직 신청 내역이 없어요."
-              btnText="공고 보러가기"
-              href="/list"
-            />
-          ) : null
-        }
       />
+      {hasShop ? (
+        <Section
+          title="내 가게"
+          content={
+            <ListNotice
+              params={{
+                name: userProfileData.shop.name,
+                location: userProfileData.shop.location,
+                imageUrl: userProfileData.shop.imageUrl,
+                originalWage: userProfileData.shop.originalWage,
+              }}
+              shopId={userProfileData.shop.id}
+            />
+          }
+        />
+      ) : (
+        <Section
+          title="내 가게"
+          content={
+            <CardEmpty
+              description="아직 가게가 등록되지 않았습니다."
+              btnText="가게 등록하기"
+              href="/shopRegister"
+            />
+          }
+        />
+      )}
     </Layout>
   );
-}
+};
+
+export default Myprofile;
