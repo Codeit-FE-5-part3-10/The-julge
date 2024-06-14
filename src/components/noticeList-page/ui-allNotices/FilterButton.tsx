@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import styles from './AllNotices.module.scss';
-import Filter, { FilterData } from '../ui-filter/Filter';
+import { useState } from 'react';
+import Filter from '../ui-filter/Filter';
+import { FilterData } from '../ui-filter/Filter';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,7 @@ export default function FilterButton({ onApply }: { onApply: (filterData: Filter
 
   return (
     <>
-      <button type="button" className={cx('filter')} onClick={toggleFilter}>
+      <button className={cx('filter')} onClick={toggleFilter}>
         상세 필터
       </button>
       {isOpen && <Filter onClose={toggleFilter} isOpen={false} onApply={onApply} />}
