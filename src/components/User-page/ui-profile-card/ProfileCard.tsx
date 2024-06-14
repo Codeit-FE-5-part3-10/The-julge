@@ -17,7 +17,7 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ userData }) => (
       <div className={cx('profile-title')}>이름</div>
       <div className={cx('profile-name')}>{userData.name}</div>
       <div className={cx('profile-phone')}>
-        <Image src="/images/ic-profile-address.svg" alt="addressIcon" width={20} height={20}/>
+        <Image src="/images/ic-profile-address.svg" alt="addressIcon" width={20} height={20} />
         {userData.phone}
       </div>
       <div className={cx('profile-address')}>

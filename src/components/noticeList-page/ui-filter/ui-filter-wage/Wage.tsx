@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './Wage.module.scss';
 import { useEffect, useState } from 'react';
 import { setWeek } from 'date-fns';
 import { el } from 'date-fns/locale';
+import styles from './Wage.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +19,7 @@ export default function Wage({ wage, onWageChange }: WageProps) {
   }, [wage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     const numberValue = parseInt(value, 10); // 숫자로 변환
     setInputData(numberValue);
     onWageChange(numberValue);

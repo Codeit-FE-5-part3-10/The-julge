@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
-import styles from './AllNotices.module.scss';
 import { useState } from 'react';
-import Filter from '../ui-filter/Filter';
-import { FilterData } from '../ui-filter/Filter';
+import styles from './AllNotices.module.scss';
+import Filter, { FilterData } from '../ui-filter/Filter';
 
 const cx = classNames.bind(styles);
 

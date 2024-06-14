@@ -9,8 +9,14 @@ module.exports = {
     project: './tsconfig.json',
   },
   rules: {
-    'react/react-in-jsx-scope': 'off',
-    'import/extensions': 'off',
+    'react/react-in-jsx-scope': 'warn',
+    'import/extensions': 'warn',
+    'no-unused-vars':'warn',
+    'react/button-has-type': 'warn',
+    'button-has-type': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    "jsx-a11y/click-events-have-key-events":'warn',
+    "jsx-a11y/no-static-element-interactions":'warn',
   },
 };
 

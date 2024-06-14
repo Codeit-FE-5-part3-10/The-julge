@@ -33,7 +33,7 @@ const LoginPage = () => {
           'https://bootcamp-api.codeit.kr/api/0-1/the-julge/token',
           data
         );
-        const accessToken = response.data.accessToken;
+        const { accessToken } = response.data;
         localStorage.setItem('accessToken', accessToken);
         router.push('/index');
       } catch (error) {

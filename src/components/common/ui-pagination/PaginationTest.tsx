@@ -1,9 +1,9 @@
 import { usePagination } from '@mantine/hooks';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import { Dispatch, SetStateAction } from 'react';
 import { image } from './constant';
 import styles from './Pagination.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 const cx = classNames.bind(styles);
 

@@ -1,14 +1,14 @@
-import Logo from '@/public/images/global-logo.svg';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
-import styles from './NavigationBar.module.scss';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Logo from '@/public/images/global-logo.svg';
+import styles from './NavigationBar.module.scss';
 import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
 import NotificationIconNew from '@/public/images/navigationbar-new.svg';
-import { useRouter } from 'next/router';
-import { useToken,  userInfo } from '@/src/utils/TokenProvider';
+import { useToken } from '@/src/utils/TokenProvider';
 
 type NavigationBarProps = {
   isSticky: boolean;

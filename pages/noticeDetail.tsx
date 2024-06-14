@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { DetailNotice } from '@/src/components/notice-page/ui-detail-notice/DetailNotice';
 import { useToken } from '@/src/utils/TokenProvider';
-import { useEffect, useState } from 'react';
 
 function noticeDetail() {
   const { token, setToken } = useToken();

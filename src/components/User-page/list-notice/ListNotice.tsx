@@ -3,10 +3,11 @@ import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import styles from './ListNotice.module.scss';
-import CardItem from '../../common/cardItem/CardItem';
+
 import { Pagination } from '../../common/ui-pagination/Pagination';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
 import { getShopNotices } from '@/src/apis/notices';
+import { CardItem } from '../../common/cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 
