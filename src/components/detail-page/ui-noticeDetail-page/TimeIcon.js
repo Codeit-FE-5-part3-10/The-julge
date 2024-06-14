@@ -3,8 +3,8 @@ const TimeIcon = ({ color }) => (
     width="17"
     height="16"
     viewBox="0 0 14 16"
-    fill-rule="evenodd"
-    clip-rule="evenodd"
+    fillRule="evenodd"
+    clipRule="evenodd"
     style={{ fill: color }}
     xmlns="http://www.w3.org/2000/svg"
   >

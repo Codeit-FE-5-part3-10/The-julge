@@ -1,8 +1,6 @@
 import classNames from 'classnames/bind';
-import styles from './Wage.module.scss';
 import { useEffect, useState } from 'react';
-import { setWeek } from 'date-fns';
-import { el } from 'date-fns/locale';
+import styles from './Wage.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +17,7 @@ export default function Wage({ wage, onWageChange }: WageProps) {
   }, [wage]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const { value } = e.target;
     const numberValue = parseInt(value, 10); // 숫자로 변환
     setInputData(numberValue);
     onWageChange(numberValue);
@@ -36,7 +34,7 @@ export default function Wage({ wage, onWageChange }: WageProps) {
             value={inputData === 0 ? '' : inputData} // 초기값이 0일 때는 빈 문자열로 표시
             placeholder="입력"
             onChange={handleChange}
-          ></input>
+          />
           <span className={cx('text-won')}>원</span>
         </div>
         <span>이상부터</span>

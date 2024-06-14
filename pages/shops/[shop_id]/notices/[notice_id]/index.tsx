@@ -14,12 +14,14 @@ import { RecentNotice } from '@/src/components/detail-page/ui-recent-notice/Rece
 
 export default function Notice() {
   const router = useRouter();
-  const { shop_id: shopId, notice_id: noticeId } = router.query;
+  const { shop_id, notice_id } = router.query;
   const [userType, setUserType] = useState('');
   const { userInfo } = useToken();
   const [myShopId, setMyShopId] = useState<string>();
   const [isMyShop, setIsMyShop] = useState<boolean>();
-
+  // shopId와 noticeId가 undefined일 경우 빈 문자열로 초기화
+  const shopId = Array.isArray(shop_id) ? shop_id[0] : shop_id || '';
+  const noticeId = Array.isArray(notice_id) ? notice_id[0] : notice_id || '';
   useEffect(() => {
     if (userInfo?.type === 'employer') {
       setUserType('employer');
@@ -40,14 +42,6 @@ export default function Notice() {
     };
     fetchMyShopId();
   }, [userInfo, myShopId]);
-
-  if (typeof shopId !== 'string') {
-    return <div>Invalid shop ID</div>;
-  }
-
-  if (typeof noticeId !== 'string') {
-    return <div>Invalid notice ID</div>;
-  }
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['getShopSingleNotice', shopId, noticeId],
@@ -71,6 +65,24 @@ export default function Notice() {
     },
     enabled: !!userId,
   });
+
+  // shopId와 noticeId가 유효한지 확인하는 조건을 훅 호출 후로 이동
+  if (typeof shopId !== 'string') {
+    return <div>Invalid shop ID</div>;
+  }
+
+  if (typeof noticeId !== 'string') {
+    return <div>Invalid notice ID</div>;
+  }
+
+  // TODO: 로딩, 오류 처리
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading shop data</div>;
+  }
 
   // TODO: 로딩, 오류 처리
   if (isLoading) {
