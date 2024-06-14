@@ -8,6 +8,7 @@ export interface getShopNoticeApplicationsResponse {
 }
 
 export interface ItemElement {
+  id: any;
   item: ItemItem;
   links: Link[];
 }

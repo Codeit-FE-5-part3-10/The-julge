@@ -54,7 +54,7 @@ export const getNotice = async (queryString: string): Promise<GetNoticesResponse
 export const getPersonalNotice = async (
   request: GetNoticesRequest
 ): Promise<GetNoticesResponse> => {
-  const response = await axiosInstance.get(`/notices`, { params: request });
+  const response = await axiosInstance.get('/notices', { params: request });
   return response.data;
 };
 

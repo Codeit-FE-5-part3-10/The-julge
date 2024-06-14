@@ -1,0 +1,176 @@
+@import '@/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+
+  @include tablet {
+    row-gap: 2.4rem;
+  }
+}
+
+.container_top {
+  display: grid;
+  grid-template-areas:
+    'image'
+    '.'
+    'info'
+    '.'
+    'buttons';
+  grid-template-rows: auto 1.2rem auto 2.4rem auto;
+  border-radius: 1.2rem;
+  border: 0.1rem solid $color-gray20;
+  background-color: white;
+  padding: 2rem;
+  width: 35.1rem;
+
+  @include tablet {
+    grid-template-rows: auto 1.2rem auto 4rem auto;
+    padding: 2.4rem;
+    width: 68rem;
+  }
+
+  @include desktop {
+    grid-template-areas:
+      'image . info'
+      'image . .'
+      'image . buttons';
+    grid-template-columns: 54.6rem 3rem auto;
+    grid-template-rows: auto auto auto;
+    width: 96.4rem;
+  }
+}
+
+.container_bottom {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+  border-radius: 1.2rem;
+  background-color: $color-gray10;
+  padding: 3.2rem;
+}
+
+.image {
+  grid-area: image;
+  border-radius: 1.2rem;
+  width: 31.1rem;
+  height: 17.8rem;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @include tablet {
+    width: 63.2rem;
+    height: 36.2rem;
+  }
+  @include desktop {
+    width: 54.6rem;
+    height: 31.3rem;
+  }
+}
+
+.info {
+  grid-area: info;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  row-gap: 0.8rem;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.6rem;
+}
+
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  @include tablet {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 0.8rem;
+}
+
+.label {
+  color: $color-primary;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 125%;
+
+  @include tablet {
+    font-size: 1.6rem;
+  }
+}
+
+.name {
+  color: $color-black;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.048rem;
+
+  @include tablet {
+    font-size: 2.8rem;
+    letter-spacing: 0.056rem;
+  }
+}
+
+.description {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.2rem;
+  color: $color-black;
+
+  @include tablet {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+
+  &.gray {
+    color: $color-gray50;
+  }
+  &.head {
+    font-weight: 700;
+  }
+}
+
+.container_compare {
+  display: flex;
+  align-items: center;
+  column-gap: 0.2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: 400;
+
+  @include tablet {
+    justify-content: center;
+    height: 3.6rem;
+    border-radius: 2rem;
+    padding: 1.2rem;
+    background-color: $color-red40;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    font-weight: 700;
+  }
+}
+
+.compare {
+  color: inherit;
+
+  @include tablet {
+    color: white;
+    font-weight: 700;
+  }
+}

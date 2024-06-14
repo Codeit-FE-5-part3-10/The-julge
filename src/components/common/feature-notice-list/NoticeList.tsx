@@ -1,13 +1,7 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from './NoticeList.module.scss';
-import CardItem from '../cardItem/CardItem';
-import { getToken } from '@/src/apis/token';
-import { useToken } from '@/src/utils/TokenProvider';
-import { useUserId } from '@/src/utils/useUserId';
-import { getUser } from '@/src/apis/user';
-import { useQuery } from '@tanstack/react-query';
+import { CardItem } from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 
@@ -27,22 +21,31 @@ interface NoticeListProps {
   items: CardItemProps[];
 }
 
-export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
-  const { token, userInfo, setToken } = useToken();
-  const userId = useUserId();
-  const [employInfo, setEmployInfo] = useState<'employee' | 'employer' | undefined>();
+const MAX_ITEMS = 6; // 최대 저장할 요소 개수
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
+  const handleOnClick = (item: CardItemProps) => {
+    const storedItems = JSON.parse(localStorage.getItem('recentItems') || '[]') as CardItemProps[];
+
+    // 중복된 noticeId가 있는지 확인
+    if (storedItems.some((storedItem) => storedItem.noticeId === item.noticeId)) {
+      return; // 중복된 경우 저장하지 않고 종료
     }
-  }, [setToken]);
+
+    // 새로운 아이템을 배열의 맨 앞에 추가
+    const newItems = [item, ...storedItems.slice(0, MAX_ITEMS - 1)];
+
+    localStorage.setItem('recentItems', JSON.stringify(newItems));
+  };
 
   return (
     <div className={cx('list')}>
       {items?.map((item, index) => (
-        <Link href={`/shops/${item.shopId}/notices/${item.noticeId}`} key={index}>
+        <Link
+          href={`/shops/${item.shopId}/notices/${item.noticeId}`}
+          key={index}
+          onClick={() => handleOnClick(item)}
+        >
           <CardItem
             title={item.title}
             date={item.date}
