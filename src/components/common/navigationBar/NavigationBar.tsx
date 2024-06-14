@@ -20,7 +20,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
   const [isTablet, setIsTablet] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
-  const { token, setToken } = useToken(); // useToken 훅
+  const { token, setToken, userInfo } = useToken(); // useToken 훅
 
   useEffect(() => {
     // 로컬 스토리지에서 토큰 값 가져오기

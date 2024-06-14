@@ -1,16 +1,22 @@
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import styles from './Filter.module.scss';
 import { regions } from './Regions';
 import RegionButton from './RegionButton';
-import { use, useState } from 'react';
 import StartAt from './ui-filter-startAt/StartAt';
 import Wage from './ui-filter-wage/Wage';
-import { Button } from '../../common/ui-button/Button';
 import ResetButton from './ui-filter-reset/ResetButton';
 import ApplyButton from './ui-filter-applyButton/ApplyButton';
-import { filterProps } from '@mantine/core';
+import Modal from '../../common/modal/Modal';
 
 const cx = classNames.bind(styles);
+
+interface ModalItems {
+  content: string;
+  modalType: 'warning' | 'success' | 'question';
+  link: string;
+  btnText: string;
+}
 
 interface FilterProps {
   isOpen: boolean;
@@ -28,6 +34,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [wage, setWage] = useState<number>(0);
+  const [isModalOpen, setModalOpen] = useState<ModalItems | null>(null);
 
   const handleRegionSelect = (regionName: string) => {
     if (!selectedRegions.includes(regionName)) {
@@ -43,8 +50,8 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
     setSelectedDate(date);
   };
 
-  const handleWageChage = (wage: number) => {
-    setWage(wage);
+  const handleWageChage = (waged: number) => {
+    setWage(waged);
   };
 
   const handleReset = () => {
@@ -54,13 +61,23 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
   };
 
   const handleApply = () => {
+    const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 가져오기
     const filterData: FilterData = {
       selectedRegions,
       selectedDate,
       wage,
     };
-    onApply(filterData);
-    onClose();
+    if (selectedDate <= currentDate) {
+      setModalOpen({
+        content: '현재 날짜 이후 시간을 선택해주세요!',
+        modalType: 'warning',
+        link: '',
+        btnText: 'question에서 메인컬러 버튼 Text',
+      });
+    } else {
+      onApply(filterData);
+      onClose();
+    }
   };
 
   return (
@@ -68,7 +85,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
       <div className={cx('filter-container', { open: isOpen })}>
         <div className={cx('title-container')}>
           <h1 className={cx('title')}>상세 필터</h1>
-          <button className={cx('close-button')} onClick={onClose}>
+          <button type="button" className={cx('close-button')} onClick={onClose}>
             x
           </button>
         </div>
@@ -89,6 +106,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
             {selectedRegions.map((region) => (
               <button
                 key={region}
+                type="button"
                 className={cx('selected-region')}
                 onClick={() => handleRegionDeselect(region)}
               >
@@ -104,6 +122,15 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
         <div className={cx('line')}></div>
         <ResetButton onClick={handleReset} />
         <ApplyButton onClick={handleApply} />
+        {isModalOpen && (
+          <Modal
+            setModal={setModalOpen}
+            modalItems={isModalOpen}
+            content={isModalOpen.content}
+            link={isModalOpen.link}
+            btnText={isModalOpen.btnText}
+          />
+        )}
       </div>
     </>
   );

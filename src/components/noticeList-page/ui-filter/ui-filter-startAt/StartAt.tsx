@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
-import styles from './StartAt.module.scss';
 import { useEffect, useState } from 'react';
+// import { DateInput } from '@mantine/dates';
+import styles from './StartAt.module.scss';
 import formatDateTimeWithDateFns from '@/src/utils/formatDateTime';
 
 const cx = classNames.bind(styles);
 
 interface StartAtProps {
-  selectedDate: any;
+  selectedDate: string;
   onDateChage: (date: string) => void;
 }
 
@@ -16,7 +17,7 @@ export default function StartAt({ onDateChage, selectedDate }: StartAtProps) {
   const handleDateChage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dateString = e.target.value;
     const date = new Date(dateString);
-    const formattedDate = formatDateTimeWithDateFns(date.toString()).formattedDate; // 수정된 부분
+    const { formattedDate } = formatDateTimeWithDateFns(date.toString()); // 수정된 부분
     setSelectDate(formattedDate);
     onDateChage(formattedDate);
   };
@@ -25,14 +26,22 @@ export default function StartAt({ onDateChage, selectedDate }: StartAtProps) {
     setSelectDate(selectedDate);
   }, [selectedDate]);
 
+  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 가져오기
+
   return (
     <div className={cx('container')}>
       <p className={cx('title')}>시작일</p>
+      {/* <DateInput
+        label="Input label"
+        description="Input description"
+        placeholder="Input placeholder"
+      /> */}
       <input
         className={cx('datePicker')}
         type="date"
         value={selectDate}
         onChange={handleDateChage}
+        min={currentDate} // 최소 선택 가능한 날짜 설정
       />
     </div>
   );
