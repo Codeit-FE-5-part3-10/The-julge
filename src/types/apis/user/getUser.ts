@@ -1,11 +1,11 @@
 //2. 내 정보 조회
-export interface GetUserResponse {
+export interface GetUserRequest {
   item: any;
   user_id: string;
 }
 
 // 전체 데이터 구조 타입 정의
-export interface GetUserRequest {
+export interface GetUserResponse {
   item: UserItem;
 }
 

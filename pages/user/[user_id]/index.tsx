@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getUser, GetUserResponse } from '@/src/apis/user';
+import { getUser, getUserApplicationlist } from '@/src/apis/user';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { CardEmpty } from '@/src/components/common/ui-card-empty/CardEmpty';
 import { ProfileCard } from '@/src/components/User-page/ui-profile-card/ProfileCard';
 import { Section } from '@/src/layouts/section/Section';
-import { ListNotice } from '@/src/components/User-page/list-notice/ListNotice';
 import { useToken } from '@/src/utils/TokenProvider';
+import UserApplicationTable from '@/src/components/User-page/ui-table/TableForCandidate';
 
 const Myprofile = () => {
   const router = useRouter();
@@ -16,10 +16,10 @@ const Myprofile = () => {
 
   const {
     data: userProfile,
-    error,
-    isLoading,
-  } = useQuery<GetUserResponse>({
-    queryKey: ['getUser', userInfo?.id],
+    error: profileError,
+    isLoading: profileLoading,
+  } = useQuery({
+    queryKey: ['userData'], // 고유한 쿼리 키 지정
     queryFn: async () => {
       if (userInfo && userInfo.id) {
         const response = await getUser(userInfo.id);
@@ -30,15 +30,31 @@ const Myprofile = () => {
     enabled: !!userInfo?.id,
   });
 
+  const {
+    data: userApplication,
+    error: applicationError,
+    isLoading: applicationLoading,
+  } = useQuery({
+    queryKey: ['userApplyList'], // 다른 고유한 쿼리 키 사용
+    queryFn: async () => {
+      const tempToken = localStorage.getItem('token');
+      if (userInfo && userInfo.id) {
+        const response = await getUserApplicationlist(userInfo.id, tempToken, 0, 5);
+        return response;
+      }
+      throw new Error('User ID is not defined');
+    },
+  });
+
   if (typeof userId !== 'string') {
     return <div>Invalid user ID</div>;
   }
 
-  if (isLoading) {
+  if (profileLoading && applicationLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (profileError || applicationError) {
     return <div>Error loading user data</div>;
   }
 
@@ -48,7 +64,9 @@ const Myprofile = () => {
 
   const userProfileData = userProfile.item ?? {};
   const hasProfile = !!userProfileData.name;
-  const hasShop = !!userProfileData.shop;
+  const hasShop = userApplication?.data.count !== 0;
+  const userApplicationData = userApplication?.data;
+  // console.log(userApplication?.data.items);
 
   return (
     <Layout>
@@ -70,15 +88,7 @@ const Myprofile = () => {
         <Section
           title="내 가게"
           content={
-            <ListNotice
-              params={{
-                name: userProfileData.shop.name,
-                location: userProfileData.shop.location,
-                imageUrl: userProfileData.shop.imageUrl,
-                originalWage: userProfileData.shop.originalWage,
-              }}
-              shopId={userProfileData.shop.id}
-            />
+            <UserApplicationTable userApplicationData={userApplicationData} />
           }
         />
       ) : (
