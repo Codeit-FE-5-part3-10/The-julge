@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import defaultImg from 'public/images/gom.png';
-import groupIcon from 'public/images/group.svg';
-import locationIcon from 'public/images/path11.svg';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
+import LocationIcon from './LocationIcon';
 import styles from './cardItem.module.scss';
 import UpIcon from './UpIcon';
+import TimeIcon from './TimeIcon';
 import addHoursToTime from '@/src/utils/addHoursToTime';
 
 interface CardItemProps {
@@ -18,6 +18,7 @@ interface CardItemProps {
   imageUrl?: string;
   originalWage: number;
   onWidthCalculated?: (width: number) => void; // 너비를 전달하기 위한 콜백 함수
+  closed: boolean;
 }
 
 export const CardItem: React.FC<CardItemProps> = ({
@@ -29,6 +30,7 @@ export const CardItem: React.FC<CardItemProps> = ({
   wage,
   imageUrl,
   originalWage,
+  closed,
 }: CardItemProps) => {
   const cx = classNames.bind(styles);
   const formattedWage = wage.toLocaleString(); // 천 단위 쉼표 추가
@@ -37,11 +39,15 @@ export const CardItem: React.FC<CardItemProps> = ({
   const upIcon = n <= 49 ? '#ff8d72' : '#ff4040';
   const [iconColor, setIconColor] = useState('#ff4040');
   const [textColor, setTextColor] = useState('#ff8d72');
+  const [primaryIconColor, setPrimaryIconColor] = useState('#ff8d72');
   const { formattedDate, formattedTime } = formatDateTime(date);
   const endTime = addHoursToTime(formattedTime, time);
   const cardRef: any = useRef(null);
 
   useEffect(() => {
+    if (closed) {
+      setPrimaryIconColor('#cbc9cf');
+    }
     // 컴포넌트가 마운트되었을 때 너비를 계산하고 부모 컴포넌트로 전달
     if (cardRef.current && typeof onWidthCalculated === 'function') {
       const width = cardRef.current.offsetWidth;
@@ -50,11 +56,17 @@ export const CardItem: React.FC<CardItemProps> = ({
   }, [onWidthCalculated]);
 
   useEffect(() => {
+    if (closed) {
+      setPrimaryIconColor('#cbc9cf');
+    }
     //업 아이콘 색상변경
     const updateColors = () => {
       if (window.matchMedia('(min-width:768px)').matches) {
         setIconColor('white');
         setTextColor('white');
+      } else if (closed) {
+        setIconColor('#cbc9cf');
+        setTextColor('#cbc9cf');
       } else {
         setIconColor(upIcon);
         setTextColor(n >= 50 ? '#ff4040' : '#ff8d72');
@@ -71,9 +83,13 @@ export const CardItem: React.FC<CardItemProps> = ({
     };
   }, []);
 
-  //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <div className={cx('container')} ref={cardRef}>
+    <div className={cx('container', { 'is-end': closed })} ref={cardRef}>
+      {closed && (
+        <div className={cx('closed-container')}>
+          <span className={cx('closed-text')}>마감 완료</span>
+        </div>
+      )}
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -83,7 +99,7 @@ export const CardItem: React.FC<CardItemProps> = ({
       />
       <p className={cx('title')}>{title}</p>
       <div className={cx('container_dateTime')}>
-        <Image className={cx('groupIcon')} src={groupIcon} alt="아이콘" />
+        <TimeIcon color={primaryIconColor} />
         <div className={cx('container_text')}>
           <p className={cx('date')}>{formattedDate}</p>
           <p className={cx('time')}>
@@ -92,7 +108,8 @@ export const CardItem: React.FC<CardItemProps> = ({
         </div>
       </div>
       <div className={cx('container_location')}>
-        <Image className={cx('locationIcon')} src={locationIcon} alt="위치 아이콘" />
+        <LocationIcon color={primaryIconColor} />
+
         <p className={cx('location')}>{location}</p>
       </div>
       <div className={cx('container_pay')}>

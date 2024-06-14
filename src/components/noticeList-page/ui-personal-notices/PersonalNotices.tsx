@@ -91,6 +91,7 @@ export default function PersonalNotices() {
       originalWage: item.item.shop.item.originalHourlyPay,
       shopId: item.item.shop.item.id,
       noticeId: item.item.id,
+      closed: item.item.closed,
     })) || [];
 
   const handleOnClick = (item: CardItemProps) => {
@@ -122,6 +123,7 @@ export default function PersonalNotices() {
                 href={`/shops/${item.shopId}/notices/${item.noticeId}`}
                 key={index}
                 onClick={() => handleOnClick(item)}
+                className={cx({ 'is-end': item.closed })}
               >
                 <CardItem
                   title={item.title}
@@ -132,6 +134,7 @@ export default function PersonalNotices() {
                   imageUrl={item.imageUrl}
                   originalWage={item.originalWage}
                   onWidthCalculated={handleWidthCalculated}
+                  closed={item.closed}
                 />
               </Link>
             ))}

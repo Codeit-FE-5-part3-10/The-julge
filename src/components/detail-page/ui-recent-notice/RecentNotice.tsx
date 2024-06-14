@@ -11,7 +11,7 @@ export function RecentNotice() {
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('recentItems') || '[]'); // 로컬 스토리지에서 최근에 본 공고 가져오기
     setRecentItems(storedItems);
-  }, []);
+  }, [setRecentItems]);
 
   return (
     <div className={cx('container')}>
