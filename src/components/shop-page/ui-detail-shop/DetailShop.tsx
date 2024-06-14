@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import defaultImg from 'public/images/default.jpg';
 import Image from 'next/image';
 import styles from './DetailShop.module.scss';
 import locationIcon from '@/public/images/card-location-red.svg';

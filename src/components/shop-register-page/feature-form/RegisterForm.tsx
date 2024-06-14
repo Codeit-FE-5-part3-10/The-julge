@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import styles from './RegisterForm.module.scss';
 import { postShopRequest } from '@/src/types/apis/shop/postShop';
 import { ADDRESS, CATEGORY } from './constant';
@@ -9,22 +10,18 @@ import { useToken } from '@/src/contexts/TokenProvider';
 import { CustomSelect } from '../../common/feature-select/CustomSelect';
 import { FileUpload } from '../feature-file-upload/UploadFile';
 import { Button } from '../../common/ui-button/Button';
+import { formatCurrency } from '@/src/utils/formatCurrency';
 
 const cx = classNames.bind(styles);
 
 // 숫자를 천 단위로 콤마를 추가하는 유틸리티 함수
-const formatCurrency = (value: any) => {
-  if (!value) return '';
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
 
 export const RegisterForm = () => {
-  const { handleSubmit, control, setValue, watch } = useForm<postShopRequest>();
+  const { handleSubmit, control, setValue } = useForm<postShopRequest>();
   const [imageName, setImageName] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { token } = useToken();
-
-  console.log(watch());
+  const router = useRouter();
 
   const onSubmit = async (data: postShopRequest) => {
     try {
@@ -52,7 +49,9 @@ export const RegisterForm = () => {
       // 나머지 데이터와 함께 가게 정보를 등록 (쿼리 파라미터 제외)
       const rawUrl = new URL(presignedUrl);
       const decodedUrl = `${rawUrl.origin}${rawUrl.pathname}`;
-      postShop(token, { ...data, imageUrl: decodedUrl });
+      const result = await postShop(token, { ...data, imageUrl: decodedUrl });
+      const shopId = await result.item.id;
+      await router.push(`/shops/${shopId}`);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -79,26 +78,28 @@ export const RegisterForm = () => {
 
   // 사용자가 이미지를 선택했을 때 호출되는 함수
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target?.files && e.target.files[0];
-    if (file) {
-      setImageName(file.name);
-      setImageFile(file);
-    }
+    setImageName(e.target.files[0].name);
+    setImageFile(e.target.files[0]);
   };
 
   return (
     <form className={cx('container')} onSubmit={handleSubmit(onSubmit)}>
-      <div className={cx('box')}>
+      <div className={cx('box', 'name')}>
         <label htmlFor="name">가게 이름*</label>
         <Controller
           name="name"
           control={control}
           defaultValue=""
           rules={{ required: '값을 입력해주세요' }}
-          render={({ field }) => <input {...field} className={cx('input')} />}
+          render={({ field, fieldState: { error } }) => (
+            <div>
+              <input {...field} className={cx('input')} />
+              {error && <p className={cx('error')}>{error.message}</p>}
+            </div>
+          )}
         />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'category')}>
         <label htmlFor="category">분류*</label>
         <Controller
           name="category"
@@ -106,22 +107,19 @@ export const RegisterForm = () => {
           defaultValue=""
           rules={{ required: '값을 선택해주세요' }}
           render={({ field, fieldState: { error } }) => (
-            <div className={cx('select-wrapper')}>
+            <div>
               <CustomSelect
-                options={CATEGORY.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
+                options={CATEGORY}
+                value={field.value}
+                onChange={field.onChange}
                 defaultOption="식당"
-                {...field}
               />
               {error && <p className={cx('error')}>{error.message}</p>}
             </div>
           )}
         />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'address1')}>
         <label htmlFor="address1">기본 주소*</label>
         <Controller
           name="address1"
@@ -129,14 +127,11 @@ export const RegisterForm = () => {
           defaultValue=""
           rules={{ required: '값을 선택해주세요' }}
           render={({ field, fieldState: { error } }) => (
-            <div className={cx('select-wrapper')}>
+            <div>
               <CustomSelect
-                {...field}
-                options={ADDRESS.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
+                options={ADDRESS}
+                value={field.value}
+                onChange={field.onChange}
                 defaultOption="기본 주소"
               />
               {error && <p className={cx('error')}>{error.message}</p>}
@@ -144,17 +139,22 @@ export const RegisterForm = () => {
           )}
         />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'address2')}>
         <label htmlFor="address2">상세 주소*</label>
         <Controller
           name="address2"
           control={control}
           defaultValue=""
           rules={{ required: '값을 입력해주세요' }}
-          render={({ field }) => <input {...field} className={cx('input')} />}
+          render={({ field, fieldState: { error } }) => (
+            <div>
+              <input {...field} className={cx('input')} />
+              {error && <p className={cx('error')}>{error.message}</p>}
+            </div>
+          )}
         />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'originalHourlyPay')}>
         <label htmlFor="originalHourlyPay">기본 시급*</label>
         <Controller
           name="originalHourlyPay"
@@ -186,11 +186,11 @@ export const RegisterForm = () => {
           )}
         />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'imageUrl')}>
         <label htmlFor="shopImage">가게 이미지</label>
         <FileUpload onFileChange={handleImageChange} />
       </div>
-      <div className={cx('box')}>
+      <div className={cx('box', 'description')}>
         <label htmlFor="description">가게 설명*</label>
         <Controller
           name="description"
@@ -209,9 +209,11 @@ export const RegisterForm = () => {
         />
       </div>
 
-      <Button type="submit" color="primary">
-        등록하기
-      </Button>
+      <div className={cx('box', 'button')}>
+        <Button type="submit" color="primary">
+          등록하기
+        </Button>
+      </div>
     </form>
   );
 };

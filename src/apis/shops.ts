@@ -8,24 +8,8 @@ export const getShop = async (id: string): Promise<GetShopResponse> => {
 };
 
 export const postShop = async (token: string | null, body: postShopRequest): Promise<any> => {
-  /*   const response = await axiosInstance.post('/shops', JSON.stringify(body), {
+  const response = await axiosInstance.post('/shops', body, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return response.data; */
-
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/shops`, {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error('Failed to upload image to S3');
-    }
-  } catch (error) {
-    console.error('Error uploading image to S3:', error);
-  }
+  return response.data;
 };
