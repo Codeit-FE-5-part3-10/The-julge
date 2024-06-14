@@ -64,8 +64,13 @@ export const CardItem: React.FC<CardItemProps> = ({
     //업 아이콘 색상변경
     const updateColors = () => {
       if (window.matchMedia('(min-width:768px)').matches) {
-        setIconColor('white');
-        setTextColor('white');
+        if (closed || isPastDate) {
+          setIconColor('#cbc9cf');
+          setTextColor('#cbc9cf');
+        } else {
+          setIconColor('white');
+          setTextColor('white');
+        }
       } else if (closed || isPastDate) {
         setIconColor('#cbc9cf');
         setTextColor('#cbc9cf');
