@@ -13,6 +13,7 @@ interface StartAtProps {
 
 export default function StartAt({ onDateChage, selectedDate }: StartAtProps) {
   const [selectDate, setSelectDate] = useState<string>('');
+  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 가져오기
 
   const handleDateChage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const dateString = e.target.value;
@@ -23,19 +24,12 @@ export default function StartAt({ onDateChage, selectedDate }: StartAtProps) {
   };
 
   useEffect(() => {
-    setSelectDate(selectedDate);
-  }, [selectedDate]);
-
-  const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 가져오기
+    setSelectDate(selectedDate || currentDate);
+  }, [selectedDate, currentDate]);
 
   return (
     <div className={cx('container')}>
       <p className={cx('title')}>시작일</p>
-      {/* <DateInput
-        label="Input label"
-        description="Input description"
-        placeholder="Input placeholder"
-      /> */}
       <input
         className={cx('datePicker')}
         type="date"

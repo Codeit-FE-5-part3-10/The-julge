@@ -61,13 +61,21 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
   };
 
   const handleApply = () => {
-    const currentDate = new Date().toISOString().split('T')[0]; // 현재 날짜 가져오기
     const filterData: FilterData = {
       selectedRegions,
-      selectedDate,
+      selectedDate: selectedDate ? new Date(selectedDate).toISOString() : new Date().toISOString(),
       wage,
     };
-    if (selectedDate <= currentDate) {
+
+    const selectedDateTime = new Date(selectedDate).getTime();
+    const currentDateTime = new Date().getTime();
+
+    if (!selectedDate) {
+      // No date selected, proceed with filtering using current date
+      onApply(filterData);
+      onClose();
+    } else if (selectedDateTime < currentDateTime) {
+      // Show warning modal if the selected date is in the past
       setModalOpen({
         content: '현재 날짜 이후 시간을 선택해주세요!',
         modalType: 'warning',
@@ -75,6 +83,7 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
         btnText: 'question에서 메인컬러 버튼 Text',
       });
     } else {
+      // Apply filter if the selected date is valid
       onApply(filterData);
       onClose();
     }
