@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ReactNode, createContext, useContext, useState } from 'react';
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { axiosInstance } from '../apis/axiosInstance';
 import { useRouter } from 'next/router';
@@ -55,7 +54,6 @@ export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   return (
-    <TokenContext.Provider value={{ token, setToken, login }}>{children}</TokenContext.Provider>
     <TokenContext.Provider value={{ token, setToken, login, userInfo, setUserInfo }}>
       {children}
     </TokenContext.Provider>

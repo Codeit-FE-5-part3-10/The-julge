@@ -12,3 +12,5 @@ export const getUser = async (user_id: string): Promise<GetUserResponse> => {
     throw new Error('Error fetching user data');
   }
 };
+export { GetUserResponse };
+
