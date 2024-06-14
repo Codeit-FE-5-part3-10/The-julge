@@ -1,5 +1,6 @@
 //2. 내 정보 조회
 export interface GetUserResponse {
+  item: any;
   user_id: string;
 }
 
