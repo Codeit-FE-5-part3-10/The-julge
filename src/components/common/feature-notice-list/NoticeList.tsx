@@ -50,27 +50,30 @@ export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
 
   return (
     <div className={cx('list')}>
-      {items?.map((item, index) => (
-        <Link
-          href={`/shops/${item.shopId}/notices/${item.noticeId}`}
-          key={index}
-          onClick={() => handleOnClick(item)}
-          className={cx('notice', { 'is-end': item.closed })}
-        >
-          <div className={cx('notice')}>
-            <CardItem
-              title={item.title}
-              date={item.date}
-              time={item.workhour}
-              location={item.location}
-              wage={item.wage}
-              imageUrl={item.imageUrl}
-              originalWage={item.originalWage}
-              closed={item.closed}
-            />
-          </div>
-        </Link>
-      ))}
+      {items?.map((item, index) => {
+        const isPastDate = new Date(item.date) < new Date();
+        return (
+          <Link
+            href={`/shops/${item.shopId}/notices/${item.noticeId}`}
+            key={index}
+            onClick={() => handleOnClick(item)}
+            className={cx('notice', { 'is-end': item.closed || isPastDate })}
+          >
+            <div className={cx('notice')}>
+              <CardItem
+                title={item.title}
+                date={item.date}
+                time={item.workhour}
+                location={item.location}
+                wage={item.wage}
+                imageUrl={item.imageUrl}
+                originalWage={item.originalWage}
+                closed={item.closed}
+              />
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };

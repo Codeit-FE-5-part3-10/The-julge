@@ -44,8 +44,10 @@ export const CardItem: React.FC<CardItemProps> = ({
   const endTime = addHoursToTime(formattedTime, time);
   const cardRef: any = useRef(null);
 
+  const isPastDate = new Date(date) < new Date();
+
   useEffect(() => {
-    if (closed) {
+    if (closed || isPastDate) {
       setPrimaryIconColor('#cbc9cf');
     }
     // 컴포넌트가 마운트되었을 때 너비를 계산하고 부모 컴포넌트로 전달
@@ -53,10 +55,10 @@ export const CardItem: React.FC<CardItemProps> = ({
       const width = cardRef.current.offsetWidth;
       onWidthCalculated(width);
     }
-  }, [onWidthCalculated]);
+  }, [onWidthCalculated, closed, isPastDate]);
 
   useEffect(() => {
-    if (closed) {
+    if (closed || isPastDate) {
       setPrimaryIconColor('#cbc9cf');
     }
     //업 아이콘 색상변경
@@ -64,7 +66,7 @@ export const CardItem: React.FC<CardItemProps> = ({
       if (window.matchMedia('(min-width:768px)').matches) {
         setIconColor('white');
         setTextColor('white');
-      } else if (closed) {
+      } else if (closed || isPastDate) {
         setIconColor('#cbc9cf');
         setTextColor('#cbc9cf');
       } else {
@@ -84,11 +86,17 @@ export const CardItem: React.FC<CardItemProps> = ({
   }, []);
 
   return (
-    <div className={cx('container', { 'is-end': closed })} ref={cardRef}>
-      {closed && (
+    <div className={cx('container', { 'is-end': closed || isPastDate })} ref={cardRef}>
+      {isPastDate ? (
         <div className={cx('closed-container')}>
-          <span className={cx('closed-text')}>마감 완료</span>
+          <span className={cx('closed-text')}>지난 공고</span>
         </div>
+      ) : (
+        closed && (
+          <div className={cx('closed-container')}>
+            <span className={cx('closed-text')}>마감 완료</span>
+          </div>
+        )
       )}
       <Image
         className={cx('img')}
@@ -109,7 +117,6 @@ export const CardItem: React.FC<CardItemProps> = ({
       </div>
       <div className={cx('container_location')}>
         <LocationIcon color={primaryIconColor} />
-
         <p className={cx('location')}>{location}</p>
       </div>
       <div className={cx('container_pay')}>
