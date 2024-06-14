@@ -5,14 +5,22 @@ import styles from './Button.module.scss';
 const cx = classNames.bind(styles);
 
 interface ButtonProps {
-  children: React.PropsWithChildren<string>;
+  children: React.ReactNode;
   color: 'primary' | 'white' | 'gray';
+  type?: 'button' | 'submit';
   width?: number | string;
   to?: string;
   onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, color, width, to, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  color,
+  type = 'button',
+  width,
+  to,
+  onClick,
+}) => {
   const className = cx('button', color);
 
   const handleClick = () => {
@@ -33,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({ children, color, width, to, onCl
   };
 
   return (
-    <button type="button" onClick={handleClick} className={className} style={buttonStyle}>
+    <button type={type} onClick={handleClick} className={className} style={buttonStyle}>
       {children}
     </button>
   );

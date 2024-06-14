@@ -56,8 +56,8 @@ export const ListApplication: React.FC = () => {
   }));
 
   return (
-    <div className={cx('container')}>
-      <div className={cx('wrapper')}>
+    <div className={cx('wrapper')}>
+      <div className={cx('container')}>
         <Table headers={tableHeaders} body={tableBody} />
         <Pagination
           initialPage={initialPage}

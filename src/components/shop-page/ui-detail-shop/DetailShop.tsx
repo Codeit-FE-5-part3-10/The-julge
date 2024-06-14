@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import defaultImg from 'public/images/default.jpg';
 import Image from 'next/image';
 import styles from './DetailShop.module.scss';
 import locationIcon from '@/public/images/card-location-red.svg';
@@ -15,7 +16,9 @@ export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
   params: { name, location, description, imageUrl },
 }) => (
   <div className={cx('container')}>
-    <div className={cx('image')} style={{ backgroundImage: `url(${imageUrl})` }}></div>
+    <div className={cx('image')}>
+      <Image layout="fill" alt="가게 이미지" src={imageUrl} style={{ objectFit: 'cover' }} />
+    </div>
     <div className={cx('info')}>
       <p className={cx('label')}>식당</p>
       <p className={cx('name')}>{name}</p>

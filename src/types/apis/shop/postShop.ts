@@ -1,10 +1,4 @@
-export interface GetShopResponse {
-  item: ShopTypesItem;
-  links: Link[];
-}
-
-interface ShopTypesItem {
-  id: string;
+export interface postShopRequest {
   name: string;
   category: Category;
   address1: Address;
@@ -12,45 +6,9 @@ interface ShopTypesItem {
   description: string;
   imageUrl: string;
   originalHourlyPay: number;
-  user: User;
 }
 
-interface User {
-  item: UserItem;
-  href: string;
-}
-
-interface UserItem {
-  id: string;
-  email?: string;
-  type: string;
-}
-
-interface Link {
-  rel: string;
-  description: string;
-  method: string;
-  href: string;
-  body?: Body;
-  query?: Query;
-}
-
-interface Body {
-  name: string;
-  category: string;
-  address1: Address;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
-}
-
-interface Query {
-  offset: undefined | number;
-  limit: undefined | number;
-}
-
-type Category = '한식' | '중식' | '일식' | '양식' | '분식' | '카페' | '편의점' | '기타';
+type Category = '한식' | '중식' | '일식' | '양식' | '분식' | '카페' | '편의점' | '기타' | '';
 
 type Address =
   | '서울시 종로구'
@@ -77,4 +35,5 @@ type Address =
   | '서울시 서초구'
   | '서울시 강남구'
   | '서울시 송파구'
-  | '서울시 강동구';
+  | '서울시 강동구'
+  | '';

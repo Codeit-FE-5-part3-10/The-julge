@@ -1,18 +1,23 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import styles from './loginTest.module.scss';
-import { useToken } from '@/src/contexts/TokenProvider';
+import { signup } from '@/src/apis/user';
 
 const cx = classNames.bind(styles);
 
-const Login = () => {
+export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useToken();
+  const [type, setType] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    login(email, password);
+    const data = await signup(email, password, type);
+    if (data) {
+      router.push('/');
+    }
   };
 
   return (
@@ -34,11 +39,15 @@ const Login = () => {
           />
         </label>
       </div>
+      <div>
+        <label className={cx('container')}>
+          타입:
+          <input type="type" value={type} onChange={(e) => setType(e.target.value)} required />
+        </label>
+      </div>
       <button className={cx('btn')} type="submit">
-        로그인
+        회원가입
       </button>
     </form>
   );
-};
-
-export default Login;
+}

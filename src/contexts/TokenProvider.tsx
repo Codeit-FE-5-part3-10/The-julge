@@ -31,6 +31,7 @@ export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setUserInfo(rawUser);
       console.log('로그인 성공');
       router.push('/');
+      return response.data;
     } catch (error) {
       console.error('로그인 실패', error);
     }

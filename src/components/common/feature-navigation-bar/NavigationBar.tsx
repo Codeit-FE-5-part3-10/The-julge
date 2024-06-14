@@ -12,7 +12,7 @@ import { useToken } from '@/src/contexts/TokenProvider';
 import { getUser } from '@/src/apis/user';
 
 type NavigationBarProps = {
-  isSticky: boolean;
+  isSticky?: boolean;
 };
 
 export default function NavigationBar({ isSticky }: NavigationBarProps) {
@@ -36,6 +36,8 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
           const response = await getUser(userId);
           if (response.item.shop) {
             setShopId(response.item.shop.item.id);
+          } else {
+            setShopId(null);
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -66,11 +68,9 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
         </div>
         {userType === 'employer' && (
           <div className={cx('buttons')}>
-            {shopId && (
-              <Link href={`/shops/${shopId}`} className={cx('text')}>
-                내 가게
-              </Link>
-            )}
+            <Link href={shopId ? `/shops/${shopId}` : '/shops/register'} className={cx('text')}>
+              내 가게
+            </Link>
             <button type="button" onClick={logout} className={cx('button')}>
               로그아웃
             </button>
@@ -94,7 +94,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
             <Link href="/loginTest" className={cx('text')}>
               로그인
             </Link>
-            <Link href="/signup" className={cx('text')}>
+            <Link href="/signupTest" className={cx('text')}>
               회원가입
             </Link>
           </div>
