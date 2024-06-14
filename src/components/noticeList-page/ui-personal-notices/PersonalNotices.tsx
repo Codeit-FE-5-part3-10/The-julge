@@ -136,6 +136,7 @@ export default function PersonalNotices() {
                       wage={item.wage}
                       imageUrl={item.imageUrl}
                       originalWage={item.originalWage}
+                      onWidthCalculated={handleWidthCalculated}
                       closed={item.closed}
                     />
                   </div>
