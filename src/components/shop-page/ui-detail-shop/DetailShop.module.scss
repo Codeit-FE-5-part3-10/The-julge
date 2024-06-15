@@ -31,16 +31,13 @@
   }
 }
 
-.image {
+.image-wrapper {
   position: relative;
   grid-area: image;
   border-radius: 12px;
   width: 311px;
   height: 178px;
   overflow: hidden;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 
   @include tablet {
     width: 632px;
@@ -50,6 +47,14 @@
     width: 546px;
     height: 313px;
   }
+}
+
+.image {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(1.02); // 이미지를 2% 더 키움
 }
 
 .info {
@@ -114,6 +119,8 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
+  overflow-wrap: break-word;
+  word-break: break-all;
 
   @include tablet {
     font-size: 16px;

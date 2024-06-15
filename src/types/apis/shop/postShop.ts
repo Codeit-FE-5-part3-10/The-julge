@@ -8,6 +8,58 @@ export interface postShopRequest {
   originalHourlyPay: number;
 }
 
+export interface PostShopResponse {
+  item: PostShopItem;
+  links: Link[];
+}
+
+export interface PostShopItem {
+  id: string;
+  name: string;
+  category: Category;
+  address1: Address;
+  address2: string;
+  description: string;
+  imageUrl: string;
+  originalHourlyPay: number;
+  user: User;
+}
+
+export interface User {
+  item: UserItem;
+  href: string;
+}
+
+export interface UserItem {
+  id: string;
+  email: string;
+  type: string;
+}
+
+export interface Link {
+  rel: string;
+  description: string;
+  method: string;
+  href: string;
+  body?: Body;
+  query?: Query;
+}
+
+export interface Body {
+  name: string;
+  category: string;
+  address1: string;
+  address2: string;
+  description: string;
+  imageUrl: string;
+  originalHourlyPay: string;
+}
+
+export interface Query {
+  offset: string;
+  limit: string;
+}
+
 type Category = '한식' | '중식' | '일식' | '양식' | '분식' | '카페' | '편의점' | '기타' | '';
 
 type Address =

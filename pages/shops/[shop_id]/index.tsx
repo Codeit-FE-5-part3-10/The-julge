@@ -50,7 +50,7 @@ export default function Shop() {
     <Layout>
       <Section
         title="내 가게"
-        content={<DetailShop params={{ name, location, description, imageUrl }} />}
+        content={<DetailShop params={{ name, location, description, imageUrl, shopId }} />}
       />
       <Section
         title="등록한 공고"
