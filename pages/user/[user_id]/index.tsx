@@ -39,7 +39,7 @@ const Myprofile = () => {
     queryFn: async () => {
       const tempToken = localStorage.getItem('token');
       if (userInfo && userInfo.id) {
-        const response = await getUserApplicationlist(userInfo.id, tempToken, 0, 5);
+        const response = await getUserApplicationlist(userInfo.id, tempToken, 0, 50);
         return response;
       }
       throw new Error('User ID is not defined');

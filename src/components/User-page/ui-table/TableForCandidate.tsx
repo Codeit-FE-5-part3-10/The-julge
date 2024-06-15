@@ -5,6 +5,7 @@ import styles from './Table.module.scss';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
 import { Item, UserResponse } from '@/src/types/apis/application/getUserApplications';
 import { Pagination } from '../../common/ui-pagination/Pagination';
+import { count } from 'console';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,31 @@ const UserApplicationTable: React.FC<UserApplicationProps> = ({ userApplicationD
 
   //단위 함수
   const formatNumberWithCommas = (value: number): string => value.toLocaleString();
+  const pageApplicationlist = Applicationlist.slice((page - 1) * countPerPage, page * countPerPage);
+  // const {
+  //   data: notices,
+  //   error,
+  //   isLoading,
+  // } = useQuery({
+  //   queryKey: ['getShopsNotices', shopId, page],
+  //   queryFn: () => getShopNotices(shopId, page, countPerPage),
+  //   enabled: !!shopId,
+  // });
+
+  // //TODO: 로딩과 에러 처리
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Error loading notices</div>;
+  // }
+
+  // if (!notices || !notices.items || notices.items.length === 0) {
+  //   return <div>No notices</div>;
+  // }
+
+  // const total = Math.ceil(notices.count / countPerPage);
 
   return (
     <div className={cx('container')}>
@@ -43,7 +69,7 @@ const UserApplicationTable: React.FC<UserApplicationProps> = ({ userApplicationD
           </tr>
         </thead>
         <tbody>
-          {Applicationlist.map((itemData: Item, index: number) => {
+          {pageApplicationlist.map((itemData: Item, index: number) => {
             const shopItem = itemData.item.shop.item;
             const name = typeof shopItem === 'object' ? shopItem.name : '';
             const { status } = itemData.item;

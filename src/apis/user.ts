@@ -53,3 +53,4 @@ export const getUserApplicationlist = async (
 };
 
 export type { GetUserResponse };
+
