@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { Pagination } from '../../common/ui-pagination/Pagination';
 import { Table } from '../../common/ui-table/Table';
@@ -15,28 +14,23 @@ const cx = classNames.bind(styles);
 
 export const ListApplication: React.FC = () => {
   const [page, setPage] = useState<number>(initialPage);
-  const router = useRouter();
-  const { currentModal, applicationId, closeModal } = useModal();
+  const { shopId, noticeId, currentModal } = useModal();
 
-  const { shop_id: shopId, notice_id: noticeId } = router.query;
+  const queryEnabled = typeof shopId === 'string' && typeof noticeId === 'string';
 
-  if (typeof shopId !== 'string') {
-    return <div>Invalid shop ID</div>;
-  }
-
-  if (typeof noticeId !== 'string') {
-    return <div>Invalid notice ID</div>;
-  }
-
-  // 지원 목록 불러오기
   const { data, error, isLoading } = useQuery({
     queryKey: ['getShopNoticeApplications', shopId, noticeId, page, countPerPage],
     queryFn: async () => {
+      if (!queryEnabled) return { items: [], count: 0 };
       const response = await getShopNoticeApplications(shopId, noticeId, page, countPerPage);
       return response;
     },
-    enabled: !!shopId && !!noticeId,
+    enabled: queryEnabled,
   });
+
+  if (!queryEnabled) {
+    return <div>Invalid shop or notice ID</div>;
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -62,8 +56,8 @@ export const ListApplication: React.FC = () => {
   }));
 
   return (
-    <div className={cx('container')}>
-      <div className={cx('wrapper')}>
+    <div className={cx('wrapper')}>
+      <div className={cx('container')}>
         <Table headers={tableHeaders} body={tableBody} />
         <Pagination
           initialPage={initialPage}
@@ -76,12 +70,12 @@ export const ListApplication: React.FC = () => {
         <QuestionModal
           isOpen={currentModal === modalType.decline}
           modalText="신청을 거절하시겠어요?"
-          onCloseClick={closeModal}
+          targetStatus="rejected"
         />
         <QuestionModal
           isOpen={currentModal === modalType.approve}
           modalText="신청을 승인하시겠어요?"
-          onCloseClick={closeModal}
+          targetStatus="accepted"
         />
       </div>
     </div>

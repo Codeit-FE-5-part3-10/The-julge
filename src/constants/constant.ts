@@ -9,4 +9,12 @@ export const MIN_WAGE = 9860;
 export const modalType = {
   decline: 'decline',
   approve: 'approve',
+  cancel: 'cancel',
+};
+
+export const TEST_TOKEN = {
+  token:
+    'eyJhbGciO1iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MWYzNWQ2Mi1hNzM0LTRkOWUtOGQ4Yi05NzNhMzkxNjEzNDEiLCJpYXQiOjE3MTgxMjQyMjd9.BM9TuI8dVRJ5W0EQLTmPEGFtMFhggR4gj4iXQYU5ug',
+  email: 'wjy123@test.com',
+  password: 'test123',
 };

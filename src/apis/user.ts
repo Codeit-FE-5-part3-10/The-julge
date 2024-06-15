@@ -20,12 +20,21 @@ export const getUserItem = async (user_Id: string): Promise<GetUserRequest> => {
   return response.data;
 };
 
+export const signup = async (email: string, password: string, type: string) => {
+  try {
+    const response = await axiosInstance.post('/users', { email, password, type });
+    return response.data;
+    console.log('로그인 성공');
+  } catch (error) {
+    console.error('로그인 실패', error);
+  }
+};
 export const getUserApplication = async (
   user_id: string,
   token: string
 ): Promise<getShopNoticeApplicationsResponse> => {
   const response = await axiosInstance.get<getShopNoticeApplicationsResponse>(
-   ` /users/${user_id}/applications`,
+    ` /users/${user_id}/applications`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,7 +51,7 @@ export const getUserApplicationlist = async (
   limit: number
 ): Promise<UserResponse> => {
   const response = await axiosInstance.get<UserResponse>(
-   `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
+    `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,4 +62,3 @@ export const getUserApplicationlist = async (
 };
 
 export type { GetUserResponse };
-

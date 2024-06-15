@@ -8,7 +8,7 @@ import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
 import NotificationIconNew from '@/public/images/navigationbar-new.svg';
 import { useRouter } from 'next/router';
-import { useToken,  userInfo } from '@/src/utils/TokenProvider';
+import { useToken, userInfo } from '@/src/utils/TokenProvider';
 
 type NavigationBarProps = {
   isSticky: boolean;

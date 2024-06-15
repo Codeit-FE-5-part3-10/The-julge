@@ -1,0 +1,18 @@
+{
+  "item": {
+    "token": "string",
+    "user": {
+      "item": {
+        "id": "string",
+        "email": "string",
+        "type": "employer | employee",
+        "name": "string",
+        "phone": "string",
+        "address": "string",
+        "bio": "string"
+      },
+      "href": "string"
+    }
+  },
+  "links": []
+}

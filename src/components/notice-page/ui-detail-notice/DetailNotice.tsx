@@ -35,7 +35,6 @@ export const DetailNotice: React.FC<{ params: DetailNoticeProps['params'] }> = (
     shopDescription,
     location,
     imageUrl,
-    closed,
   },
 }) => {
   const difference = wage - originalWage;

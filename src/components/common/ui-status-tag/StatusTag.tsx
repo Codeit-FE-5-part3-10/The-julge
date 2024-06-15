@@ -1,18 +1,24 @@
-// StatusTag.tsx
+import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './StatusTag.module.scss';
-import { ModalProvider, useModal } from '@/src/contexts/ModalContext';
+import { useModal } from '@/src/contexts/ModalContext';
 import { modalType } from '@/src/constants/constant';
+import { useToken } from '@/src/contexts/TokenProvider';
 
 const cx = classNames.bind(styles);
 
+type Status = 'pending' | 'rejected' | 'accepted' | 'canceled';
+
 interface StatusTagProps {
-  status: 'pending' | 'rejected' | 'accepted' | 'canceled';
+  status: Status;
   id: string;
 }
 
-export const StatusTag: React.FC<StatusTagProps> = ({ status, id }) => {
+export const StatusTag: React.FC<StatusTagProps> = ({ status, id: applicationId }) => {
   const { openModal } = useModal();
+  const { userInfo } = useToken();
+  const { type: userType } = userInfo || { id: null, type: null };
+  const [isHovered, setIsHovered] = useState(false);
 
   let text: string;
   let className: string;
@@ -38,24 +44,37 @@ export const StatusTag: React.FC<StatusTagProps> = ({ status, id }) => {
 
   return (
     <div className={cx('container')}>
-      {/* TODO: 유저인 경우 '취소하기' 버튼 추가해야 함 */}
       {status === 'pending' ? (
-        <div className={cx('box')}>
-          <button
-            type="button"
-            onClick={() => openModal(modalType.decline, id)}
-            className={cx('button', 'enabled', 'decline')}
-          >
-            거절하기
-          </button>
-          <button
-            type="button"
-            onClick={() => openModal(modalType.approve, id)}
-            className={cx('button', 'enabled', 'approve')}
-          >
-            승인하기
-          </button>
-        </div>
+        userType === 'employer' ? (
+          <div className={cx('box')}>
+            <button
+              type="button"
+              className={cx('button', 'enabled', 'decline')}
+              onClick={() => openModal(modalType.decline, applicationId)}
+            >
+              거절하기
+            </button>
+            <button
+              type="button"
+              className={cx('button', 'enabled', 'approve')}
+              onClick={() => openModal(modalType.approve, applicationId)}
+            >
+              승인하기
+            </button>
+          </div>
+        ) : userType === 'employee' ? (
+          <div className={cx('box')}>
+            <button
+              type="button"
+              className={cx('button', 'disabled', className)}
+              onClick={() => openModal(modalType.cancel, applicationId)}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {isHovered ? '취소하기' : '대기중'}
+            </button>
+          </div>
+        ) : null
       ) : (
         <button className={cx('button', 'disabled', className)} type="button" disabled>
           {text}

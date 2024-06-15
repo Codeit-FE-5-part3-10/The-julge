@@ -1,0 +1,101 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 2rem;
+  overflow: hidden;
+  width: 351px;
+
+  @include tablet {
+    display: grid;
+    grid-template:
+      'name category'
+      'address1 address2'
+      'originalHourlyPay .'
+      'imageUrl imageUrl'
+      'description description'
+      'button button';
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 2rem;
+    row-gap: 2rem;
+    width: 680px;
+  }
+
+  @include desktop {
+    width: 964px;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  row-gap: 0.8rem;
+
+  & > label {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.6rem;
+  }
+
+  &.name {
+    grid-area: name;
+  }
+  &.category {
+    grid-area: category;
+  }
+  &.address1 {
+    grid-area: address1;
+  }
+  &.address2 {
+    grid-area: address2;
+  }
+  &.originalHourlyPay {
+    grid-area: originalHourlyPay;
+  }
+  &.imageUrl {
+    grid-area: imageUrl;
+  }
+  &.description {
+    grid-area: description;
+  }
+  &.button {
+    grid-area: button;
+  }
+}
+
+.input,
+.textarea {
+  border-radius: 6px;
+  border: 1px solid $color-gray30;
+  background-color: white;
+  padding: 1.6rem 2rem;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.6rem;
+  outline: none;
+}
+
+.textarea {
+  height: 15.3rem;
+}
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

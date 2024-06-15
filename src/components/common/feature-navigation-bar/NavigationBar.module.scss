@@ -1,0 +1,129 @@
+@import '/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index-nav;
+  background-color: white;
+
+  &.sticky {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    'logo . buttons'
+    '. . .'
+    'search search search';
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 2rem auto;
+  align-items: center;
+  padding: 1.65rem 2rem 1rem;
+  width: 100%;
+
+  @include tablet {
+    grid-template-areas: 'logo . search . buttons';
+    grid-template-columns: auto 6cqb 1fr 6cqb auto;
+    grid-template-rows: auto;
+  }
+
+  @include desktop {
+    max-width: 96.4rem;
+  }
+}
+
+.logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.164rem;
+  height: 1.5rem;
+
+  @include tablet {
+    width: 10.9rem;
+    height: 2rem;
+  }
+}
+
+.search {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 0.8rem;
+  background-color: $color-gray10;
+  border-radius: 1rem;
+  padding: 0.8rem;
+  width: 100%;
+
+  @include tablet {
+    padding: 1rem;
+    column-gap: 1rem;
+  }
+
+  & .input {
+    background-color: $color-gray10;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+
+    @include tablet {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+
+    &::placeholder {
+      color: $color-gray40;
+    }
+  }
+
+  & .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+
+    @include tablet {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 1rem;
+
+  @include tablet {
+    column-gap: 1.2rem;
+  }
+
+  & .button,
+  & .text {
+    font-size: 1.4rem;
+    font-weight: 700;
+
+    @include tablet {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 2rem;
+    }
+  }
+
+  & .icon {
+    width: 2rem;
+    height: 2rem;
+
+    @include tablet {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}

@@ -1,13 +1,13 @@
 @import '@/src/styles/global.scss';
 
-.container {
+.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.wrapper {
+.container {
   border: 1px solid $color-gray30;
   border-radius: 10px;
   background-color: white;

@@ -1,0 +1,59 @@
+{
+  "item": {
+    "id": "f3778908-2c11-4846-aec1-31a8ffc0c3d3",
+    "name": "string",
+    "category": "한식",
+    "address1": "서울시 종로구",
+    "address2": "string",
+    "description": "string",
+    "imageUrl": "www.naver.com",
+    "originalHourlyPay": 10000,
+    "user": {
+      "item": {
+        "id": "b5dd5e6f-a94f-4850-a13a-35842c4ad3a2",
+        "email": "mynewid@naver.com",
+        "type": "employer"
+      },
+      "href": "/api/0-1/the-julge/users/b5dd5e6f-a94f-4850-a13a-35842c4ad3a2"
+    }
+  },
+  "links": [
+    {
+      "rel": "self",
+      "description": "가게 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/f3778908-2c11-4846-aec1-31a8ffc0c3d3"
+    },
+    {
+      "rel": "update",
+      "description": "가게 정보 수정",
+      "method": "PUT",
+      "href": "/api/0-1/the-julge/shops/f3778908-2c11-4846-aec1-31a8ffc0c3d3",
+      "body": {
+        "name": "string",
+        "category": "한식 | 중식 | 일식 | 양식 | 분식 | 카페 | 편의점 | 기타",
+        "address1": "서울시 종로구 | 서울시 중구 | 서울시 용산구 | 서울시 성동구 | 서울시 광진구 | 서울시 동대문구 | 서울시 중랑구 | 서울시 성북구 | 서울시 강북구 | 서울시 도봉구 | 서울시 노원구 | 서울시 은평구 | 서울시 서대문구 | 서울시 마포구 | 서울시 양천구 | 서울시 강서구 | 서울시 구로구 | 서울시 금천구 | 서울시 영등포구 | 서울시 동작구 | 서울시 관악구 | 서울시 서초구 | 서울시 강남구 | 서울시 송파구 | 서울시 강동구",
+        "address2": "string",
+        "description": "string",
+        "imageUrl": "string",
+        "originalHourlyPay": "number"
+      }
+    },
+    {
+      "rel": "user",
+      "description": "가게 주인 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/users/b5dd5e6f-a94f-4850-a13a-35842c4ad3a2"
+    },
+    {
+      "rel": "notices",
+      "description": "공고 목록",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/f3778908-2c11-4846-aec1-31a8ffc0c3d3/notices",
+      "query": {
+        "offset": "undefined | number",
+        "limit": "undefined | number"
+      }
+    }
+  ]
+}

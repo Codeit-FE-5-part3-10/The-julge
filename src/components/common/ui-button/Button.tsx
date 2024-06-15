@@ -9,6 +9,7 @@ const cx = classNames.bind(styles);
 interface ButtonProps {
   children: React.ReactNode;
   color: 'primary' | 'white' | 'gray';
+  type?: 'button' | 'submit';
   width?: number | string;
   to?: string;
   onClick?: () => void;
@@ -19,11 +20,18 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   children,
   color,
+<<<<<<< HEAD
+  type = 'button',
+  width,
+  to,
+  onClick,
+=======
   width,
   to,
   onClick,
   disabled,
   cursor = 'pointer', // 기본값 'pointer' 설정
+>>>>>>> develop
 }) => {
   const className = cx('button', color);
 
@@ -43,6 +51,9 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
+<<<<<<< HEAD
+    <button type={type} onClick={handleClick} className={className} style={buttonStyle}>
+=======
     <button
       type="button"
       onClick={handleClick}
@@ -50,6 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
       style={buttonStyle}
       disabled={disabled}
     >
+>>>>>>> develop
       {children}
     </button>
   );
