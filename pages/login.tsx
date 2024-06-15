@@ -38,7 +38,7 @@ const LoginPage = () => {
     },
     [router, tokenContext]
   );
-  console.log(tokenContext);
+
   const handleEmailBlur = useCallback(() => {
     if (!errors.email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,7 +61,7 @@ const LoginPage = () => {
   }, [passwordValue]);
 
   const handleLogoClick = () => {
-    router.push('/index');
+    router.push('/');
   };
 
   return (

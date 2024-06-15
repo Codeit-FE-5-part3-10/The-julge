@@ -92,10 +92,9 @@ const SignupPage = () => {
           password: data.password,
           type: data.userType,
         };
-        console.log(data.userType);
         await axios.post('https://bootcamp-api.codeit.kr/api/0-1/the-julge/users', postData);
         alert('가입이 완료되었습니다');
-        router.push('index');
+        router.push('/');
       } catch (error) {
         console.error(error);
         setApiError('이미 사용중인 이메일입니다.');
