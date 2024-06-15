@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import { useToken } from '@/src/contexts/TokenProvider';
-=======
->>>>>>> develop
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './NoticeDetail.module.scss';

@@ -34,7 +34,7 @@ export const getUserApplication = async (
   token: string
 ): Promise<getShopNoticeApplicationsResponse> => {
   const response = await axiosInstance.get<getShopNoticeApplicationsResponse>(
-    ` /users/${user_id}/applications`,
+    `/users/${user_id}/applications`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

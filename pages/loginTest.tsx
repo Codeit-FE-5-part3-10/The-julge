@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './loginTest.module.scss';
-import { useToken } from '@/src/contexts/TokenProvider';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 

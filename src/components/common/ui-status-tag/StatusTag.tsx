@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './StatusTag.module.scss';
 import { useModal } from '@/src/contexts/ModalContext';
 import { modalType } from '@/src/constants/constant';
-import { useToken } from '@/src/contexts/TokenProvider';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 

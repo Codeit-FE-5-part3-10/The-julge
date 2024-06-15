@@ -8,8 +8,8 @@ import styles from './NavigationBar.module.scss';
 import Logo from '@/public/images/global-logo.svg';
 import SearchBarIcon from '@/public/images/navigationbar-search.svg';
 import NotificationIcon from '@/public/images/navigationbar-empty.svg';
-import { useToken } from '@/src/contexts/TokenProvider';
 import { getUser } from '@/src/apis/user';
+import { useToken } from '@/src/utils/TokenProvider';
 
 type NavigationBarProps = {
   isSticky?: boolean;

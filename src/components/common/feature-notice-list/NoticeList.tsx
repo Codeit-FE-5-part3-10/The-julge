@@ -2,16 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styles from './NoticeList.module.scss';
-<<<<<<< HEAD
-import CardItem from '../cardItem/CardItem';
-import { getToken } from '@/src/apis/token';
-import { useUserId } from '@/src/utils/useUserId';
-import { getUser } from '@/src/apis/user';
-import { useQuery } from '@tanstack/react-query';
-import { useToken } from '@/src/contexts/TokenProvider';
-=======
 import { CardItem } from '../cardItem/CardItem';
->>>>>>> develop
 
 const cx = classNames.bind(styles);
 

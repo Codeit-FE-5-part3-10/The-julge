@@ -20,18 +20,12 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   children,
   color,
-<<<<<<< HEAD
   type = 'button',
-  width,
-  to,
-  onClick,
-=======
   width,
   to,
   onClick,
   disabled,
   cursor = 'pointer', // 기본값 'pointer' 설정
->>>>>>> develop
 }) => {
   const className = cx('button', color);
 
@@ -51,17 +45,13 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-<<<<<<< HEAD
-    <button type={type} onClick={handleClick} className={className} style={buttonStyle}>
-=======
     <button
-      type="button"
+      type={type}
       onClick={handleClick}
       className={className}
       style={buttonStyle}
       disabled={disabled}
     >
->>>>>>> develop
       {children}
     </button>
   );

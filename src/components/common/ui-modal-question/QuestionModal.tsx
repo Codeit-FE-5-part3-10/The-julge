@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import styles from './QuestionModal.module.scss';
 import { Button } from '../ui-button/Button';
 import { useModal } from '@/src/contexts/ModalContext';
-import { useToken } from '@/src/contexts/TokenProvider';
 import { putShopNoticeApplicationStatus } from '@/src/apis/applications';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 

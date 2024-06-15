@@ -1,17 +1,6 @@
 import classNames from 'classnames/bind';
-<<<<<<< HEAD
-import { useEffect, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import styles from './PersonalNotices.module.scss';
-import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
-import CardItem from '../../common/cardItem/CardItem';
-import { useToken } from '@/src/contexts/TokenProvider';
-import { axiosInstance } from '@/src/apis/axiosInstance';
-import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
-=======
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
->>>>>>> develop
 import Link from 'next/link';
 import { Loader } from '@mantine/core';
 import styles from './PersonalNotices.module.scss';
@@ -32,39 +21,12 @@ export default function PersonalNotices() {
   };
 
   const containerRef = useRef<HTMLDivElement>(null); // 자동 스크롤을 위한 Ref
-<<<<<<< HEAD
-  const { token, userInfo } = useToken();
-  const [userAddress, setUserAddress] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUserData = async (param: string) => {
-      try {
-        const response = await axiosInstance.get(`/users/${param}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (response.data && response.data.item && response.data.item.address) {
-          setUserAddress(response.data.item.address);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    if (userInfo?.id) {
-      fetchUserData(userInfo.id);
-    }
-  }, [userInfo, token]);
-=======
   const itemRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState<number>(0);
   const handleWidthCalculated = (width: number) => {
     setCardWidth(width); // CardItem 컴포넌트의 너비를 상태로 관리
   };
   const [scrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
->>>>>>> develop
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당

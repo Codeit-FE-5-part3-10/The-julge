@@ -6,11 +6,11 @@ import styles from './RegisterForm.module.scss';
 import { postShopRequest } from '@/src/types/apis/shop/postShop';
 import { ADDRESS, CATEGORY } from './constant';
 import { postShop, putShop } from '@/src/apis/shops';
-import { useToken } from '@/src/contexts/TokenProvider';
 import { CustomSelect } from '../../common/feature-select/CustomSelect';
 import { FileUpload } from '../feature-file-upload/UploadFile';
 import { Button } from '../../common/ui-button/Button';
 import { formatCurrency } from '@/src/utils/formatCurrency';
+import { useToken } from '@/src/utils/TokenProvider';
 
 const cx = classNames.bind(styles);
 
