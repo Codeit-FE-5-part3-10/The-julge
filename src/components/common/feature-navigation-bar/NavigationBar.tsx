@@ -68,7 +68,7 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
         </div>
         {userType === 'employer' && (
           <div className={cx('buttons')}>
-            <Link href={shopId ? `/shops/${shopId}` : '/empty'} className={cx('text')}>
+            <Link href={shopId ? `/shops/${shopId}` : 'shops/empty'} className={cx('text')}>
               내 가게
             </Link>
             <button type="button" onClick={logout} className={cx('button')}>

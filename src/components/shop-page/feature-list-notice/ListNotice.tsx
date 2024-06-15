@@ -3,21 +3,25 @@ import classNames from 'classnames/bind';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import styles from './ListNotice.module.scss';
-import CardItem from '../../common/cardItem/CardItem';
 import { Pagination } from '../../common/ui-pagination/Pagination';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
 import { getShopNotices } from '@/src/apis/notices';
+import { CardItem } from '../../common/cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 
 interface ListNoticeProps {
-  params: { name: string; location: string; imageUrl: string; originalWage: number };
-  shopId: string;
+  notices: {
+    name: string;
+    location: string;
+    imageUrl: string;
+    originalWage: number;
+    shopId: string;
+  };
 }
 
 export const ListNotice: React.FC<ListNoticeProps> = ({
-  params: { name, location, imageUrl, originalWage },
-  shopId,
+  notices: { name, location, imageUrl, originalWage, shopId },
 }) => {
   const [page, setPage] = useState<number>(initialPage);
 
@@ -50,7 +54,7 @@ export const ListNotice: React.FC<ListNoticeProps> = ({
     <div className={cx('container')}>
       <div className={cx('list')}>
         {notices.items.map((notice) => {
-          const { id: noticeId, startsAt, workhour, hourlyPay } = notice.item;
+          const { id: noticeId, startsAt, workhour, hourlyPay, closed } = notice.item;
           return (
             <Link href={`/shops/${shopId}/notices/${noticeId}`}>
               <CardItem
@@ -62,6 +66,7 @@ export const ListNotice: React.FC<ListNoticeProps> = ({
                 location={location}
                 imageUrl={imageUrl}
                 originalWage={originalWage}
+                closed={closed}
               />
             </Link>
           );

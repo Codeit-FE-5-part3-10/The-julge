@@ -49,6 +49,14 @@
   border-radius: 1.2rem;
   background-color: $color-gray10;
   padding: 3.2rem;
+  width: 35.1rem;
+
+  @include tablet {
+    width: 68rem;
+  }
+  @include desktop {
+    width: 96.4rem;
+  }
 }
 
 .image {
@@ -131,6 +139,7 @@
   font-weight: 400;
   line-height: 2.2rem;
   color: $color-black;
+  word-break: break-all;
 
   @include tablet {
     font-size: 1.6rem;

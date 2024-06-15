@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import { useRouter } from 'next/router';
-import styles from './RegisterForm.module.scss';
+import styles from './ShopRegisterForm.module.scss';
 import { postShopRequest } from '@/src/types/apis/shop/postShop';
 import { ADDRESS, CATEGORY } from './constant';
 import { postShop, putShop } from '@/src/apis/shops';
@@ -11,16 +10,21 @@ import { FileUpload } from '../feature-file-upload/UploadFile';
 import { Button } from '../../common/ui-button/Button';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 import { useToken } from '@/src/utils/TokenProvider';
+import { useRouter } from 'next/router';
 
 const cx = classNames.bind(styles);
 
-interface RegisterFormProps {
+interface ShopRegisterFormProps {
   isUpdate?: boolean;
   existingData?: postShopRequest;
   shopId?: string;
 }
 
-export const RegisterForm = ({ isUpdate = false, existingData, shopId }: RegisterFormProps) => {
+export const ShopRegisterForm = ({
+  isUpdate = false,
+  existingData,
+  shopId,
+}: ShopRegisterFormProps) => {
   const { handleSubmit, control, setValue } = useForm<postShopRequest>({
     defaultValues: existingData || {
       name: '',
@@ -36,7 +40,6 @@ export const RegisterForm = ({ isUpdate = false, existingData, shopId }: Registe
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { token } = useToken();
   const router = useRouter();
-
   useEffect(() => {
     if (existingData) {
       Object.keys(existingData).forEach((key) => {

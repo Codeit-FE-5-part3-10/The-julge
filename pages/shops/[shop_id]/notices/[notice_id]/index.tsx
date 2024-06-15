@@ -14,9 +14,9 @@ import { RecentNotice } from '@/src/components/detail-page/ui-recent-notice/Rece
 
 export default function Notice() {
   const router = useRouter();
+  const { userInfo } = useToken();
   const { shop_id, notice_id } = router.query;
   const [userType, setUserType] = useState('');
-  const { userInfo } = useToken();
   const [myShopId, setMyShopId] = useState<string>();
   const [isMyShop, setIsMyShop] = useState<boolean>();
   // shopId와 noticeId가 undefined일 경우 빈 문자열로 초기화
@@ -84,15 +84,6 @@ export default function Notice() {
     return <div>Error loading shop data</div>;
   }
 
-  // TODO: 로딩, 오류 처리
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading shop data</div>;
-  }
-
   // 데이터와 data.item이 정의되어 있는지 확인
   if (!data || !data.item) {
     return <div>No data</div>;
@@ -123,7 +114,7 @@ export default function Notice() {
         <>
           <Section
             title={data.item.shop.item.name}
-            content={<DetailNotice params={notice} />}
+            content={<DetailNotice params={notice} shopId={shopId} noticeId={noticeId} />}
             gray
           />
           <ModalProvider>

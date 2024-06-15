@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { RegisterForm } from '@/src/components/shop-edit-page/feature-form/RegisterForm';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { Section } from '@/src/layouts/section/Section';
 import { getShop } from '@/src/apis/shops';
+import { ShopRegisterForm } from '@/src/components/shop-edit-page/feature-form/ShopRegisterForm';
 
-export default function ShopRegisterForm() {
+export default function ShopEdit() {
   const router = useRouter();
   const { shop_id: shopId } = router.query;
 
@@ -43,7 +43,7 @@ export default function ShopRegisterForm() {
     <Layout isSticky isFooterHidden>
       <Section
         title="가게 정보"
-        content={<RegisterForm isUpdate existingData={existingData} shopId={shopId} />}
+        content={<ShopRegisterForm isUpdate existingData={existingData} shopId={shopId} />}
         gray
       />
     </Layout>

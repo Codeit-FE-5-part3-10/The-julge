@@ -23,9 +23,11 @@ interface DetailNoticeProps {
     imageUrl: string;
     closed: boolean;
   };
+  shopId: string;
+  noticeId: string;
 }
 
-export const DetailNotice: React.FC<{ params: DetailNoticeProps['params'] }> = ({
+export const DetailNotice: React.FC<DetailNoticeProps> = ({
   params: {
     wage,
     originalWage,
@@ -36,6 +38,8 @@ export const DetailNotice: React.FC<{ params: DetailNoticeProps['params'] }> = (
     location,
     imageUrl,
   },
+  shopId,
+  noticeId,
 }) => {
   const difference = wage - originalWage;
   const n = Math.ceil((difference / originalWage) * 100); // 최저 임금과 시급 비교해서 나온 %값
@@ -97,7 +101,7 @@ export const DetailNotice: React.FC<{ params: DetailNoticeProps['params'] }> = (
           <p className={cx('description')}>{shopDescription}</p>
         </div>
         <div className={cx('buttons')}>
-          <Button color="white" to="/NoticeEdit">
+          <Button color="white" to={`/shops/${shopId}/notices/${noticeId}/edit`}>
             공고 편집하기
           </Button>
         </div>
