@@ -1,0 +1,105 @@
+@import '@/src/styles/global.scss';
+
+.title {
+  font-family: Spoqa Han Sans Neo;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  width: 351px;
+}
+
+.form {
+  background-color: #fafafa;
+  width: 100%;
+  height:  100%;
+  padding: 40px 12px 80px 12px;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.wrap {
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+
+  @include tablet {
+    grid-auto-columns: repeat(2, 1fr);
+    grid-auto-rows: repeat(3, 1fr);
+    .item4 {
+      grid-column: 1/3;
+      grid-row: 3/4;
+    }
+  }
+
+  @include desktop {
+    grid-auto-columns: repeat(5, 1fr);
+    grid-auto-rows: repeat(6, 1fr);
+
+    .item4 {
+      grid-column: 1/3;
+      grid-row: 3/4;
+    }
+  }
+}
+
+.form-control {
+  width: 351px;
+  height: 58px;
+  padding: 16px 20px;
+  gap: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbc9cf;
+}
+
+.form-select {
+  width: 351px;
+  height: 58px;
+  padding: 16px 20px;
+  gap: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbc9cf;
+  color: #111322;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// .form-label {
+//   font-family: Spoqa Han Sans Neo;
+//   font-size: 16px;
+//   font-weight: 400;
+//   line-height: 26px;
+//   text-align: left;
+//   color: #111322;
+// }
+
+.form-textarea {
+  width: 351px;
+  height: 153px;
+  padding: 16px 20px;
+  gap: 10px;
+  border-radius: 5px;
+  border: 1px;
+  background: #ffffff;
+  border: 1px solid #cbc9cf;
+
+  @include tablet {
+    width: 720px;
+    height: 187px;
+  }
+}
