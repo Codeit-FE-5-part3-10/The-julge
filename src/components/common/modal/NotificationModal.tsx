@@ -6,7 +6,7 @@ import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { CardEmpty } from '@/src/components/common/ui-card-empty/CardEmpty';
 import { MyprofileLayout } from '@/src/layouts/myprofile-layout/MyprofileLayout';
 import { TableForCandidate } from '@/src/components/common/ui-table/TableForCandidate';
-import { ProfileCard } from '@/src/components/common/ui-profile-card/ProfileCard';
+import { ProfileCard } from '@/src/components/User-page/ui-profile-card/ProfileCard';
 
 export default function Myprofile() {
   const [token, setToken] = useState<string | null>(null);
@@ -75,33 +75,5 @@ TODO
   const hasProfile = hasKey(userProfileData, 'name');
   const hasNotices = userProfileData?.shop !== undefined;
 
-  return (
-    <Layout>
-      <MyprofileLayout
-        profile={
-          hasProfile ? (
-            <ProfileCard userData={userProfileData} />
-          ) : (
-            <CardEmpty
-              description="내 프로필을 등록하고 원하는 가게에 지원해보세요"
-              btnText="내 프로필 등록하기"
-              href="/MyprofileEdit"
-            />
-          )
-        }
-
-        // list={
-        //   hasProfile && hasNotices ? (
-        //     <TableForCandidate applications={userProfileData.applications} />
-        //   ) : hasProfile ? (
-        //     <CardEmpty
-        //       description="아직 신청 내역이 없어요."
-        //       btnText="공고 보러가기"
-        //       href="/list"
-        //     />
-        //   ) : null
-        // }
-      />
-    </Layout>
-  );
+  return <></>;
 }

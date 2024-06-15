@@ -1,6 +1,7 @@
 import { axiosInstance } from './axiosInstance';
 import { GetUserRequest, GetUserResponse } from '../types/apis/user/getUser';
 import { getShopNoticeApplicationsResponse } from '../types/apis/application/getShopNoticeApplications';
+import { UserResponse } from '../types/apis/application/getUserApplications';
 
 //'42455be1-ea49-49cc-a89f-1400c96fce09'
 
@@ -24,7 +25,7 @@ export const getUserApplication = async (
   token: string
 ): Promise<getShopNoticeApplicationsResponse> => {
   const response = await axiosInstance.get<getShopNoticeApplicationsResponse>(
-    `/users/${user_id}/applications`,
+   ` /users/${user_id}/applications`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,3 +34,23 @@ export const getUserApplication = async (
   );
   return response.data;
 };
+
+export const getUserApplicationlist = async (
+  user_id: string,
+  token: string,
+  offset: number,
+  limit: number
+): Promise<UserResponse> => {
+  const response = await axiosInstance.get<UserResponse>(
+   `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response;
+};
+
+export type { GetUserResponse };
+

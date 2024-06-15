@@ -4,7 +4,7 @@
   position: relative;
   margin: auto;
   width: 351px;
-  padding: 20px;
+  padding: 40px;
   gap: 8px;
   border-radius: 12px;
   background: #FFEBE7;
@@ -15,7 +15,7 @@
 }
 
 @include desktop {
-  width: 665px;
+  width: 950px;
   padding: 32px;
 
 }
@@ -94,7 +94,7 @@
 .profile-card p{
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
   text-align: left;
   margin: 20px 0 0;
 
@@ -104,3 +104,8 @@
     }
 }
 
+.btn{
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+}
