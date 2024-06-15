@@ -7,6 +7,10 @@
   row-gap: 40px;
 }
 
+.is-end {
+  pointer-events: none; // Disable clicks
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(2, 171px);

@@ -6,12 +6,19 @@
   background-color: $color-red10;
   height: 38.1rem;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  padding: 1rem;
+  overflow: hidden;
 
   @include tablet {
     height: 53.5rem;
     padding: 6rem 3.2rem;
   }
+}
+
+.is-end {
+  pointer-events: none; // Disable clicks
 }
 
 .title-container {
@@ -36,12 +43,8 @@
   width: 100%;
   gap: 0.4rem;
   margin-top: 1rem;
-  overflow-x: auto; /* 수평 스크롤 활성화 */
-  scroll-behavior: smooth; /* 스크롤이 부드럽게 이동 */
-
-  /* 스크롤바 숨기기 */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  // overflow-x: auto; /* 수평 스크롤 활성화 */
+  // scroll-behavior: smooth; /* 스크롤이 부드럽게 이동 */
 
   @include tablet {
     max-width: 96.5rem;
@@ -49,6 +52,21 @@
   }
 }
 
-.noticesList-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.scroll-container {
+  display: flex;
+  overflow-x: auto; /* 수평 스크롤 활성화 */
+  scroll-behavior: smooth; /* 스크롤이 부드럽게 이동 */
+  width: 100%;
+  // /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  @include desktop {
+    width: auto;
+  }
 }

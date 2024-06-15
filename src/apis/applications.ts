@@ -15,25 +15,37 @@ export const getShopNoticeApplications = async (
 };
 
 // 가게의 특정 공고 지원 승인, 거절 또는 취소
-export interface UpdateStatusParams {
-  shopId: string | string[] | undefined;
-  noticeId: string | string[] | undefined;
-  applicationId: string | null;
-  newStatus: 'accepted' | 'rejected' | 'canceled';
-  token: string | null;
-}
-
-export const putShopNoticeApplicationStatus = async ({
-  shopId,
-  noticeId,
-  applicationId,
-  newStatus,
-  token,
-}: UpdateStatusParams): Promise<any> => {
+export const putShopNoticeApplicationStatus = async (
+  shopId: string,
+  noticeId: string,
+  applicationId: string,
+  status: 'accepted' | 'rejected' | 'canceled',
+  token: string
+) => {
   const response = await axiosInstance.put(
     `/shops/${shopId}/notices/${noticeId}/applications/${applicationId}`,
-    { status: newStatus },
-    { headers: { Authorization: `Bearer ${token}` } }
+    {
+      status,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+// 가게의 특정 공고 지원 등록
+export const postNoticeApplication = async (shopId: string, noticeId: string, token: string) => {
+  const response = await axiosInstance.post(
+    `/shops/${shopId}/notices/${noticeId}/applications`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   return response.data;
 };

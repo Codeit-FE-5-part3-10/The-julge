@@ -1,4 +1,3 @@
-// AllNotices.tsx
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
@@ -70,6 +69,7 @@ export default function AllNotices() {
       originalWage: item.item.shop.item.originalHourlyPay,
       shopId: item.item.shop.item.id,
       noticeId: item.item.id,
+      closed: item.item.closed,
     })) || [];
 
   const count = data?.count ?? 1;

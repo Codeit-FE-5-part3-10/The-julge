@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import defaultImg from 'public/images/gom.png';
-import groupIcon from 'public/images/group.svg';
-import locationIcon from 'public/images/path11.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import formatDateTime from 'src/utils/formatDateTime';
-import Link from 'next/link';
+import LocationIcon from './LocationIcon';
 import styles from './cardItem.module.scss';
 import UpIcon from './UpIcon';
+import TimeIcon from './TimeIcon';
 import addHoursToTime from '@/src/utils/addHoursToTime';
 
 interface CardItemProps {
@@ -18,9 +17,12 @@ interface CardItemProps {
   location: string;
   imageUrl?: string;
   originalWage: number;
+  onWidthCalculated?: (width: number) => void; // 너비를 전달하기 위한 콜백 함수
+  closed: boolean;
 }
 
-export default function CardItem({
+export const CardItem: React.FC<CardItemProps> = ({
+  onWidthCalculated,
   title,
   date,
   time,
@@ -28,7 +30,8 @@ export default function CardItem({
   wage,
   imageUrl,
   originalWage,
-}: CardItemProps) {
+  closed,
+}: CardItemProps) => {
   const cx = classNames.bind(styles);
   const formattedWage = wage.toLocaleString(); // 천 단위 쉼표 추가
   const difference = wage - originalWage;
@@ -36,15 +39,41 @@ export default function CardItem({
   const upIcon = n <= 49 ? '#ff8d72' : '#ff4040';
   const [iconColor, setIconColor] = useState('#ff4040');
   const [textColor, setTextColor] = useState('#ff8d72');
+  const [primaryIconColor, setPrimaryIconColor] = useState('#ff8d72');
   const { formattedDate, formattedTime } = formatDateTime(date);
   const endTime = addHoursToTime(formattedTime, time);
+  const cardRef: any = useRef(null);
+
+  const isPastDate = new Date(date) < new Date();
 
   useEffect(() => {
+    if (closed || isPastDate) {
+      setPrimaryIconColor('#cbc9cf');
+    }
+    // 컴포넌트가 마운트되었을 때 너비를 계산하고 부모 컴포넌트로 전달
+    if (cardRef.current && typeof onWidthCalculated === 'function') {
+      const width = cardRef.current.offsetWidth;
+      onWidthCalculated(width);
+    }
+  }, [onWidthCalculated, closed, isPastDate]);
+
+  useEffect(() => {
+    if (closed || isPastDate) {
+      setPrimaryIconColor('#cbc9cf');
+    }
     //업 아이콘 색상변경
     const updateColors = () => {
       if (window.matchMedia('(min-width:768px)').matches) {
-        setIconColor('white');
-        setTextColor('white');
+        if (closed || isPastDate) {
+          setIconColor('#cbc9cf');
+          setTextColor('#cbc9cf');
+        } else {
+          setIconColor('white');
+          setTextColor('white');
+        }
+      } else if (closed || isPastDate) {
+        setIconColor('#cbc9cf');
+        setTextColor('#cbc9cf');
       } else {
         setIconColor(upIcon);
         setTextColor(n >= 50 ? '#ff4040' : '#ff8d72');
@@ -61,9 +90,19 @@ export default function CardItem({
     };
   }, []);
 
-  //TODO: 카드 클릭 시 해당 공고 상세 페이지로 이동하는 기능이 필요할 것 같습니다. (의진)
   return (
-    <div className={cx('container')}>
+    <div className={cx('container', { 'is-end': closed || isPastDate })} ref={cardRef}>
+      {isPastDate ? (
+        <div className={cx('closed-container')}>
+          <span className={cx('closed-text')}>지난 공고</span>
+        </div>
+      ) : (
+        closed && (
+          <div className={cx('closed-container')}>
+            <span className={cx('closed-text')}>마감 완료</span>
+          </div>
+        )
+      )}
       <Image
         className={cx('img')}
         src={imageUrl || defaultImg}
@@ -73,7 +112,7 @@ export default function CardItem({
       />
       <p className={cx('title')}>{title}</p>
       <div className={cx('container_dateTime')}>
-        <Image className={cx('groupIcon')} src={groupIcon} alt="아이콘" />
+        <TimeIcon color={primaryIconColor} />
         <div className={cx('container_text')}>
           <p className={cx('date')}>{formattedDate}</p>
           <p className={cx('time')}>
@@ -82,7 +121,7 @@ export default function CardItem({
         </div>
       </div>
       <div className={cx('container_location')}>
-        <Image className={cx('locationIcon')} src={locationIcon} alt="위치 아이콘" />
+        <LocationIcon color={primaryIconColor} />
         <p className={cx('location')}>{location}</p>
       </div>
       <div className={cx('container_pay')}>
@@ -96,4 +135,4 @@ export default function CardItem({
       </div>
     </div>
   );
-}
+};

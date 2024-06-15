@@ -1,9 +1,16 @@
-export interface GetUserResponse {
-  item: GetUserItem;
-  links: Link[];
+//2. 내 정보 조회
+export interface GetUserRequest {
+  item: any;
+  user_id: string;
 }
 
-export interface GetUserItem {
+// 전체 데이터 구조 타입 정의
+export interface GetUserResponse {
+  item: UserItem;
+}
+
+// UserItem 타입 정의
+export interface UserItem {
   id: string;
   email: string;
   type: 'employer' | 'employee';

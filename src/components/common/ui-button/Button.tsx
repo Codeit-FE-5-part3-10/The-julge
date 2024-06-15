@@ -1,3 +1,5 @@
+// Button.tsx
+
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
@@ -11,37 +13,55 @@ interface ButtonProps {
   width?: number | string;
   to?: string;
   onClick?: () => void;
+  disabled?: boolean;
+  cursor?: 'pointer' | 'default' | 'none'; // cursor prop 추가
 }
 
 export const Button: React.FC<ButtonProps> = ({
   children,
   color,
+<<<<<<< HEAD
   type = 'button',
   width,
   to,
   onClick,
+=======
+  width,
+  to,
+  onClick,
+  disabled,
+  cursor = 'pointer', // 기본값 'pointer' 설정
+>>>>>>> develop
 }) => {
   const className = cx('button', color);
 
   const handleClick = () => {
-    //  안전성 검사 : 만약 prop이 제대로 주어졌다면 실행
-    if (onClick) {
+    if (onClick && !disabled) {
       onClick();
     }
 
-    // 만약 to prop이 주어졌다면 URL로 이동
-    if (to) {
+    if (to && !disabled) {
       window.location.href = to;
     }
   };
 
-  // width가 주어지지 않았을 때 기본값을 '100%'로 설정
   const buttonStyle = {
     width: width || '100%',
+    cursor: disabled ? 'default' : cursor, // disabled일 때 cursor를 'default'로 설정
   };
 
   return (
+<<<<<<< HEAD
     <button type={type} onClick={handleClick} className={className} style={buttonStyle}>
+=======
+    <button
+      type="button"
+      onClick={handleClick}
+      className={className}
+      style={buttonStyle}
+      disabled={disabled}
+    >
+>>>>>>> develop
       {children}
     </button>
   );
