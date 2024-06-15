@@ -8,6 +8,18 @@
   @include tablet {
     row-gap: 2.4rem;
   }
+
+  &.is-end {
+    // is-end 클래스가 추가될 때 하위 요소들의 스타일을 변경합니다.
+    .label,
+    .name,
+    .description {
+      color: $color-gray30;
+    }
+    .container_compare {
+      background-color: #ffffff;
+    }
+  }
 }
 
 .container_top {
@@ -172,5 +184,40 @@
   @include tablet {
     color: white;
     font-weight: 700;
+  }
+}
+.closed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 30.8rem;
+  height: 17.8rem;
+  background-color: rgba(0, 0, 0, 0.698); /* 텍스트 배경의 투명도를 조절할 수 있습니다. */
+  z-index: 1; /* 이미지 위에 텍스트가 나타나도록 z-index를 조정합니다. */
+  border-radius: 1.2rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+
+  @include tablet {
+    width: 62.7rem;
+    height: 36.2rem;
+  }
+
+  @include desktop {
+    width: 54.2rem;
+    height: 31.3rem;
+  }
+}
+.closed-text {
+  color: #cbc9cf;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.56px;
+  line-height: normal;
+
+  @include tablet {
+    font-size: 2.8rem;
   }
 }

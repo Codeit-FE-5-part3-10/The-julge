@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import Image from 'next/image';
 import styles from './NoticeDetail.module.scss';
 import formatDateTime from '@/src/utils/formatDateTime';
 import addHoursToTime from '@/src/utils/addHoursToTime';
-import UpIcon from '../../common/cardItem/UpIcon';
-import watchIcon from '@/public/images/card-time-red.svg';
 import { Button } from '../../common/ui-button/Button';
-import locationIcon from '@/public/images/card-location-red.svg';
 import { postNoticeApplication, putShopNoticeApplicationStatus } from '@/src/apis/applications';
 import { fetchUserApplications } from '../feature-noticeDetail-page/fetchUserApplications';
 import { useToken } from '@/src/utils/TokenProvider';
 import Modal from '../../common/modal/Modal';
+import UpIcon from './UpIcon';
+import TimeIcon from './TimeIcon';
+import LocationIcon from './LocationIcon';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +44,7 @@ export const NoticeDetail: React.FC<{
     shopDescription,
     location,
     imageUrl,
-    // closed,
+    closed,
   },
 }) => {
   const difference = wage - originalWage;
@@ -62,16 +61,30 @@ export const NoticeDetail: React.FC<{
   const [isCanceled, setIsCanceled] = useState<boolean>(false); // 취소한 공고인가
   const [isModalOpen, setModalOpen] = useState<ModalItems | null>(null);
 
+  const isPastDate = new Date(date) < new Date();
+  const [primaryIconColor, setPrimaryIconColor] = useState('#ff8d72');
+
   useEffect(() => {
     fetchUserApplications({ userInfo, token, noticeId, setApplicationId, setIsApply });
   }, [userInfo, token, noticeId, shopId, setApplicationId, setIsApply]);
 
   useEffect(() => {
+    if (closed || isPastDate) {
+      setPrimaryIconColor('#cbc9cf');
+    }
     //업 아이콘 색상변경
     const updateColors = () => {
       if (window.matchMedia('(min-width:768px)').matches) {
-        setIconColor('white');
-        setTextColor('white');
+        if (closed || isPastDate) {
+          setIconColor('#cbc9cf');
+          setTextColor('#cbc9cf');
+        } else {
+          setIconColor('white');
+          setTextColor('white');
+        }
+      } else if (closed || isPastDate) {
+        setIconColor('#cbc9cf');
+        setTextColor('#cbc9cf');
       } else {
         setIconColor(upIcon);
         setTextColor(n >= 50 ? '#ff4040' : '#ff8d72');
@@ -86,7 +99,7 @@ export const NoticeDetail: React.FC<{
     return () => {
       window.removeEventListener('resize', updateColors);
     };
-  }, []);
+  }, [closed, isPastDate]);
 
   const handleApplication = async () => {
     if (!token) {
@@ -116,6 +129,12 @@ export const NoticeDetail: React.FC<{
         setApplicationId(response.item.id);
         setIsApply(true);
         setIsCanceled(false);
+        setModalOpen({
+          content: '신청되었습니다.',
+          modalType: 'warning',
+          link: '',
+          btnText: 'question에서 메인컬러 버튼 Text',
+        });
         console.log('신청하기 완료');
       } catch (error) {
         console.error('신청 오류:', error);
@@ -131,6 +150,12 @@ export const NoticeDetail: React.FC<{
         setIsCanceled(true);
         setApplicationId(''); // 취소 후에 applicationId 초기화
         console.log('취소 성공');
+        setModalOpen({
+          content: '취소되었습니다.',
+          modalType: 'warning',
+          link: '',
+          btnText: 'question에서 메인컬러 버튼 Text',
+        });
       } catch (error) {
         console.error('취소 오류: ', error);
       }
@@ -147,8 +172,19 @@ export const NoticeDetail: React.FC<{
   }
 
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx('wrapper', { 'is-end': closed || isPastDate })}>
       <div className={cx('container_top')}>
+        {isPastDate ? (
+          <div className={cx('closed-container')}>
+            <span className={cx('closed-text')}>지난 공고</span>
+          </div>
+        ) : (
+          closed && (
+            <div className={cx('closed-container')}>
+              <span className={cx('closed-text')}>마감 완료</span>
+            </div>
+          )
+        )}
         <div className={cx('image')} style={{ backgroundImage: `url(${imageUrl})` }}></div>
         <div className={cx('info')}>
           <p className={cx('label')}>시급</p>
@@ -162,20 +198,28 @@ export const NoticeDetail: React.FC<{
             </div>
           </div>
           <div className={cx('box')}>
-            <Image className={cx('icon')} src={watchIcon} alt="시계 아이콘" />
+            <TimeIcon color={primaryIconColor} />
             <p className={cx('description', 'gray')}>{formattedDate}</p>
             <p className={cx('description', 'gray')}>
               {formattedTime}~{newFormattedTime}({time}시간)
             </p>
           </div>
           <div className={cx('box')}>
-            <Image className={cx('icon')} src={locationIcon} alt="주소 아이콘" />
+            <LocationIcon color={primaryIconColor} />
             <p className={cx('description', 'gray')}>{location}</p>
           </div>
           <p className={cx('description')}>{shopDescription}</p>
         </div>
         <div className={cx('buttons')}>
-          {isApply && !isCanceled ? (
+          {isPastDate ? (
+            <Button color="gray" disabled cursor="none">
+              지난 공고
+            </Button>
+          ) : closed ? (
+            <Button color="gray" disabled cursor="none">
+              마감 완료
+            </Button>
+          ) : isApply && !isCanceled ? (
             <Button color="white" onClick={handleCancel}>
               취소하기
             </Button>

@@ -17,6 +17,10 @@
   }
 }
 
+.is-end {
+  pointer-events: none; // Disable clicks
+}
+
 .title-container {
   display: flex;
   width: 100%;

@@ -29,7 +29,11 @@ const RegionButton: React.FC<RegionButtonProps> = ({
   };
 
   return (
-    <button className={cx('region-button', { selected: isSelected })} onClick={handleClick}>
+    <button
+      type="button"
+      className={cx('region-button', { selected: isSelected })}
+      onClick={handleClick}
+    >
       {region.name}
     </button>
   );

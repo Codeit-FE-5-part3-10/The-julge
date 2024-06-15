@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import styles from './NoticeList.module.scss';
 import { CardItem } from '../cardItem/CardItem';
 
 const cx = classNames.bind(styles);
 
-interface CardItemProps {
+export interface CardItemProps {
   title: string;
   date: string;
   workhour: number;
@@ -15,6 +16,7 @@ interface CardItemProps {
   originalWage: number;
   shopId?: string;
   noticeId?: string;
+  closed: boolean;
 }
 
 interface NoticeListProps {
@@ -38,25 +40,40 @@ export const NoticeList: React.FC<NoticeListProps> = ({ items }) => {
     localStorage.setItem('recentItems', JSON.stringify(newItems));
   };
 
+  useEffect(() => {
+    // 로컬 스토리지에서 저장된 최근 본 공고를 가져옵니다.
+    const storedItems = JSON.parse(localStorage.getItem('recentItems') || '[]') as CardItemProps[];
+
+    // 최신화된 최근 본 공고를 로컬 스토리지에 다시 저장합니다.
+    localStorage.setItem('recentItems', JSON.stringify(storedItems));
+  }, [localStorage]);
+
   return (
     <div className={cx('list')}>
-      {items?.map((item, index) => (
-        <Link
-          href={`/shops/${item.shopId}/notices/${item.noticeId}`}
-          key={index}
-          onClick={() => handleOnClick(item)}
-        >
-          <CardItem
-            title={item.title}
-            date={item.date}
-            time={item.workhour}
-            location={item.location}
-            wage={item.wage}
-            imageUrl={item.imageUrl}
-            originalWage={item.originalWage}
-          />
-        </Link>
-      ))}
+      {items?.map((item, index) => {
+        const isPastDate = new Date(item.date) < new Date();
+        return (
+          <Link
+            href={`/shops/${item.shopId}/notices/${item.noticeId}`}
+            key={index}
+            onClick={() => handleOnClick(item)}
+            className={cx('notice', { 'is-end': item.closed || isPastDate })}
+          >
+            <div className={cx('notice')}>
+              <CardItem
+                title={item.title}
+                date={item.date}
+                time={item.workhour}
+                location={item.location}
+                wage={item.wage}
+                imageUrl={item.imageUrl}
+                originalWage={item.originalWage}
+                closed={item.closed}
+              />
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };

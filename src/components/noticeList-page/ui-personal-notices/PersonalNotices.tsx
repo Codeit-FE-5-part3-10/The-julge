@@ -8,6 +8,7 @@ import { CardItem } from '../../common/cardItem/CardItem';
 import { GetNoticesRequest, getNotice } from '@/src/apis/notices';
 import { useToken } from '@/src/utils/TokenProvider';
 import { GetNoticesResponse } from '@/src/types/apis/noticeTypes';
+import { CardItemProps } from '../../common/feature-notice-list/NoticeList';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +26,7 @@ export default function PersonalNotices() {
   const handleWidthCalculated = (width: number) => {
     setCardWidth(width); // CardItem 컴포넌트의 너비를 상태로 관리
   };
-  const [scrollPosition, setScrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
+  const [scrollPosition] = useState<number>(0); // 스크롤 위치 상태 추가
 
   useEffect(() => {
     const container = containerRef.current; // container변수에 containerRef가 참조하는 DOM 요소 할당
@@ -35,10 +36,6 @@ export default function PersonalNotices() {
     container.scrollLeft = scrollPosition;
     const interval = setInterval(() => {
       // // const scrollAmount =
-      console.log('width:', cardWidth);
-      console.log('container.scrollLeft: ', container.scrollLeft);
-      console.log('container.clientWidth: ', container.clientWidth);
-      console.log('container.scrollWidth: ', container.scrollWidth);
 
       if (container.scrollLeft + container.clientWidth + 1 >= container.scrollWidth) {
         // 스크롤 위치와 컨테이너의 가시 너비의 합이 전체 콘텐츠 너비와 같거나 더 큰지 확인
@@ -94,7 +91,24 @@ export default function PersonalNotices() {
       originalWage: item.item.shop.item.originalHourlyPay,
       shopId: item.item.shop.item.id,
       noticeId: item.item.id,
+      closed: item.item.closed,
     })) || [];
+
+  const handleOnClick = (item: CardItemProps) => {
+    const MAX_ITEMS = 6; // 최대 저장할 요소 개수
+
+    const storedItems = JSON.parse(localStorage.getItem('recentItems') || '[]') as CardItemProps[];
+
+    // 중복된 noticeId가 있는지 확인
+    if (storedItems.some((storedItem) => storedItem.noticeId === item.noticeId)) {
+      return; // 중복된 경우 저장하지 않고 종료
+    }
+
+    // 새로운 아이템을 배열의 맨 앞에 추가
+    const newItems = [item, ...storedItems.slice(0, MAX_ITEMS - 1)];
+
+    localStorage.setItem('recentItems', JSON.stringify(newItems));
+  };
 
   return (
     <div className={cx('container')}>
@@ -104,20 +118,31 @@ export default function PersonalNotices() {
         </div>
         <div className={cx('scroll-container')} ref={containerRef}>
           <div className={cx('noticesList-container')} ref={itemRef}>
-            {items.map((item, index) => (
-              <Link href={`/shops/${item.shopId}/notices/${item.noticeId}`} key={index}>
-                <CardItem
-                  title={item.title}
-                  date={item.date}
-                  time={item.workhour}
-                  location={item.location}
-                  wage={item.wage}
-                  imageUrl={item.imageUrl}
-                  originalWage={item.originalWage}
-                  onWidthCalculated={handleWidthCalculated}
-                />
-              </Link>
-            ))}
+            {items?.map((item, index) => {
+              const isPastDate = new Date(item.date) < new Date();
+              return (
+                <Link
+                  href={`/shops/${item.shopId}/notices/${item.noticeId}`}
+                  key={index}
+                  onClick={() => handleOnClick(item)}
+                  className={cx('notice', { 'is-end': item.closed || isPastDate })}
+                >
+                  <div className={cx('notice')}>
+                    <CardItem
+                      title={item.title}
+                      date={item.date}
+                      time={item.workhour}
+                      location={item.location}
+                      wage={item.wage}
+                      imageUrl={item.imageUrl}
+                      originalWage={item.originalWage}
+                      onWidthCalculated={handleWidthCalculated}
+                      closed={item.closed}
+                    />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
