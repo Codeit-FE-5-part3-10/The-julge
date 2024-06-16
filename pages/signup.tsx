@@ -17,6 +17,7 @@ import {
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logoImage from '@/public/images/login-logo.svg';
+import { axiosInstance } from '@/src/apis/axiosInstance';
 
 type Inputs = {
   email: string;
@@ -92,7 +93,7 @@ const SignupPage = () => {
           password: data.password,
           type: data.userType,
         };
-        await axios.post('https://bootcamp-api.codeit.kr/api/0-1/the-julge/users', postData);
+        await axiosInstance.post('/users', postData);
         alert('가입이 완료되었습니다');
         router.push('/');
       } catch (error) {
