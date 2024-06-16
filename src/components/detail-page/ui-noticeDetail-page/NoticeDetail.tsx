@@ -120,7 +120,7 @@ export const NoticeDetail: React.FC<{
       setModalOpen({
         content: '프로필 등록 후 사용해주세요!',
         modalType: 'success',
-        link: `${userInfo?.id}'/profile'`,
+        link: `/user/${userInfo?.id}`,
         btnText: 'question에서 메인컬러 버튼 Text',
       });
     } else {
