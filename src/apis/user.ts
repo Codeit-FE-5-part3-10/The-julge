@@ -48,7 +48,10 @@ export const getUserApplication = async (
 };
 
 export const getUserApplicationlist = async (
-  user_id: UserInfo 
+  user_id: UserInfo,
+  token: string,
+  offset: number,
+  limit: number,
 ): Promise<UserResponse> => {
   const response = await axiosInstance.get<UserResponse>(
     `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
