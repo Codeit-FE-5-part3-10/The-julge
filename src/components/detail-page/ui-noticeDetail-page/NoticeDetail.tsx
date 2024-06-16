@@ -106,7 +106,7 @@ export const NoticeDetail: React.FC<{
       setModalOpen({
         content: '로그인 후 사용해주세요!',
         modalType: 'success',
-        link: '/loginTest',
+        link: '/login',
         btnText: 'question에서 메인컬러 버튼 Text',
       });
     } else if (token && userInfo?.type === 'employer') {

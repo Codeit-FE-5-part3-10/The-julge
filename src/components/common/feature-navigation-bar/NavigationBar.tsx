@@ -91,10 +91,10 @@ export default function NavigationBar({ isSticky }: NavigationBarProps) {
 
         {userType === null && (
           <div className={cx('buttons')}>
-            <Link href="/loginTest" className={cx('text')}>
+            <Link href="/login" className={cx('text')}>
               로그인
             </Link>
-            <Link href="/signupTest" className={cx('text')}>
+            <Link href="/signup" className={cx('text')}>
               회원가입
             </Link>
           </div>
