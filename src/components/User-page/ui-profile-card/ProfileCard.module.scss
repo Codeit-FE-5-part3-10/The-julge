@@ -1,47 +1,43 @@
 @import '@/src/styles/global.scss';
 
-.profile-card{
+.profile-card {
   position: relative;
   margin: auto;
   width: 351px;
   padding: 40px;
   gap: 8px;
   border-radius: 12px;
-  background: #FFEBE7;
+  background: #ffebe7;
 
-@include tablet {
-  width: 680px;
-  padding: 32px;
+  @include tablet {
+    width: 680px;
+    padding: 32px;
+  }
+
+  @include desktop {
+    width: 950px;
+    padding: 32px;
+  }
 }
 
-@include desktop {
-  width: 950px;
-  padding: 32px;
-
-}
-}
-
-
-.profile-wrap{
+.profile-wrap {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
-.profile-title{
+.profile-title {
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 700;
   text-align: left;
-  color: #EA3C12;
+  color: #ea3c12;
 
   @include tablet {
-  font-size: 16px;
-
+    font-size: 16px;
   }
-  
 }
 
-.profile-name{
+.profile-name {
   font-family: Spoqa Han Sans Neo;
   font-size: 24px;
   font-weight: 700;
@@ -50,12 +46,10 @@
 
   @include tablet {
     font-size: 28px;
-    
-    }
-
+  }
 }
 
-.profile-phone{
+.profile-phone {
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 400;
@@ -64,17 +58,14 @@
   margin: 8px 0;
   display: inline-flex;
   align-items: center;
-  color: #7D7986;
-
+  color: #7d7986;
 
   @include tablet {
     font-size: 16px;
-    
-    } 
-
+  }
 }
 
-.profile-address{
+.profile-address {
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 400;
@@ -83,16 +74,14 @@
   margin: 8px 0;
   display: inline-flex;
   align-items: center;
-  color: #7D7986;
+  color: #7d7986;
 
   @include tablet {
     font-size: 16px;
-    
-    }
-
+  }
 }
 
-.profile-card p{
+.profile-card p {
   font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 400;
@@ -101,11 +90,22 @@
 
   @include tablet {
     font-size: 26px;
-    
-    }
+  }
 }
 
-.btn{
+.profile-bio {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+
+  @include tablet {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+  }
+}
+
+.btn {
   position: absolute;
   right: 40px;
   top: 40px;

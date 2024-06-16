@@ -33,7 +33,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ userData }) => {
           <Image src="/images/ic-profile-address.svg" alt="Address Icon" width={20} height={20} />
           {userData.address}
         </div>
-        <p>{userData.bio}</p>
+        <p className={cx('profile-bio')}>{userData.bio}</p>
         <div className={cx('btn')}>
           <Button color="white" width={169} onClick={handleClick}>
             편집하기
