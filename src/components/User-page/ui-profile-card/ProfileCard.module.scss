@@ -82,14 +82,13 @@
 }
 
 .profile-card p {
-  font-family: Spoqa Han Sans Neo;
   font-size: 14px;
   font-weight: 400;
   text-align: left;
   margin: 20px 0 0;
 
   @include tablet {
-    font-size: 26px;
+    font-size: 16px;
   }
 }
 
