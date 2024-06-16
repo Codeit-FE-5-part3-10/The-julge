@@ -2,6 +2,9 @@ import { axiosInstance } from './axiosInstance';
 import { GetUserRequest, GetUserResponse } from '../types/apis/user/getUser';
 import { getShopNoticeApplicationsResponse } from '../types/apis/application/getShopNoticeApplications';
 import { UserResponse } from '../types/apis/application/getUserApplications';
+import { UserInfo } from '../types/apis/user/userInfo';
+import axios from 'axios';
+
 
 //'42455be1-ea49-49cc-a89f-1400c96fce09'
 
@@ -45,10 +48,10 @@ export const getUserApplication = async (
 };
 
 export const getUserApplicationlist = async (
-  user_id: string,
+  user_id: UserInfo,
   token: string,
   offset: number,
-  limit: number
+  limit: number,
 ): Promise<UserResponse> => {
   const response = await axiosInstance.get<UserResponse>(
     `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
@@ -59,6 +62,18 @@ export const getUserApplicationlist = async (
     }
   );
   return response;
+};
+
+// eslint-disable-next-line max-len
+export const updateUser = async (user_id: string, token: string, data: UserInfo): Promise<UserInfo> => {
+  try {
+    const response = await axiosInstance.put(`/users/${user_id}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('사용자 정보 업데이트에 실패했습니다.');
+  }
 };
 
 export type { GetUserResponse };

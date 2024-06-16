@@ -62,11 +62,15 @@ const Myprofile = () => {
     return <div>No data</div>;
   }
 
+
   const userProfileData = userProfile.item ?? {};
   const hasProfile = !!userProfileData.name;
-  const hasShop = userApplication?.data.count !== 0;
+  const hasShop = userApplication?.data?.count !== 0;
   const userApplicationData = userApplication?.data;
-  // console.log(userApplication?.data.items);
+
+  console.log(userApplication?.data.count);
+
+  // console.log(userApplication)
 
   return (
     <Layout>
@@ -79,25 +83,25 @@ const Myprofile = () => {
             <CardEmpty
               description="내 프로필을 등록하고 원하는 가게에 지원해보세요"
               btnText="내 프로필 등록하기"
-              href="/MyprofileEdit"
+              href={`/user/${userInfo?.id}/edit`}
             />
           )
         }
       />
       {hasShop ? (
         <Section
-          title="내 가게"
+          title="신청 내역"
           content={
             <UserApplicationTable userApplicationData={userApplicationData} />
           }
         />
       ) : (
         <Section
-          title="내 가게"
+          title="신청 내역"
           content={
             <CardEmpty
-              description="아직 가게가 등록되지 않았습니다."
-              btnText="가게 등록하기"
+              description="아직 신청 내역이 없어요."
+              btnText="공고 보러가기"
               href="/shopRegister"
             />
           }
