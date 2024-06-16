@@ -7,6 +7,10 @@
   line-height: 24px;
   text-align: left;
   width: 351px;
+  
+  @include tablet {
+    width: 720px;
+  }
 }
 
 .form {
@@ -43,15 +47,6 @@
     }
   }
 
-  @include desktop {
-    grid-auto-columns: repeat(5, 1fr);
-    grid-auto-rows: repeat(6, 1fr);
-
-    .item4 {
-      grid-column: 1/3;
-      grid-row: 3/4;
-    }
-  }
 }
 
 .form-control {
@@ -79,14 +74,6 @@
   gap: 8px;
 }
 
-// .form-label {
-//   font-family: Spoqa Han Sans Neo;
-//   font-size: 16px;
-//   font-weight: 400;
-//   line-height: 26px;
-//   text-align: left;
-//   color: #111322;
-// }
 
 .form-textarea {
   width: 351px;
