@@ -11,7 +11,7 @@ export default function ShopEmpty() {
           <CardEmpty
             description="내 가게를 소개하고 공고도 등록해보세요"
             btnText="가게 등록하기"
-            href="/register"
+            href="/shops/register"
           />
         }
       />

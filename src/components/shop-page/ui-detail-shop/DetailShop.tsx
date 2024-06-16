@@ -8,11 +8,11 @@ import { Button } from '../../common/ui-button/Button';
 const cx = classNames.bind(styles);
 
 interface DetailShopProps {
-  params: { name: string; location: string; description: string; imageUrl: string; shopId: string };
+  shops: { name: string; location: string; description: string; imageUrl: string; shopId: string };
 }
 
-export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
-  params: { name, location, description, imageUrl, shopId },
+export const DetailShop: React.FC<{ shops: DetailShopProps['shops'] }> = ({
+  shops: { name, location, description, imageUrl, shopId },
 }) => (
   <div className={cx('container')}>
     <div className={cx('image-wrapper')}>
@@ -28,10 +28,10 @@ export const DetailShop: React.FC<{ params: DetailShopProps['params'] }> = ({
       <p className={cx('description')}>{description}</p>
     </div>
     <div className={cx('buttons')}>
-      <Button color="white" to={`/edit/${shopId}`}>
+      <Button color="white" to={`/shops/${shopId}/edit`}>
         편집하기
       </Button>
-      <Button color="primary" to="/NoticeEdit">
+      <Button color="primary" to={`/shops/${shopId}/notices/register`}>
         공고 등록하기
       </Button>
     </div>

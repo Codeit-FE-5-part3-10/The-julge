@@ -28,15 +28,6 @@ export const QuestionModal: React.FC<ModalProps> = ({
   const { shopId, noticeId, applicationId, closeModal } = useModal();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: putShopNoticeApplicationStatus,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['applicationStatus', applicationId, targetStatus],
-      });
-    },
-  });
-
   if (!isOpen) {
     return null;
   }
@@ -56,19 +47,21 @@ export const QuestionModal: React.FC<ModalProps> = ({
     }
   };
 
-  const handleUpdate = async (newStatus: Status) => {
-    try {
-      await mutation.mutateAsync({
-        shopId,
-        noticeId,
-        applicationId,
-        newStatus,
-        token,
-      });
+  // mutation 설정
+  const mutation = useMutation({
+    mutationFn: (newStatus: Status) =>
+      putShopNoticeApplicationStatus(shopId, noticeId, applicationId, newStatus, token),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['shopNoticeApplications', shopId, noticeId]);
       closeModal();
-    } catch (error) {
-      console.error('An error occurred while updating status:', error);
-    }
+    },
+    onError: (error) => {
+      console.error('Error updating status:', error);
+    },
+  });
+
+  const handleUpdate = (newStatus: Status) => {
+    mutation.mutate(newStatus);
   };
 
   return (

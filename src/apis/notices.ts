@@ -1,11 +1,7 @@
 import { GetShopNoticesResponse } from '../types/apis/notice/getShopNotices';
 import type { GetShopsSingleNoticeResponse } from '../types/apis/notice/getShopSingleNotice';
-import {
-  GetNoticesRequest,
-  GetNoticesResponse,
-  PostNoticeRequest,
-  PostNoticeResponse,
-} from '../types/apis/noticeTypes';
+import { PostNoticeRequest } from '../types/apis/notice/postNotice';
+import { GetNoticesRequest, GetNoticesResponse } from '../types/apis/noticeTypes';
 import { axiosInstance } from './axiosInstance';
 
 export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesResponse> => {
@@ -15,15 +11,36 @@ export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesRe
   return response.data;
 };
 
-export const postNotice = async (request: PostNoticeRequest): Promise<PostNoticeResponse> => {
-  const response = await axiosInstance.post(`shops/${request.shopId}/notices`, request);
+// NOTE: 안 쓰는 함수 같아서 주석 처리했습니다. (의진)
+// export const postNotice = async (request: PostNoticeRequest): Promise<PostNoticeResponse> => {
+//   const response = await axiosInstance.post(`shops/${request.shopId}/notices`, request);
+//   return response.data;
+// };
+
+// 공고 등록 (의진)
+export const postNotice = async (
+  token: string | null,
+  shopId: string | null,
+  body: PostNoticeRequest
+): Promise<GetShopsSingleNoticeResponse> => {
+  const response = await axiosInstance.post(`/shops/${shopId}/notices`, body, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 };
 
-// export const getNotice = async (request: GetNoticesRequest): Promise<GetNoticesResponse> => {
-//   const response = await axiosInstance.get('/notices', { params: request });
-//   return response.data;
-// };
+// 공고 수정 (의진)
+export const putNotice = async (
+  token: string | null,
+  shopId: string | null,
+  noticeId: string | null,
+  body: PostNoticeRequest
+): Promise<GetShopsSingleNoticeResponse> => {
+  const response = await axiosInstance.put(`/shops/${shopId}/notices/${noticeId}`, body, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
 
 // 가게의 공고 목록 조회(의진)
 export const getShopNotices = async (

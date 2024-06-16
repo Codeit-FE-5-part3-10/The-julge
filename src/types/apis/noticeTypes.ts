@@ -78,13 +78,14 @@ export type GetNoticesResponse = {
   links: Link[];
 };
 
-export type PostNoticeRequest = {
-  shopId: string;
-  hourlyPay: number;
-  startsAt: string;
-  workhour: number;
-  description: string;
-};
+// NOTE: 안 쓰는 것 같아 주석 처리했습니다. (의진)
+// export type PostNoticeRequest = {
+//   shopId: string;
+//   hourlyPay: number;
+//   startsAt: string;
+//   workhour: number;
+//   description: string;
+// };
 
 export type PostNoticeResponse = {
   message: string;
