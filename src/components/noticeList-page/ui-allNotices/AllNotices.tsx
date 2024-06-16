@@ -45,8 +45,15 @@ export default function AllNotices() {
     queryString += `&${addressParams}`;
   }
 
-  if (filterData.selectedDate && defaultRequestParams.startsAtGte) {
-    queryString += `&startsAtGte=${encodeURIComponent(defaultRequestParams.startsAtGte)}`;
+  const currentDateTime = new Date().toISOString();
+  if (filterData.selectedDate) {
+    const selectedDateTime = new Date(filterData.selectedDate).toISOString();
+    if (selectedDateTime > currentDateTime) {
+      queryString += `&startsAtGte=${encodeURIComponent(selectedDateTime)}`;
+    } else {
+      const adjustedCurrentDateTime = new Date(new Date().getTime() + 60000).toISOString();
+      queryString += `&startsAtGte=${encodeURIComponent(adjustedCurrentDateTime)}`;
+    }
   }
 
   if (filterData.wage && defaultRequestParams.hourlyPayGte) {

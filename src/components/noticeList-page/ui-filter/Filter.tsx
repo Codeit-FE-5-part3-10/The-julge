@@ -67,7 +67,11 @@ export default function Filter({ isOpen, onClose, onApply }: FilterProps) {
       selectedDate,
       wage,
     };
-    if (selectedDate <= currentDate) {
+    if (selectedDate === '') {
+      filterData.selectedDate = currentDate;
+      onApply(filterData);
+      onClose();
+    } else if (selectedDate < currentDate) {
       setModalOpen({
         content: '현재 날짜 이후 시간을 선택해주세요!',
         modalType: 'warning',

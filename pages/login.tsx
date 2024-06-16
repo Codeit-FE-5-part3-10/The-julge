@@ -1,4 +1,3 @@
-import { Box, Button, Center, Container, TextInput } from '@mantine/core';
 import React, { useCallback, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MantineProvider, Box, Button, Center, Container, TextInput, Text } from '@mantine/core';
@@ -8,16 +7,21 @@ import logoImage from '@/public/images/login-logo.svg';
 import { useToken } from '@/src/utils/TokenProvider';
 
 type Inputs = {
-  id: string;
+  email: string;
   password: string;
 };
 
 const LoginPage = () => {
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    watch,
   } = useForm<Inputs>();
 
   const tokenContext = useToken();
@@ -34,7 +38,7 @@ const LoginPage = () => {
     },
     [router, tokenContext]
   );
-  console.log(tokenContext);
+
   const handleEmailBlur = useCallback(() => {
     if (!errors.email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -57,7 +61,7 @@ const LoginPage = () => {
   }, [passwordValue]);
 
   const handleLogoClick = () => {
-    router.push('/index');
+    router.push('/');
   };
 
   return (
@@ -163,3 +167,5 @@ const LoginPage = () => {
     </MantineProvider>
   );
 };
+
+export default LoginPage;
