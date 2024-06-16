@@ -62,7 +62,6 @@ const Myprofile = () => {
     return <div>No data</div>;
   }
 
-
   const userProfileData = userProfile.item ?? {};
   const hasProfile = !!userProfileData.name;
   const hasShop = userApplication?.data?.count !== 0;
@@ -91,19 +90,13 @@ const Myprofile = () => {
       {hasShop ? (
         <Section
           title="신청 내역"
-          content={
-            <UserApplicationTable userApplicationData={userApplicationData} />
-          }
+          content={<UserApplicationTable userApplicationData={userApplicationData} />}
         />
       ) : (
         <Section
           title="신청 내역"
           content={
-            <CardEmpty
-              description="아직 신청 내역이 없어요."
-              btnText="공고 보러가기"
-              href="/shopRegister"
-            />
+            <CardEmpty description="아직 신청 내역이 없어요." btnText="공고 보러가기" href="/" />
           }
         />
       )}
