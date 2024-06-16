@@ -4,7 +4,7 @@ import { getShopNoticeApplicationsResponse } from '../types/apis/application/get
 import { UserResponse } from '../types/apis/application/getUserApplications';
 import { UserInfo } from '../types/apis/user/userInfo';
 import axios from 'axios';
-
+import { PutUserResponse } from '../types/apis/user/putUser';
 
 //'42455be1-ea49-49cc-a89f-1400c96fce09'
 
@@ -51,7 +51,7 @@ export const getUserApplicationlist = async (
   user_id: UserInfo,
   token: string,
   offset: number,
-  limit: number,
+  limit: number
 ): Promise<UserResponse> => {
   const response = await axiosInstance.get<UserResponse>(
     `/users/${user_id}/applications?offset=${offset}&limit=${limit}`,
@@ -65,7 +65,11 @@ export const getUserApplicationlist = async (
 };
 
 // eslint-disable-next-line max-len
-export const updateUser = async (user_id: string, token: string, data: UserInfo): Promise<UserInfo> => {
+export const updateUser = async (
+  user_id: string,
+  token: string | null,
+  data: PutUserResponse
+): Promise<PutUserResponse> => {
   try {
     const response = await axiosInstance.put(`/users/${user_id}`, data, {
       headers: { Authorization: `Bearer ${token}` },

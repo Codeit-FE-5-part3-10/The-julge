@@ -51,8 +51,6 @@ export const TokenProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       localStorage.setItem('token', token);
       localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('userInfo');
   }, [token, userInfo]);
 
   // 컴포넌트가 처음 마운트될 때 실행

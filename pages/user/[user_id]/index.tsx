@@ -67,10 +67,6 @@ const Myprofile = () => {
   const hasShop = userApplication?.data?.count !== 0;
   const userApplicationData = userApplication?.data;
 
-  console.log(userApplication?.data.count);
-
-  // console.log(userApplication)
-
   return (
     <Layout>
       <Section

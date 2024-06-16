@@ -11,15 +11,35 @@ import { Button } from '@/src/components/common/ui-button/Button';
 const cx = classNames.bind(styles);
 
 const addresses = [
-  '서울시 종로구', '서울시 중구', '서울시 용산구', '서울시 성동구', '서울시 광진구',
-  '서울시 동대문구', '서울시 중랑구', '서울시 성북구', '서울시 강북구', '서울시 도봉구',
-  '서울시 노원구', '서울시 은평구', '서울시 서대문구', '서울시 마포구', '서울시 양천구',
-  '서울시 강서구', '서울시 구로구', '서울시 금천구', '서울시 영등포구', '서울시 동작구',
-  '서울시 관악구', '서울시 서초구', '서울시 강남구', '서울시 송파구', '서울시 강동구',
+  '서울시 종로구',
+  '서울시 중구',
+  '서울시 용산구',
+  '서울시 성동구',
+  '서울시 광진구',
+  '서울시 동대문구',
+  '서울시 중랑구',
+  '서울시 성북구',
+  '서울시 강북구',
+  '서울시 도봉구',
+  '서울시 노원구',
+  '서울시 은평구',
+  '서울시 서대문구',
+  '서울시 마포구',
+  '서울시 양천구',
+  '서울시 강서구',
+  '서울시 구로구',
+  '서울시 금천구',
+  '서울시 영등포구',
+  '서울시 동작구',
+  '서울시 관악구',
+  '서울시 서초구',
+  '서울시 강남구',
+  '서울시 송파구',
+  '서울시 강동구',
 ];
 
 export function UserInfoUpdateForm() {
-  const { userInfo } = useToken();
+  const { userInfo, setUserInfo } = useToken();
   const {
     register,
     handleSubmit,
@@ -48,6 +68,13 @@ export function UserInfoUpdateForm() {
       }
       const token = localStorage.getItem('token');
       const response = await updateUser(userInfo.id, token, formData);
+      const { id, email, type, name, phone, address, bio } = response.item;
+      const newUserInfo = { id, email, type, name, phone, address, bio };
+      if (setUserInfo) {
+        setUserInfo(newUserInfo);
+      } else {
+        console.error('setUserInfo 함수가 정의되지 않았습니다.');
+      }
       console.log('수정 요청 성공!', response.data);
       reset();
       router.push(`/user/${userInfo?.id}`);
@@ -61,7 +88,9 @@ export function UserInfoUpdateForm() {
       <div className={cx('title')}>내 프로필</div>
       <div className={cx('wrap')}>
         <div className={cx('form-group')}>
-          <label htmlFor="name" className={cx('form-label')}>이름</label>
+          <label htmlFor="name" className={cx('form-label')}>
+            이름
+          </label>
           <input
             id="name"
             placeholder="입력"
@@ -72,7 +101,9 @@ export function UserInfoUpdateForm() {
         </div>
 
         <div className={cx('form-group')}>
-          <label htmlFor="phone" className={cx('form-label')}>연락처</label>
+          <label htmlFor="phone" className={cx('form-label')}>
+            연락처
+          </label>
           <input
             id="phone"
             type="tel"
@@ -84,7 +115,9 @@ export function UserInfoUpdateForm() {
         </div>
 
         <div className={cx('form-group')}>
-          <label htmlFor="address" className={cx('form-label')}>선호지역</label>
+          <label htmlFor="address" className={cx('form-label')}>
+            선호지역
+          </label>
           <select
             id="address"
             className={cx('form-select')}
@@ -92,14 +125,18 @@ export function UserInfoUpdateForm() {
           >
             <option value="">선호지역을 선택하세요</option>
             {addresses.map((address) => (
-              <option key={address} value={address}>{address}</option>
+              <option key={address} value={address}>
+                {address}
+              </option>
             ))}
           </select>
           {errors.address && <p className={cx('form-error')}>{errors.address.message}</p>}
         </div>
 
         <div className={cx('form-group', 'item4')}>
-          <label htmlFor="bio" className={cx('form-label')}>소개</label>
+          <label htmlFor="bio" className={cx('form-label')}>
+            소개
+          </label>
           <textarea
             id="bio"
             placeholder="입력"

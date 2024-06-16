@@ -1,7 +1,5 @@
 import React from 'react';
-import { getUser, getUserApplicationlist } from '@/src/apis/user';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
-import { Section } from '@/src/layouts/section/Section';
 import { UserInfoUpdateForm } from '@/src/components/User-page/user-edit/edit';
 
 export default function MyprofileEdit() {
