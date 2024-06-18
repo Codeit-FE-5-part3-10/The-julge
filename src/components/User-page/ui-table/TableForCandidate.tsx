@@ -5,7 +5,6 @@ import styles from './Table.module.scss';
 import { boundaries, initialPage, siblings, countPerPage } from './constant';
 import { Item, UserResponse } from '@/src/types/apis/application/getUserApplications';
 import { Pagination } from '../../common/ui-pagination/Pagination';
-import { count } from 'console';
 
 const cx = classNames.bind(styles);
 
@@ -66,7 +65,7 @@ const UserApplicationTable: React.FC<UserApplicationProps> = ({ userApplicationD
                 <td>{`${formattedDateRange} (${workhour}시간)`}</td>
                 <td>{`${formattedValue}원`}</td>
                 <td>
-                  <StatusTag status={`${status}`} id={id}/>
+                  <StatusTag status={`${status}`} id={id} />
                 </td>
               </tr>
             );

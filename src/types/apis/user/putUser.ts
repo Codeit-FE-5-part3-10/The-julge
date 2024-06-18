@@ -1,4 +1,5 @@
 export interface PutUserResponse {
+  data: (arg0: string, data: any) => unknown;
   item: Item;
   links: Link[];
 }

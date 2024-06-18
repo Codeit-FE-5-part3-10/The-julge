@@ -1,14 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/button-has-type */
 //TODO: 새로 바꾼 버튼 컴포넌트 적용
 
 /*
 사용방법
 
 modalType 아래 세개 중 해당되는 사항으로 기입해주세요.
-warning = 느낌표 아이콘 && 버튼 한개 
-success = 아이콘X && 버튼 한개 
+warning = 느낌표 아이콘 && 버튼 한개
+success = 아이콘X && 버튼 한개
 question = 체크 아이콘 && 버튼 두개
 
-예시) 
+예시)
 
 interface ModalItems {
   content: string;
@@ -47,17 +50,22 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import classNames from 'classnames/bind';
+import questionIcon from '@/public/images/modal-question.svg';
+import warningIcon from '@/public/images/modal-alert.svg';
 import styles from './Modal.module.scss';
-import questionIcon from 'public/images/modal-question.svg';
-import warningIcon from 'public/images/modal-alert.svg';
 
 const cx = classNames.bind(styles);
+
+type ModalType = 'warning' | 'success' | 'question';
+
+interface ModalItems {
+  content: string;
+  modalType: ModalType;
+}
+
 interface ModalProps {
   setModal: (value: ModalItems | null) => void;
-  modalItems: {
-    content: string;
-    modalType: 'warning' | 'success' | 'question';
-  };
+  modalItems: ModalItems;
   content?: string;
   link: string;
   btnText: string;

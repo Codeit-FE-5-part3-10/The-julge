@@ -3,7 +3,6 @@ import { GetUserRequest, GetUserResponse } from '../types/apis/user/getUser';
 import { getShopNoticeApplicationsResponse } from '../types/apis/application/getShopNoticeApplications';
 import { UserResponse } from '../types/apis/application/getUserApplications';
 import { UserInfo } from '../types/apis/user/userInfo';
-import axios from 'axios';
 import { PutUserResponse } from '../types/apis/user/putUser';
 
 //'42455be1-ea49-49cc-a89f-1400c96fce09'
