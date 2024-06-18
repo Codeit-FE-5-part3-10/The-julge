@@ -27,7 +27,7 @@ type Address =
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface UserInfo {
-  data(arg0: string, data: any): unknown;
+  data: (arg0: string, data: any) => unknown;
   name: string;
   phone: string;
   address: Address;

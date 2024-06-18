@@ -135,7 +135,6 @@ export const NoticeDetail: React.FC<{
           link: '',
           btnText: 'question에서 메인컬러 버튼 Text',
         });
-        console.log('신청하기 완료');
       } catch (error) {
         console.error('신청 오류:', error);
       }

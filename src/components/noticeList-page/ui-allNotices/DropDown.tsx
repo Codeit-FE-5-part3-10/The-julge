@@ -1,5 +1,5 @@
 // DropDown.tsx
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import classNames from 'classnames/bind';
 import styles from './AllNotices.module.scss';
 
