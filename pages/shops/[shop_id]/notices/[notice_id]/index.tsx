@@ -118,7 +118,7 @@ export default function Notice() {
             gray
           />
           <ModalProvider>
-            <Section title="신청자 목록" content={<ListApplication />} />
+            <Section title="신청자 목록" content={<ListApplication />} gray />
           </ModalProvider>
         </>
       ) : (

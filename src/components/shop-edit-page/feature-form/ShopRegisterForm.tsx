@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
 import styles from './ShopRegisterForm.module.scss';
 import { postShopRequest } from '@/src/types/apis/shop/postShop';
 import { ADDRESS, CATEGORY } from './constant';
@@ -10,7 +11,6 @@ import { FileUpload } from '../feature-file-upload/UploadFile';
 import { Button } from '../../common/ui-button/Button';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 import { useToken } from '@/src/utils/TokenProvider';
-import { useRouter } from 'next/router';
 
 const cx = classNames.bind(styles);
 
@@ -40,6 +40,7 @@ export const ShopRegisterForm = ({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { token } = useToken();
   const router = useRouter();
+
   useEffect(() => {
     if (existingData) {
       Object.keys(existingData).forEach((key) => {
@@ -110,8 +111,10 @@ export const ShopRegisterForm = ({
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImageName(e.target.files[0].name);
-    setImageFile(e.target.files[0]);
+    if (e.target.files) {
+      setImageName(e.target.files[0].name);
+      setImageFile(e.target.files[0]);
+    }
   };
 
   return (
@@ -204,7 +207,7 @@ export const ShopRegisterForm = ({
                 onChange={(e) => {
                   const rawValue = e.target.value.replace(/[^0-9]/g, '');
                   field.onChange(rawValue);
-                  setValue('originalHourlyPay', rawValue ? parseInt(rawValue) : 0);
+                  setValue('originalHourlyPay', rawValue ? parseInt(rawValue, 2) : 0);
                 }}
                 className={cx('input')}
               />

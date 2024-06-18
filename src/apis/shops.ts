@@ -19,7 +19,7 @@ export const postShop = async (
 
 export const putShop = async (
   token: string | null,
-  shopId: string,
+  shopId: string | undefined,
   body: postShopRequest
 ): Promise<any> => {
   const response = await axiosInstance.put(`/shops/${shopId}`, body, {

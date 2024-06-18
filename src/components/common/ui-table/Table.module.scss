@@ -112,7 +112,7 @@
     }
   }
 
-  @include tablet {
+  @include desktop {
     th:nth-child(1),
     td:nth-child(1) {
       width: 15%;
