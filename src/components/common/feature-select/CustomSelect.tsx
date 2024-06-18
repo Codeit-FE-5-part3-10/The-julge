@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CustomSelect.module.scss';
 
@@ -18,22 +18,28 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   defaultOption,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      setIsOpen(!isOpen);
+    }
+  };
 
   const handleOptionClick = (option: string) => {
     onChange(option);
     setIsOpen(false);
   };
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -42,7 +48,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
 
   return (
     <div className={cx('custom-select-wrapper')} ref={dropdownRef}>
-      <div className={cx('custom-select')} onClick={toggleDropdown}>
+      <div
+        className={cx('custom-select')}
+        onClick={toggleDropdown}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+      >
         {value || defaultOption}
         <div className={cx('select-arrow', { open: isOpen })}></div>
       </div>
@@ -53,6 +65,9 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
               key={index}
               className={cx('select-option')}
               onClick={() => handleOptionClick(option)}
+              onKeyDown={(e) => e.key === 'Enter' && handleOptionClick(option)}
+              role="button"
+              tabIndex={0}
             >
               {option}
             </div>

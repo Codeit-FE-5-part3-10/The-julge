@@ -32,7 +32,6 @@ export const QuestionModal: React.FC<ModalProps> = ({
     return null;
   }
 
-  // 모달 배경 클릭 시에만 이벤트가 일어나게 수정
   const handleBackdropClick = (event: React.MouseEvent<HTMLElement>) => {
     if (event.target !== event.currentTarget) {
       return;
@@ -40,23 +39,30 @@ export const QuestionModal: React.FC<ModalProps> = ({
     closeModal();
   };
 
-  // ESC 누를 때에도 닫히게
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Escape') {
       closeModal();
     }
   };
 
-  // mutation 설정
   const mutation = useMutation({
-    mutationFn: (newStatus: Status) =>
-      putShopNoticeApplicationStatus(shopId, noticeId, applicationId, newStatus, token),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['shopNoticeApplications', shopId, noticeId]);
-      closeModal();
+    mutationFn: (newStatus: Status) => {
+      if (
+        typeof shopId === 'string' &&
+        typeof noticeId === 'string' &&
+        typeof applicationId === 'string' &&
+        typeof token === 'string'
+      ) {
+        return putShopNoticeApplicationStatus(shopId, noticeId, applicationId, newStatus, token);
+      }
+      return Promise.reject(new Error('Invalid ID type'));
     },
-    onError: (error) => {
-      console.error('Error updating status:', error);
+    onSuccess: () => {
+      if (typeof shopId === 'string' && typeof noticeId === 'string') {
+        const queryFilter = ['shopNoticeApplications', shopId, noticeId] as any;
+        queryClient.invalidateQueries(queryFilter);
+      }
+      closeModal();
     },
   });
 

@@ -20,7 +20,7 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   children,
   color,
-  type = 'button',
+  type,
   width,
   to,
   onClick,
@@ -46,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      type={type}
+      type={type === 'submit' ? 'submit' : 'button'}
       onClick={handleClick}
       className={className}
       style={buttonStyle}

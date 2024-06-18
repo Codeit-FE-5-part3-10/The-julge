@@ -66,7 +66,7 @@ const UserApplicationTable: React.FC<UserApplicationProps> = ({ userApplicationD
                 <td>{`${formattedDateRange} (${workhour}시간)`}</td>
                 <td>{`${formattedValue}원`}</td>
                 <td>
-                  <StatusTag status={`${status}`} id={id}/>
+                  <StatusTag status={`${status}`} id={id} />
                 </td>
               </tr>
             );
