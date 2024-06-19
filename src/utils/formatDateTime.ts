@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
 
 export default function formatDateTimeWithDateFns(dateString: string): {
   formattedDate: string;

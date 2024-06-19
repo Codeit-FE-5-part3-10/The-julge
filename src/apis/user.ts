@@ -60,7 +60,7 @@ export const getUserApplicationlist = async (
       },
     }
   );
-  return response;
+  return response.data;
 };
 
 // eslint-disable-next-line max-len

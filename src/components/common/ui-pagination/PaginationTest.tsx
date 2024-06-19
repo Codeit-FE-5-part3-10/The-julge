@@ -1,9 +1,9 @@
 import { usePagination } from '@mantine/hooks';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import { Dispatch, SetStateAction } from 'react';
 import { image } from './constant';
 import styles from './Pagination.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -29,8 +29,8 @@ export const PaginationTest = ({
     boundaries,
   });
 
-  const handleChange = (pageNumber: number) => {
-    if (pageNumber !== 'dots') {
+  const handleChange = (pageNumber: number | 'dots') => {
+    if (typeof pageNumber === 'number') {
       setCurrentPage(pageNumber);
     }
   };
@@ -68,13 +68,13 @@ export const PaginationTest = ({
         className={cx('arrow')}
         type="button"
         onClick={() => handleChange(currentPage + 1)}
-        disabled={currentPage === pagination.total}
+        disabled={currentPage === total}
       >
         <Image
           width={20}
           height={20}
-          src={currentPage === pagination.total ? image.rightGray.src : image.rightBlack.src}
-          alt={currentPage === pagination.total ? image.rightGray.alt : image.rightBlack.alt}
+          src={currentPage === total ? image.rightGray.src : image.rightBlack.src}
+          alt={currentPage === total ? image.rightGray.alt : image.rightBlack.alt}
         />
       </button>
     </div>
