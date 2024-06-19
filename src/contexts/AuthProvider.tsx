@@ -6,9 +6,9 @@ import { axiosInstance } from '../apis/axiosInstance';
 
 // 타입 정의
 interface AuthContextType {
-  token: Token;
-  userType: UserType;
-  userId: UserId;
+  token: Token | null;
+  userType: UserType | null;
+  userId: UserId | null;
   login: (email: string, password: string) => void;
   logout: () => void;
 }
@@ -21,16 +21,14 @@ interface CustomJwtPayload extends JwtPayload {
   userId: UserId;
 }
 
-// 기본값을 설정하지 않고 컨텍스트를 생성
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<Token>(null);
-  const [userType, setUserType] = useState<UserType>(null);
-  const [userId, setUserId] = useState<UserId>(null);
+  const [token, setToken] = useState<Token | null>(null);
+  const [userType, setUserType] = useState<UserType | null>(null);
+  const [userId, setUserId] = useState<UserId | null>(null);
   const router = useRouter();
 
-  // 페이지가 처음 마운트될 때 실행
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUserType = localStorage.getItem('userType');
@@ -55,7 +53,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [token, userType]);
 
-  // 토큰을 디코드하여 사용자 정보 설정
   const decodeToken = (param: string) => {
     try {
       const decodedToken = jwtDecode<CustomJwtPayload>(param);
@@ -65,7 +62,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // 로그인 함수
   const login = async (email: string, password: string) => {
     try {
       const response = await axiosInstance.post('/token', { email, password });
@@ -77,7 +73,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // 로그아웃 함수
   const logout = () => {
     setToken(null);
   };

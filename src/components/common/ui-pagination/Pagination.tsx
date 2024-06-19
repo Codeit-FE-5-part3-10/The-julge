@@ -16,7 +16,7 @@ interface PaginationParams {
 }
 
 export const Pagination = (params: PaginationParams) => {
-  const { range, active, setPage, next, previous, first, last } = usePagination({ ...params });
+  const { range, active, setPage, next, previous } = usePagination({ ...params });
 
   const handleChange = (pageNumber: any) => {
     if (pageNumber === 'dots') {
