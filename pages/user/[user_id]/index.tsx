@@ -39,14 +39,13 @@ const Myprofile = () => {
     queryKey: ['userApplyList'], // 다른 고유한 쿼리 키 사용
     queryFn: async () => {
       const tempToken = localStorage.getItem('token');
-      if (userInfo && userInfo.id) {
+      if (userInfo && userInfo.id && tempToken) {
         const response = await getUserApplicationlist(userInfo.id, tempToken, 0, 50);
         return response;
       }
       throw new Error('User ID is not defined');
     },
   });
-
   if (typeof userId !== 'string') {
     return <div>Invalid user ID</div>;
   }
@@ -59,14 +58,14 @@ const Myprofile = () => {
     return <div>Error loading user data</div>;
   }
 
-  if (!userProfile || !userProfile.item) {
+  if (!userProfile || !userProfile.item || !userApplication) {
     return <div>No data</div>;
   }
 
   const userProfileData = userProfile.item ?? {};
   const hasProfile = !!userProfileData.name;
-  const hasShop = userApplication?.data?.count !== 0;
-  const userApplicationData = userApplication?.data;
+  const hasShop = userApplication?.count !== 0;
+  const userApplicationData = userApplication;
 
   return (
     <Layout>
@@ -87,7 +86,7 @@ const Myprofile = () => {
       {hasShop ? (
         <Section
           title="신청 내역"
-          content={<UserApplicationTable userApplicationData={userApplicationData} name={undefined} />}
+          content={<UserApplicationTable userApplicationData={userApplicationData} />}
         />
       ) : (
         <Section

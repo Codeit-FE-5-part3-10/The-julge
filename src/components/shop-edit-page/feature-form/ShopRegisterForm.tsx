@@ -4,13 +4,14 @@ import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import styles from './ShopRegisterForm.module.scss';
 import { postShopRequest } from '@/src/types/apis/shop/postShop';
-import { ADDRESS, CATEGORY } from './constant';
+import { CATEGORY } from './constant';
 import { postShop, putShop } from '@/src/apis/shops';
 import { CustomSelect } from '../../common/feature-select/CustomSelect';
 import { FileUpload } from '../feature-file-upload/UploadFile';
 import { Button } from '../../common/ui-button/Button';
 import { formatCurrency } from '@/src/utils/formatCurrency';
 import { useToken } from '@/src/utils/TokenProvider';
+import { ADDRESS } from '@/src/constants/constant';
 
 const cx = classNames.bind(styles);
 

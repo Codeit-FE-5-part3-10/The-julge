@@ -1,5 +1,3 @@
-// Button.tsx
-
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss';

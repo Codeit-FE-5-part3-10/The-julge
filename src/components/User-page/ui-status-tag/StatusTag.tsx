@@ -6,7 +6,7 @@ import styles from './StatusTag.module.scss';
 const cx = classNames.bind(styles);
 
 interface StatusTagProps {
-  status: 'pending' | 'rejected' | 'accepted' | 'canceled'; // status는 '대기중', '거절', '승인 완료', '취소함' 중 하나일 수 있습니다.
+  status: 'pending' | 'rejected' | 'accepted' | 'canceled';
 }
 
 const StatusTag: React.FC<StatusTagProps> = ({ status }) => {

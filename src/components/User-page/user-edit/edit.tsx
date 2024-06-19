@@ -2,54 +2,27 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
-import { Button } from '@mantine/core';
 import styles from './edit.module.scss';
 import { useToken } from '@/src/utils/TokenProvider';
 import { updateUser } from '@/src/apis/user';
-import { UserInfo, Address } from '@/src/types/apis/user/userInfo';
+import { UserInfo } from '@/src/types/apis/user/userInfo';
+import { Button } from '@/src/components/common/ui-button/Button';
+import { ADDRESS } from '@/src/constants/constant';
 
 const cx = classNames.bind(styles);
-
-const addresses: Address[] = [
-  '서울시 종로구',
-  '서울시 중구',
-  '서울시 용산구',
-  '서울시 성동구',
-  '서울시 광진구',
-  '서울시 동대문구',
-  '서울시 중랑구',
-  '서울시 성북구',
-  '서울시 강북구',
-  '서울시 도봉구',
-  '서울시 노원구',
-  '서울시 은평구',
-  '서울시 서대문구',
-  '서울시 마포구',
-  '서울시 양천구',
-  '서울시 강서구',
-  '서울시 구로구',
-  '서울시 금천구',
-  '서울시 영등포구',
-  '서울시 동작구',
-  '서울시 관악구',
-  '서울시 서초구',
-  '서울시 강남구',
-  '서울시 송파구',
-  '서울시 강동구',
-];
 
 export function UserInfoUpdateForm() {
   const { userInfo, setUserInfo } = useToken();
   const {
-    register,
     handleSubmit,
+    register,
     reset,
     formState: { errors },
   } = useForm<UserInfo>({
     defaultValues: {
       name: '',
       phone: '',
-      address: undefined, // address를 undefined로 초기화
+      address: undefined,
       bio: '',
     },
   });
@@ -134,7 +107,7 @@ export function UserInfoUpdateForm() {
             {...register('address', { required: '선호지역은 필수 항목입니다.' })}
           >
             <option value="">선호지역을 선택하세요</option>
-            {addresses.map((address) => (
+            {ADDRESS.map((address) => (
               <option key={address} value={address}>
                 {address}
               </option>
@@ -156,7 +129,7 @@ export function UserInfoUpdateForm() {
           {errors.bio && <p className={cx('form-error')}>{errors.bio.message}</p>}
         </div>
       </div>
-      <Button type="submit" color="primary" width={351} className={cx('form-button')}>
+      <Button type="submit" color="primary" width={351}>
         등록하기
       </Button>
     </form>

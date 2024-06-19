@@ -58,9 +58,11 @@ const cx = classNames.bind(styles);
 
 type ModalType = 'warning' | 'success' | 'question';
 
-interface ModalItems {
+export interface ModalItems {
   content: string;
   modalType: ModalType;
+  link: string;
+  btnText: string;
 }
 
 interface ModalProps {

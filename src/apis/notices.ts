@@ -56,8 +56,8 @@ export const getShopNotices = async (
 
 // 가게의 특정 공고 조회(의진)
 export const getShopSingleNotice = async (
-  shopId: string,
-  noticeId: string
+  shopId: string | string[] | undefined,
+  noticeId: string | string[] | undefined
 ): Promise<GetShopsSingleNoticeResponse> => {
   const response = await axiosInstance.get(`/shops/${shopId}/notices/${noticeId}`);
   return response.data;

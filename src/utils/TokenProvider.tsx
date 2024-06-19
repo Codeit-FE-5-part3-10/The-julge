@@ -2,6 +2,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 import { useRouter } from 'next/router';
 import { axiosInstance } from '../apis/axiosInstance';
 import { Shop } from '../types/apis/noticeTypes';
+import { Address } from '../types/apis/user/userInfo';
 // import { GetUserItem } from '../types/apis/user/getUser';
 export interface GetUserItem {
   id: string;
@@ -9,7 +10,7 @@ export interface GetUserItem {
   type: 'employer' | 'employee';
   name?: string;
   phone?: string;
-  address?: string;
+  address?: Address;
   bio?: string;
   shop?: Shop;
 }

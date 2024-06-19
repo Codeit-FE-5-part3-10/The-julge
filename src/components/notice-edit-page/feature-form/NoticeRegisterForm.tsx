@@ -60,6 +60,7 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
     const utcDateString = `${date.toISOString().slice(0, 19)}Z`;
     return utcDateString;
   };
+
   return (
     <form className={cx('container')} onSubmit={handleSubmit(onSubmit)}>
       <div className={cx('box', 'hourlyPay')}>
@@ -106,8 +107,8 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
                 type="datetime-local"
                 value={field.value}
                 onChange={(e) => {
+                  field.onChange(e.target.value);
                   const rfc3339String = convertToRFC3339(e.target.value);
-                  field.onChange(rfc3339String);
                   setValue('startsAt', rfc3339String);
                 }}
                 className={cx('input')}
@@ -127,8 +128,8 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
           render={({ field, fieldState: { error } }) => (
             <div>
               <input
-                type="text"
                 {...field}
+                type="text"
                 className={cx('input')}
                 onChange={(e) => {
                   const inputValue = e.target.value;

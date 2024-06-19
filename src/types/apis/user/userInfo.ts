@@ -35,12 +35,3 @@ export type Address =
   | '서울시 강남구'
   | '서울시 송파구'
   | '서울시 강동구';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface UserInfo {
-  data: (arg0: string, data: any) => unknown;
-  name: string;
-  phone: string;
-  address: Address;
-  bio: string;
-}

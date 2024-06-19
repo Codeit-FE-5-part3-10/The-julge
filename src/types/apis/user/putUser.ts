@@ -1,3 +1,10 @@
+export interface PutUserRequest {
+  name: string;
+  phone: string;
+  address: Address;
+  bio: string;
+}
+
 export interface PutUserResponse {
   data: (arg0: string, data: any) => unknown;
   item: Item;

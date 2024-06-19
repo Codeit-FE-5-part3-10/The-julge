@@ -5,8 +5,6 @@ import { UserResponse } from '../types/apis/application/getUserApplications';
 import { UserInfo } from '../types/apis/user/userInfo';
 import { PutUserResponse } from '../types/apis/user/putUser';
 
-//'42455be1-ea49-49cc-a89f-1400c96fce09'
-
 export const getUser = async (user_id: string): Promise<GetUserResponse> => {
   try {
     const response = await axiosInstance.get<GetUserResponse>(`/users/${user_id}`);
@@ -25,10 +23,11 @@ export const getUserItem = async (user_Id: string): Promise<GetUserRequest> => {
 export const signup = async (email: string, password: string, type: string) => {
   try {
     const response = await axiosInstance.post('/users', { email, password, type });
-    return response.data;
     console.log('로그인 성공');
+    return response.data;
   } catch (error) {
     console.error('로그인 실패', error);
+    return null;
   }
 };
 export const getUserApplication = async (
@@ -47,7 +46,7 @@ export const getUserApplication = async (
 };
 
 export const getUserApplicationlist = async (
-  user_id: UserInfo,
+  user_id: string,
   token: string,
   offset: number,
   limit: number
@@ -67,7 +66,7 @@ export const getUserApplicationlist = async (
 export const updateUser = async (
   user_id: string,
   token: string | null,
-  data: PutUserResponse
+  data: UserInfo
 ): Promise<PutUserResponse> => {
   try {
     const response = await axiosInstance.put(`/users/${user_id}`, data, {

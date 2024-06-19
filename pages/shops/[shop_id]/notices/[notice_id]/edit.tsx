@@ -35,14 +35,7 @@ export default function NoticeEdit() {
     <Layout isSticky isFooterHidden>
       <Section
         title="가게 정보"
-        content={
-          <NoticeRegisterForm
-            isUpdate
-            existingData={existingData}
-            shopId={shopId}
-            noticeId={noticeId}
-          />
-        }
+        content={<NoticeRegisterForm isUpdate existingData={existingData} />}
         gray
       />
     </Layout>

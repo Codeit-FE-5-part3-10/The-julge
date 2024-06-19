@@ -7,7 +7,7 @@ import { Button } from '../../common/ui-button/Button';
 import { postNoticeApplication, putShopNoticeApplicationStatus } from '@/src/apis/applications';
 import { fetchUserApplications } from '../feature-noticeDetail-page/fetchUserApplications';
 import { useToken } from '@/src/utils/TokenProvider';
-import Modal from '../../common/modal/Modal';
+import Modal, { ModalItems } from '../../common/modal/Modal';
 import UpIcon from './UpIcon';
 import TimeIcon from './TimeIcon';
 import LocationIcon from './LocationIcon';
@@ -162,13 +162,6 @@ export const NoticeDetail: React.FC<{
       console.error('토큰 혹은 신청 ID가 없습니다.');
     }
   };
-
-  interface ModalItems {
-    content: string;
-    modalType: 'warning' | 'success' | 'question';
-    link: string;
-    btnText: string;
-  }
 
   return (
     <div className={cx('wrapper', { 'is-end': closed || isPastDate })}>

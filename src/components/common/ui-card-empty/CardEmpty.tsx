@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './CardEmpty.module.scss';
-import { Button } from '../ui-button/Button';
+import { Button } from '@/src/components/common/ui-button/Button';
 
 const cx = classNames.bind(styles);
 
