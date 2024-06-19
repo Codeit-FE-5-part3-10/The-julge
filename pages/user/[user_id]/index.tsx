@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+/* eslint-disable max-len */
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import { getUser, getUserApplicationlist } from '@/src/apis/user';
+import { GetUserResponse, getUser, getUserApplicationlist } from '@/src/apis/user';
 import { Layout } from '@/src/layouts/feature-layout/Layout';
 import { CardEmpty } from '@/src/components/common/ui-card-empty/CardEmpty';
 import { ProfileCard } from '@/src/components/User-page/ui-profile-card/ProfileCard';
 import { Section } from '@/src/layouts/section/Section';
 import { useToken } from '@/src/utils/TokenProvider';
 import UserApplicationTable from '@/src/components/User-page/ui-table/TableForCandidate';
+import { UserResponse } from '@/src/types/apis/application/getUserApplications';
 
 const Myprofile = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Myprofile = () => {
     data: userProfile,
     error: profileError,
     isLoading: profileLoading,
-  } = useQuery({
+  } = useQuery<GetUserResponse>({
     queryKey: ['userData'], // 고유한 쿼리 키 지정
     queryFn: async () => {
       if (userInfo && userInfo.id) {
@@ -34,7 +35,7 @@ const Myprofile = () => {
     data: userApplication,
     error: applicationError,
     isLoading: applicationLoading,
-  } = useQuery({
+  } = useQuery<UserResponse>({
     queryKey: ['userApplyList'], // 다른 고유한 쿼리 키 사용
     queryFn: async () => {
       const tempToken = localStorage.getItem('token');
@@ -86,7 +87,7 @@ const Myprofile = () => {
       {hasShop ? (
         <Section
           title="신청 내역"
-          content={<UserApplicationTable userApplicationData={userApplicationData} />}
+          content={<UserApplicationTable userApplicationData={userApplicationData} name={undefined} />}
         />
       ) : (
         <Section

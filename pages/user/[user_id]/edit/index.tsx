@@ -5,7 +5,7 @@ import { UserInfoUpdateForm } from '@/src/components/User-page/user-edit/edit';
 export default function MyprofileEdit() {
   return (
     <div>
-      <Layout>{<UserInfoUpdateForm />}</Layout>
+      <Layout><UserInfoUpdateForm /></Layout>
     </div>
   );
 }
