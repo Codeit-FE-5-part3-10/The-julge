@@ -13,11 +13,13 @@ const cx = classNames.bind(styles);
 
 interface RegisterFormProps {
   isUpdate?: boolean;
-  existingData?: PostNoticeRequest;
+  existingData?: Partial<PostNoticeRequest>;
 }
 
+type Values = 'hourlyPay' | 'startsAt' | 'workhour' | 'description';
+
 export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterFormProps) => {
-  const { handleSubmit, control, setValue, watch } = useForm<PostNoticeRequest>({
+  const { handleSubmit, control, setValue } = useForm<PostNoticeRequest>({
     defaultValues: existingData || {
       hourlyPay: 0,
       startsAt: '',
@@ -29,34 +31,34 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
   const router = useRouter();
   const { shop_id: shopId, notice_id: noticeId } = router.query;
 
-  console.log(watch());
-
   const onSubmit = async (data: PostNoticeRequest) => {
-    try {
-      if (isUpdate) {
-        await putNotice(token, shopId, noticeId, data);
-        router.push(`/shops/${shopId}/notices/${noticeId}`);
-      } else {
-        await postNotice(token, shopId, data);
-        router.push(`/shops/${shopId}`);
+    if (typeof shopId === 'string' && typeof noticeId === 'string' && typeof token === 'string') {
+      try {
+        if (isUpdate) {
+          await putNotice(token, shopId, noticeId, data);
+          router.push(`/shops/${shopId}/notices/${noticeId}`);
+        } else {
+          await postNotice(token, shopId, data);
+          router.push(`/shops/${shopId}`);
+        }
+      } catch (error) {
+        console.error('Failed to post notice:', error);
       }
-    } catch (error) {
-      console.error('Failed to post notice:', error);
     }
   };
 
   useEffect(() => {
     if (existingData) {
       Object.keys(existingData).forEach((key) => {
-        setValue(key, existingData[key]);
+        setValue(key as Values, existingData[key as Values] as string | number);
       });
     }
   }, [existingData, setValue]);
 
   const convertToRFC3339 = (localDateTime: string) => {
     const date = new Date(localDateTime);
-    const utcDateString = date.toISOString();
-    return utcDateString.slice(0, 19) + 'Z';
+    const utcDateString = `${date.toISOString().slice(0, 19)}Z`;
+    return utcDateString;
   };
   return (
     <form className={cx('container')} onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +83,7 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
                 value={formatCurrency(field.value)}
                 onChange={(e) => {
                   const rawValue = e.target.value.replace(/[^0-9]/g, '');
-                  const newValue = rawValue ? parseInt(rawValue) : 0;
+                  const newValue = rawValue ? parseInt(rawValue, 10) : 0;
                   field.onChange(newValue);
                 }}
                 className={cx('input')}
@@ -130,7 +132,7 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
                 className={cx('input')}
                 onChange={(e) => {
                   const inputValue = e.target.value;
-                  const newValue = isNaN(inputValue) ? 0 : parseInt(inputValue);
+                  const newValue = Number.isNaN(Number(inputValue)) ? 0 : parseInt(inputValue, 10);
                   field.onChange(newValue);
                 }}
               />

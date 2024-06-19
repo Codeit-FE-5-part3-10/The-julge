@@ -1,4 +1,15 @@
-type Address =
+// types/apis/user/userInfo.ts
+export interface UserInfo {
+  id: string;
+  email: string;
+  type: 'employer' | 'employee';
+  name?: string;
+  phone?: string;
+  address?: Address;
+  bio?: string;
+}
+
+export type Address =
   | '서울시 종로구'
   | '서울시 중구'
   | '서울시 용산구'

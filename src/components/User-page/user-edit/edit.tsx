@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
+import { Button } from '@mantine/core';
 import styles from './edit.module.scss';
 import { useToken } from '@/src/utils/TokenProvider';
 import { updateUser } from '@/src/apis/user';
-import { UserInfo } from '@/src/types/apis/user/userInfo';
-import { Button } from '@/src/components/common/ui-button/Button';
+import { UserInfo, Address } from '@/src/types/apis/user/userInfo';
 
 const cx = classNames.bind(styles);
 
-const addresses = [
+const addresses: Address[] = [
   '서울시 종로구',
   '서울시 중구',
   '서울시 용산구',
@@ -45,17 +45,24 @@ export function UserInfoUpdateForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<UserInfo>({
+    defaultValues: {
+      name: '',
+      phone: '',
+      address: undefined, // address를 undefined로 초기화
+      bio: '',
+    },
+  });
 
   const router = useRouter();
 
   useEffect(() => {
     if (userInfo) {
       reset({
-        name: userInfo.name,
-        phone: userInfo.phone,
-        address: userInfo.address,
-        bio: userInfo.bio,
+        name: userInfo.name || '',
+        phone: userInfo.phone || '',
+        address: userInfo.address || undefined,
+        bio: userInfo.bio || '',
       });
     }
   }, [userInfo, reset]);
@@ -68,17 +75,20 @@ export function UserInfoUpdateForm() {
       }
       const token = localStorage.getItem('token');
       const response = await updateUser(userInfo.id, token, formData);
-      const { id, email, type, name, phone, address, bio } = response.item;
-      const newUserInfo = { id, email, type, name, phone, address, bio };
+      const { id, email, type, name, phone, address, bio } = response.item as UserInfo;
+      const newUserInfo: UserInfo = { id, email, type, name, phone, address, bio };
       if (setUserInfo) {
         setUserInfo(newUserInfo);
       } else {
+        // eslint-disable-next-line no-console
         console.error('setUserInfo 함수가 정의되지 않았습니다.');
       }
-      console.log('수정 요청 성공!', response.data);
+      // eslint-disable-next-line no-console
+      console.log('수정 요청 성공!', response.item);
       reset();
       router.push(`/user/${userInfo?.id}`);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('수정 요청 실패:', error);
     }
   };
