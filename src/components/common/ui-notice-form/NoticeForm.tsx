@@ -1,65 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import { useRouter } from 'next/router';
-import styles from './NoticeRegisterForm.module.scss';
-import { Button } from '../../common/ui-button/Button';
+import { Button } from '@/src/components/common/ui-button/Button';
 import { formatCurrency } from '@/src/utils/formatCurrency';
-import { useToken } from '@/src/utils/TokenProvider';
+import styles from './NoticeForm.module.scss';
 import { PostNoticeRequest } from '@/src/types/apis/notice/postNotice';
-import { postNotice, putNotice } from '@/src/apis/notices';
 
 const cx = classNames.bind(styles);
 
-interface RegisterFormProps {
-  isUpdate?: boolean;
-  existingData?: Partial<PostNoticeRequest>;
+interface NoticeFormProps {
+  onSubmit: (data: any) => void;
+  defaultValues?: PostNoticeRequest;
 }
 
-type Values = 'hourlyPay' | 'startsAt' | 'workhour' | 'description';
+const noDefaultValues = {
+  hourlyPay: 0,
+  startsAt: '',
+  workhour: 0,
+  description: '',
+};
 
-export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterFormProps) => {
-  const { handleSubmit, control, setValue } = useForm<PostNoticeRequest>({
-    defaultValues: existingData || {
-      hourlyPay: 0,
-      startsAt: '',
-      workhour: 0,
-      description: '',
-    },
+export const NoticeForm: React.FC<NoticeFormProps> = ({ onSubmit, defaultValues }) => {
+  const { handleSubmit, control } = useForm({
+    defaultValues: defaultValues || noDefaultValues,
   });
-  const { token } = useToken();
-  const router = useRouter();
-  const { shop_id: shopId, notice_id: noticeId } = router.query;
-
-  const onSubmit = async (data: PostNoticeRequest) => {
-    if (typeof shopId === 'string' && typeof noticeId === 'string' && typeof token === 'string') {
-      try {
-        if (isUpdate) {
-          await putNotice(token, shopId, noticeId, data);
-          router.push(`/shops/${shopId}/notices/${noticeId}`);
-        } else {
-          await postNotice(token, shopId, data);
-          router.push(`/shops/${shopId}`);
-        }
-      } catch (error) {
-        console.error('Failed to post notice:', error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (existingData) {
-      Object.keys(existingData).forEach((key) => {
-        setValue(key as Values, existingData[key as Values] as string | number);
-      });
-    }
-  }, [existingData, setValue]);
-
-  const convertToRFC3339 = (localDateTime: string) => {
-    const date = new Date(localDateTime);
-    const utcDateString = `${date.toISOString().slice(0, 19)}Z`;
-    return utcDateString;
-  };
 
   return (
     <form className={cx('container')} onSubmit={handleSubmit(onSubmit)}>
@@ -108,8 +72,6 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
                 value={field.value}
                 onChange={(e) => {
                   field.onChange(e.target.value);
-                  const rfc3339String = convertToRFC3339(e.target.value);
-                  setValue('startsAt', rfc3339String);
                 }}
                 className={cx('input')}
               />
@@ -163,9 +125,11 @@ export const NoticeRegisterForm = ({ isUpdate = false, existingData }: RegisterF
 
       <div className={cx('box', 'button')}>
         <Button type="submit" color="primary">
-          {isUpdate ? '수정하기' : '등록하기'}
+          {defaultValues ? '수정하기' : '등록하기'}
         </Button>
       </div>
     </form>
   );
 };
+
+export default NoticeForm;

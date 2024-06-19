@@ -1,7 +1,7 @@
-import { GetShopNoticesResponse } from '../types/apis/notice/getShopNotices';
+import type { GetShopNoticesResponse } from '../types/apis/notice/getShopNotices';
 import type { GetShopsSingleNoticeResponse } from '../types/apis/notice/getShopSingleNotice';
-import { PostNoticeRequest } from '../types/apis/notice/postNotice';
-import { GetNoticesRequest, GetNoticesResponse } from '../types/apis/noticeTypes';
+import type { PostNoticeRequest } from '../types/apis/notice/postNotice';
+import type { GetNoticesRequest, GetNoticesResponse } from '../types/apis/noticeTypes';
 import { axiosInstance } from './axiosInstance';
 
 export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesResponse> => {
@@ -20,7 +20,7 @@ export const getNotices = async (query: GetNoticesRequest): Promise<GetNoticesRe
 // 공고 등록 (의진)
 export const postNotice = async (
   token: string | null,
-  shopId: string | null,
+  shopId: string | string[] | undefined,
   body: PostNoticeRequest
 ): Promise<GetShopsSingleNoticeResponse> => {
   const response = await axiosInstance.post(`/shops/${shopId}/notices`, body, {
