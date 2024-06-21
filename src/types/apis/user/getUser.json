@@ -1,0 +1,62 @@
+{
+  "item": {
+    "id": "cb10a074-9f97-40ff-b808-974b74b15783",
+    "email": "baeuijin01@gmail.com",
+    "type": "employer",
+    "shop": {
+      "item": {
+        "id": "4b2cbbc9-2568-415d-9e2e-388506250dcd",
+        "name": "내가게",
+        "category": "한식",
+        "address1": "서울시 종로구",
+        "address2": "ㅁㄴㅇㄹ",
+        "description": "ㅁㄴㅇㄹ",
+        "imageUrl": "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/0-1/the-julge/ed8702be-f36c-45e7-a538-a557aae5de82-status%3Dactive.svg",
+        "originalHourlyPay": 10000
+      },
+      "href": "/api/0-1/the-julge/shops/4b2cbbc9-2568-415d-9e2e-388506250dcd"
+    }
+  },
+  "links": [
+    {
+      "rel": "self",
+      "description": "사용자 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/users/cb10a074-9f97-40ff-b808-974b74b15783"
+    },
+    {
+      "rel": "update",
+      "description": "사용자 정보 수정",
+      "method": "PUT",
+      "href": "/api/0-1/the-julge/users/cb10a074-9f97-40ff-b808-974b74b15783",
+      "body": {
+        "name": "string",
+        "phone": "string",
+        "address": "서울시 종로구 | 서울시 중구 | 서울시 용산구 | 서울시 성동구 | 서울시 광진구 | 서울시 동대문구 | 서울시 중랑구 | 서울시 성북구 | 서울시 강북구 | 서울시 도봉구 | 서울시 노원구 | 서울시 은평구 | 서울시 서대문구 | 서울시 마포구 | 서울시 양천구 | 서울시 강서구 | 서울시 구로구 | 서울시 금천구 | 서울시 영등포구 | 서울시 동작구 | 서울시 관악구 | 서울시 서초구 | 서울시 강남구 | 서울시 송파구 | 서울시 강동구",
+        "bio": "string"
+      }
+    },
+    {
+      "rel": "applications",
+      "description": "지원 목록",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/users/cb10a074-9f97-40ff-b808-974b74b15783/applications",
+      "query": {
+        "offset": "undefined | number",
+        "limit": "undefined | number"
+      }
+    },
+    {
+      "rel": "alerts",
+      "description": "알림 목록",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/users/cb10a074-9f97-40ff-b808-974b74b15783/alerts"
+    },
+    {
+      "rel": "shop",
+      "description": "사용자 상점",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/4b2cbbc9-2568-415d-9e2e-388506250dcd"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  width: 100%;
+
+  @include tablet {
+    padding: 8px;
+  }
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.numbers {
+  display: flex;
+  row-gap: 4px;
+  justify-content: center;
+  align-items: center;
+
+  @include tablet {
+    row-gap: 2px;
+  }
+}
+
+.number {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  padding: 9px 0 7px;
+  color: $color-black;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+
+  @include tablet {
+    padding: 12px;
+  }
+}
+
+.active {
+  background-color: $color-red30;
+  color: white;
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

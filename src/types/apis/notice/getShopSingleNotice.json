@@ -1,0 +1,76 @@
+{
+  "item": {
+    "id": "17afb95f-ed4f-4325-a895-2bfa249d578b",
+    "hourlyPay": 99999,
+    "startsAt": "2023-09-30T14:00:00.000Z",
+    "workhour": 10,
+    "description": "수정 되나?",
+    "closed": false,
+    "shop": {
+      "item": {
+        "id": "be05aa78-7d4e-4f17-9b3a-babb41181caf",
+        "name": "와인 한 모금",
+        "category": "중식",
+        "address1": "서울시 용산구",
+        "address2": "백범로77길 33",
+        "description": "스페인 음식점",
+        "imageUrl": "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/0-1/the-julge/d3fdf139-8b17-46ac-8e72-9ceb9893ae68-xef.jpeg",
+        "originalHourlyPay": 40000
+      },
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+    },
+    "currentUserApplication": null
+  },
+  "links": [
+    {
+      "rel": "self",
+      "description": "공고 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b"
+    },
+    {
+      "rel": "update",
+      "description": "공고 수정",
+      "method": "PUT",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b",
+      "body": {
+        "hourlyPay": "number",
+        "startsAt": "string",
+        "workhour": "string",
+        "description": "string"
+      }
+    },
+    {
+      "rel": "applications",
+      "description": "지원 목록",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b/applications",
+      "query": {
+        "offset": "undefined | number",
+        "limit": "undefined | number"
+      }
+    },
+    {
+      "rel": "create",
+      "description": "지원하기",
+      "method": "POST",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices/17afb95f-ed4f-4325-a895-2bfa249d578b/applications"
+    },
+    {
+      "rel": "shop",
+      "description": "가게 정보",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf"
+    },
+    {
+      "rel": "list",
+      "description": "공고 목록",
+      "method": "GET",
+      "href": "/api/0-1/the-julge/shops/be05aa78-7d4e-4f17-9b3a-babb41181caf/notices",
+      "query": {
+        "offset": "undefined | number",
+        "limit": "undefined | number"
+      }
+    }
+  ]
+}

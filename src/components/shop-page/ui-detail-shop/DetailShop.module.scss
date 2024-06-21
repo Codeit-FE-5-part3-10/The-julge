@@ -1,0 +1,133 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: grid;
+  grid-template-areas:
+    'image'
+    '.'
+    'info'
+    '.'
+    'buttons';
+  grid-template-rows: auto 12px auto 24px auto;
+  border-radius: 12px;
+  background-color: $color-red10;
+  padding: 20px;
+  width: 351px;
+
+  @include tablet {
+    grid-template-rows: auto 12px auto 40px auto;
+    padding: 24px;
+    width: 680px;
+  }
+
+  @include desktop {
+    grid-template-areas:
+      'image . info'
+      'image . .'
+      'image . buttons';
+    grid-template-columns: 546px 30px auto;
+    grid-template-rows: auto auto auto;
+    width: 964px;
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  grid-area: image;
+  border-radius: 12px;
+  width: 311px;
+  height: 178px;
+  overflow: hidden;
+
+  @include tablet {
+    width: 632px;
+    height: 362px;
+  }
+  @include desktop {
+    width: 546px;
+    height: 313px;
+  }
+}
+
+.image {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(1.02); // 이미지를 2% 더 키움
+}
+
+.info {
+  grid-area: info;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  row-gap: 8px;
+
+  @include desktop {
+    margin-top: 16px;
+  }
+}
+
+.box {
+  display: flex;
+  column-gap: 6px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+
+  @include tablet {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 8px;
+}
+
+.label {
+  color: $color-primary;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 125%;
+
+  @include tablet {
+    font-size: 16px;
+  }
+}
+
+.name {
+  color: $color-black;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.48px;
+
+  @include tablet {
+    font-size: 28px;
+    letter-spacing: 0.56px;
+  }
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+
+  @include tablet {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  &.gray {
+    color: $color-gray50;
+  }
+}

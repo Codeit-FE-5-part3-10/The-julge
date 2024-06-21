@@ -1,0 +1,205 @@
+@import '/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 17.1rem;
+  height: 26.1rem;
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  border: 0.1rem solid #e5e4e7;
+  border-radius: 1.2rem;
+  background-color: white;
+  position: relative;
+
+  @include tablet {
+    width: 33.2rem;
+    height: 36rem;
+  }
+
+  @include desktop {
+    width: 31.2rem;
+    height: 34.9rem;
+  }
+
+  &.is-end {
+    // is-end 클래스가 추가될 때 하위 요소들의 스타일을 변경합니다.
+    .title {
+      color: $color-gray30;
+    }
+    .groupIcon {
+      fill: $color-gray30;
+    }
+    .date {
+      color: $color-gray30;
+    }
+    .time {
+      color: $color-gray30;
+    }
+    .location {
+      color: $color-gray30;
+    }
+    .wage {
+      color: $color-gray30;
+    }
+    .container_compare {
+      background-color: #ffffff;
+    }
+
+    // 이하 다른 하위 요소들에 대한 스타일도 추가할 수 있습니다.
+  }
+}
+
+.closed-text {
+  font-size: 2rem;
+}
+
+.closed-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 14.6rem;
+  height: 8.4rem;
+  background-color: rgba(0, 0, 0, 0.698); /* 텍스트 배경의 투명도를 조절할 수 있습니다. */
+  z-index: 1; /* 이미지 위에 텍스트가 나타나도록 z-index를 조정합니다. */
+  border-radius: 1.2rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+
+  @include tablet {
+    width: 30rem;
+    height: 17.1rem;
+  }
+
+  @include desktop {
+    width: 28rem;
+    height: 16rem;
+  }
+}
+
+.closed-text {
+  color: #cbc9cf;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.56px;
+  line-height: normal;
+
+  @include tablet {
+    font-size: 2.8rem;
+  }
+}
+
+.img {
+  border-radius: 1.2rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+
+  @include tablet {
+    width: 30rem;
+    height: 17.1rem;
+  }
+
+  @include desktop {
+    width: 28rem;
+    height: 16rem;
+  }
+}
+
+.title {
+  font-weight: 700;
+  color: $color-black;
+
+  @include tablet {
+    font-size: 2rem;
+  }
+}
+
+.container_dateTime {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  gap: 0.6rem;
+}
+
+.groupIcon {
+  margin-top: 0.2rem;
+}
+
+.container_text {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: $color-gray50;
+
+  @include tablet {
+    font-size: 1.4rem;
+  }
+}
+
+.container_location {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 0.4rem;
+  gap: 0.6rem;
+}
+
+.locationIcon {
+  margin-top: 0.2rem;
+}
+
+.location {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: $color-gray50;
+
+  @include tablet {
+    font-size: 1.4rem;
+  }
+}
+
+.container_pay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  @include tablet {
+    flex-direction: row;
+  }
+}
+
+.wage {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: $color-black;
+
+  @include tablet {
+    font-size: 2.4rem;
+  }
+}
+
+.container_compare {
+  display: flex;
+  flex-direction: row;
+
+  @include tablet {
+    align-items: center;
+    justify-content: center;
+    width: 15.9rem;
+    height: 3.6rem;
+    border-radius: 2rem;
+    padding: 1.2rem;
+    gap: 0.6rem;
+    background-color: $color-red40;
+  }
+}
+
+.compare {
+  color: inherit;
+
+  @include tablet {
+    color: white;
+    font-weight: 700;
+  }
+}

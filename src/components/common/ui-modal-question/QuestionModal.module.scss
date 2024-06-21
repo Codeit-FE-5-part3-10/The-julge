@@ -1,0 +1,58 @@
+@import '@/src/styles/global.scss';
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: $z-index-modal - 1;
+}
+
+.container {
+  position: fixed;
+  display: grid;
+  grid-template-areas:
+    'icon'
+    '.'
+    'text'
+    '.'
+    'box';
+  grid-template-rows: auto 1.6rem auto 3.2rem auto;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index-modal;
+
+  border-radius: 1.2rem;
+  background: white;
+  padding: 2.4rem;
+  width: 29.8rem;
+}
+
+.icon {
+  grid-area: icon;
+  align-self: center;
+  justify-self: center;
+}
+
+.text {
+  grid-area: text;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.6rem;
+  text-align: center;
+
+  @include tablet {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+}
+
+.box {
+  grid-area: box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.8rem;
+}
